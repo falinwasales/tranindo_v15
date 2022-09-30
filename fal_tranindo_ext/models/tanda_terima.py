@@ -24,7 +24,7 @@ class TandaTerima(models.Model):
     customer_id = fields.Many2one("res.partner", string="Customer")
     customer_street = fields.Char(string="Invoice Address")
 
-    tt_account_ids = fields.One2many('account.move', "tt_nomor_id", ondelete ='cascade', string="Invoice List")
+    tt_account_ids = fields.One2many('account.move', "tt_nomor_id", string="Invoice List")
     company_id = fields.Many2one('res.company', string='Company', required=True, readonly=True,
         default=lambda self: self.env.company)
 
