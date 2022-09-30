@@ -1,0 +1,14 @@
+<odoo>
+    <!-- res company -->
+    <record id='add_extension_res_company' model='ir.ui.view'>
+        <field name="name">add_extension_res_company</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name='account_number'/>
+                <field name='branch'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

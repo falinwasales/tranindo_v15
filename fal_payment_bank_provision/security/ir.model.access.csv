@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fal_bank_provision,access_fal_bank_provision,model_fal_bank_provision,account.group_account_invoice,1,1,1,0
+access_fal_bank_provision_manager,access_fal_bank_provision_manager,model_fal_bank_provision,account.group_account_manager,1,1,1,1

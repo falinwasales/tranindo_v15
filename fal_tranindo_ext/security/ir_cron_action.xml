@@ -1,0 +1,13 @@
+<odoo noupdate="1">
+    <record id="automated_warehouse_pos_stock" model="base.automation">
+        <field name="name">PoS Warehouse Action</field>
+        <field name="model_id" ref="model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="trigger">on_write</field>
+        <!-- <field name="trigger_field_ids" eval="[(6, 0, [ ref('sale_subscription.date'), ref('module.x_studio_field')])]"/> -->
+        <field name="active" eval="True"/>
+        <field name="filter_pre_domain">["&amp;",["state","in",["confirmed","waiting","assigned"]],["picking_type_id.id","in",[498,369]]]</field>
+        <field name="filter_domain">["&amp;",["state","=","done"],["picking_type_id.id","in",[498,369]]]</field>
+        <field name="code">record.copy({'picking_type_id':17,'location_id':30, 'location_dest_id': record.location_id.id})</field>
+    </record>
+</odoo>

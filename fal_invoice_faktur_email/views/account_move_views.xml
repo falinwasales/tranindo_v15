@@ -1,0 +1,35 @@
+<odoo>
+    <!-- Account Move -->
+    <record id='add_extension_account_move_form' model='ir.ui.view'>
+        <field name="name">add_extension_account_move_form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='other_info']" position="before">
+                <page string="Faktur Pajak" attrs="{'invisible': ['|',('move_type', 'not in', ('out_invoice')),('state', '=', 'draft')]}">
+                    <field name="faktur_file" filename="faktur_file_name" widget="binary"/>
+                    <field name="faktur_file_name" invisible="1"/>
+                </page>
+                <page string="Purchase Order" attrs="{'invisible': [('move_type', 'not in', ('out_invoice'))]}">
+                    <field name="po_file" filename="po_file_name" widget="binary" attrs="{'required': ['&amp;',('move_type','in',('out_invoice')),('state', '=', 'draft')]}"/>
+                    <field name="po_file_name" invisible="1"/>
+                </page>
+                <page string="Surat Jalan" attrs="{'invisible': ['|',('move_type', 'not in', ('out_invoice')),('state', '=', 'draft')]}">
+                    <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
+                    <field name="surat_jalan_file_upload_name" invisible="1"/>
+                </page>
+                <page string="Invoice" invisible='1'>
+                    <field name="invoice_file" filename="invoice_file_name" widget="binary"/>
+                    <field name="invoice_file_name" invisible="1"/>
+                </page>
+                <!-- <page string="Surat Jalan" attrs="{'invisible': [('move_type', '=', 'entry')]}">
+                    <field name="surat_jalan_file_upload" filename="surat_jalan_file_name" widget="binary" attrs="{'required': [('move_type', '!=', 'entry')]}"/>
+                    <field name="surat_jalan_file_upload_name" invisible="1"/>
+                </page> -->
+            </xpath>
+            <!-- <xpath expr="//button[@name='action_invoice_sent']" position='after'>
+                <button name='action_send_mail' string='Send Email Invoice' type="object" attrs="{'invisible': [('move_type', '=', 'entry')]}"/>
+            </xpath> -->
+        </field>
+    </record>
+</odoo>

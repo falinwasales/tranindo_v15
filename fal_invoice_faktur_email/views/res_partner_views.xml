@@ -1,0 +1,13 @@
+<odoo>
+    <!-- Res Partner -->
+    <record id='selection_field_res_partner' model='ir.ui.view'>
+        <field name="name">selection_field_res_partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position='after'>
+                <field name='customer_type'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

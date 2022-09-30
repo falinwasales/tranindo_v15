@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_bank_provision_calendar" model="ir.ui.view">
+            <field name="name">fal.bank.provision.calendar</field>
+            <field name="model">fal.bank.provision</field>
+            <field name="arch" type="xml">
+                <calendar string="Bank Provision" color="jurnal_dest_id" date_start="due_date">
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                </calendar>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_bank_provision_pivot">
+            <field name="name">fal.bank.provision.pivot</field>
+            <field name="model">fal.bank.provision</field>
+            <field name="arch" type="xml">
+                <pivot string="Bank Provision" display_quantity="true">
+                    <field name="partner_id"/>
+                    <field name="amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_bank_provision_graph">
+            <field name="name">fal.bank.provision.graph</field>
+            <field name="model">fal.bank.provision</field>
+            <field name="arch" type="xml">
+                <graph string="Bank Provision">
+                    <field name="partner_id"/>
+                    <field name="amount" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record id="view_bank_provision_tree" model="ir.ui.view">
+            <field name="name">fal.bank.provision.tree</field>
+            <field name="model">fal.bank.provision</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false" decoration-danger="due_date and (due_date &lt; current_date) and state!='reconcile'" decoration-info="state=='draft'">
+                    <field name="date_payment" string="Payment Date"/>
+                    <field name="payment_id"/>
+                    <field name="due_date"/>
+                    <field name="jurnal_dest_id" string="Cashed to"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_bank_provision_form" model="ir.ui.view">
+            <field name="name">fal.provision.masuk.form</field>
+            <field name="model">fal.bank.provision</field>
+            <field name="arch" type="xml">
+                <form string="Bank Provision" create="false" delete="false">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,reconcile"/>
+                        <button name="cash" type="object" states="draft" string="cash" class="btn-primary"/>
+                        <button name="uncash" type="object" states="reconcile" string="uncash" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <div>
+                            <label for="name" string="No. Bank Provision"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group string="Payment Info">
+                                <field name="partner_id"/>
+                                <field name="date_payment"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="currency_id" readonly="1" invisible="1"/>
+                                <field name="payment_id" string="Customer Payment Number"/>
+                            </group>
+                            <group string="Provision Info">
+                                <field name="due_date"/>
+                                <field name="jurnal_dest_id" string="Cashed to"/>
+                                <field name="count_day"/>
+                                <field name="date_reconciled" string="Cashed Date"/>
+                                <field name="move_id" readonly="1" string="Journal Entry"/>
+                            </group>
+                        </group>
+                        <group string="Invoice Lists">
+                            <field name="invoice_ids" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_bank_provision_action" model="ir.actions.act_window">
+            <field name="name">Bank Provision</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fal.bank.provision</field>
+            <field name="view_mode">tree,form,calendar,pivot,graph</field>
+            <field name="view_id" ref="view_bank_provision_tree"/>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Track all Bank Provision.
+              </p>
+            </field>
+        </record>
+        <record id="view_bank_provision_filter" model="ir.ui.view">
+            <field name="name">fal.bank.provision.select</field>
+            <field name="model">fal.bank.provision</field>
+            <field name="arch" type="xml">
+                <search string="Search Bank Provision">
+                    <filter name="cash" string="Cash" domain="[('state','=','reconcile')]"/>
+                    <filter name="uncash" string="Not Cash" domain="[('state','=','draft')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_partner_id" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="group_by_dest_id" string="Cashed to" context="{'group_by':'jurnal_dest_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+<!--         <record id="fal_view_account_payment_form" model="ir.ui.view">
+            <field name="name">fal.view.account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='qr_code']" position="after">
+                    <field name="fal_bank_provision_id" attrs="{'invisible':[('is_provision', '=', False)], 'required': [('is_provision','=',True)]}"/>
+                    <field name="jurnal_dest_id"
+                        attrs="{'invisible':[('is_provision', '=', False)], 'required': [('is_provision','=',True)]}" string="Bank Reconcile" domain="[('type', '=', 'bank'), ('fal_is_provision', '=', False)]"/>
+                    <field name="due_date" attrs="{'invisible':[('is_provision', '=', False)], 'required': [('is_provision','=',True)]}"/>
+                    <field name="is_provision" invisible="1"/>
+                </xpath>
+            </field>
+        </record> -->
+
+        <menuitem parent="account.menu_finance_entries_management" name="Bank Provision" id="menu_payment_provision_cust" action="view_bank_provision_action" sequence="37"/>
+        
+    </data>
+</odoo>

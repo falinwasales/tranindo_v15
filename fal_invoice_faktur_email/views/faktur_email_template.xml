@@ -1,0 +1,139 @@
+<odoo>
+    <data>
+        <record id="email_template_invoice" model="mail.template">
+            <field name="name">INVOICE EMAIL TEMPLATE</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="email_from">{{ object.user_id.email_formatted }}</field>
+            <field name="email_to">{{ object.partner_id.email_formatted }}</field>
+            <field name="report_name">Credit_note_{{ (object.name or '').replace('/','_') }}{{ object.state == 'draft' and '_draft' or '' }}</field>
+            <field name="subject">
+                {{ object.company_id.name }} - {{ object.partner_id.name }}
+            </field>
+            <!-- <field name="attachment_ids">
+                % if object.faktur_file:
+                    (${object.faktur_file})
+                % endif
+            </field> -->
+            <field name="body_html" type="html">
+                <table>
+                    <tbody>
+                        <tr>
+                            Kepada Yth, <br></br>
+                            <span style='font-weight: bold;'>
+                                <t t-out='object.user_id.email_formatted'/>, <br></br>
+                                <t t-out='object.partner_id.street'/>
+                            </span>
+                        </tr>
+                        <tr>
+                            <div style='margin-top: 20px;'>
+                                <td>
+                                    Terima kasih atas pembelian Anda. Berikut kami sertakan invoice untuk transaksi Anda dengan detail sebagai berikut:
+                                </td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div style='margin-top: 10px;'>
+                                <table style='border-collapse: collapse; width: 80%;'>
+                                    <tr>
+                                        <th style='border: 1px solid; text-align: center;'>Date</th>
+                                        <th style='border: 1px solid; text-align: center;'>Customer</th>
+                                        <th style='border: 1px solid; text-align: center;'>Total</th>
+                                        <th style='border: 1px solid; text-align: center;'>Customer Reference</th>
+                                        <th style='border: 1px solid; text-align: center;'>Faktur Pajak</th>
+                                    </tr>
+                                    <tr>
+                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.invoice_date.strftime('%d %B %Y') or ''"/></td>
+                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.partner_id.name"/></td>
+                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.amount_total"/></td>
+                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.name"/></td>
+                                        <!-- <td style='border: 1px solid; text-align: center;'><t t-out="object.faktur_pajak_id.name"/></td> -->
+                                        <!-- Theres no faktur pajak id -->
+                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.partner_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style='margin-top: 25px;'>
+                                <tr>
+                                    <!-- <td>Invoice ini akan jatuh tempo pada <t t-out="object.date_due.strftime('%d %B %Y')"/></td> -->
+                                    <!-- Theres no date_due -->
+                                    <td>Invoice ini akan jatuh tempo pada <t t-out="object.invoice_date.strftime('%d %B %Y') or ''"/></td>
+                                </tr>
+                            </div>
+
+                            <div style='margin-top: 15px;'>
+                                <tr>
+                                    <!-- <td>Saat melakukan pembayaran, mohon menuliskan No Invoice <b><t t-out="object.number"/></b> di bagian berita. </td> -->
+                                    <!-- Theres no object.number -->
+                                    <td>Saat melakukan pembayaran, mohon menuliskan No Invoice <b><t t-out="object.name"/></b> di bagian berita. </td>
+                                </tr>
+                            </div>
+
+                            <div style='margin-top: 25px;'>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            Pembayaran dengan Bilyet Giro/ Cheque/ Transfer akan dianggap sah setelah berhasil dicairkan / masuk ke rekening 
+                                            bawah ini: 
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style='margin-top: 10px;'>
+                                <table>
+                                    <tr>
+                                        <td style='width: 170px;'>Bank Name </td>
+                                        <td>: BCA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style='width: 170px;'>Acc No. </td>
+                                        <td>: <t t-out="object.company_id.account_number"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style='width: 170px;'>Acc Owner Name </td>
+                                        <td>: <t t-out="object.company_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style='width: 170px;'>Branch </td>
+                                        <td>: <t t-out="object.company_id.branch"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style='margin-top: 25px;'>
+                                <tr>
+                                    <td>Jika sudah melakukan pembayaran, mohon melakukan konfirmasi via email ke:  
+                                        <span style='font-weight:bold;'><t t-out="object.company_id.email"/></span>
+                                    </td>
+                                </tr>
+                            </div>
+
+                            <div style='margin-top: 20px; width: 70%;'>
+                                <table style='margin-left: auto; margin-right:auto;'>
+                                    <tr>
+                                        <td style='color: #FFD700; font-weight: bold;'>
+                                            This E-Mail is auto generated by system, please dont reply this E-Mail.<br></br>
+                                            E-Mail ini dikirim secara otomatis oleh system, mohon tidak dibalas E-mail Ini
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style='margin-top: 20px; width: 80%;'>
+                                <table style='background-color: #E0E0E0; width: 100%;'>
+                                    <tr>
+                                        <td style='text-align: center;'>
+                                            <u style='font-weight: bold;'><t t-out="object.company_id.name"/></u><br></br>
+                                            <t t-out="object.company_id.street"/><br></br>
+                                            Telp. <t t-out="object.company_id.phone"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </field>
+        </record>
+    </data>
+</odoo>
