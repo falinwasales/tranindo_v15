@@ -15,14 +15,15 @@ class PosOrder(models.Model):
     partner_comission = fields.Many2one("res.partner", string="Partner Comission")
     subtotal_tax = fields.Float(string="Subtotal W/O Tax", compute="subtotal_get")
 
-    vendor_bill_id = fields.Many2one("account.move", string="Vendor Bill IDs")
+    vendor_bill_id = fields.Many2one("account.move", string="Vendor Bill ID",compute="get_vendor_bill")
     
 
-    # def get_vendor_bill(self):
-    #     for record in self:
-    #         vendor =  self.env['account.move'].search([("pos_comission_id","=",record.id),('move_type','in',['in_invoice'])],limit=1)
-    #         if vendor:
-    #             record.vendor_bill_id = vendor[-1].id
+    def get_vendor_bill(self):
+        for record in self:
+            record.vendor_bill_id = False
+            vendor =  self.env['account.move'].search([("pos_comission_id","=",record.id),('move_type','in',['in_invoice'])],limit=1)
+            if vendor:
+                record.vendor_bill_id = vendor[-1].id
 
     @api.depends("lines")
     def subtotal_get(self):
