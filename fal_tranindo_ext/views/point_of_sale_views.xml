@@ -10,7 +10,7 @@
 
             <xpath expr="//field[@name='table_id']" position="after">
                 <field name="pos_comission"/>
-                <field name="vendor_bill_id"/>
+                <field name="vendor_bill_id" invisible="1"/>
                 <field name="partner_comission"/>
                 <field name="subtotal_tax" widget='monetary' options="{'currency_field': 'currency_id'}" invisible="1"/>
             </xpath>
@@ -21,7 +21,7 @@
                     type="object"
                     class="oe_stat_button"
                     icon="fa-pencil-square-o"
-                    attrs="{'invisible':[('state','!=','invoiced')]}">
+                    attrs="{'readonly':[('state','!=','invoiced')]}">
                 </button>
             </xpath>
         </field>
