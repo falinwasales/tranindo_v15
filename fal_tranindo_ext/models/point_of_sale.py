@@ -15,7 +15,7 @@ class PosOrder(models.Model):
     partner_comission = fields.Many2one("res.partner", string="Partner Comission")
     subtotal_tax = fields.Float(string="Subtotal W/O Tax", compute="subtotal_get")
 
-    vendor_bill_id = fields.Many2one("account.move", string="Vendor Bill ID")
+    vendor_bill_id = fields.Many2one("account.move", string="Vendor Bill IDs")
     
 
     # def get_vendor_bill(self):
