@@ -1,0 +1,195 @@
+<odoo>
+    <template id="tranindo_voucher_a4_journal_entries">
+        <t t-call="web.html_container">
+            <t t-name='tranindo_voucher_a4_journal_entries'>
+                <t t-call="fal_tranindo_ext.tranindo_custom_header_footer_voucher_a4">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <style>
+                                .page-break {
+                                    page-break-before: always;
+                                }
+                            </style>
+                            <!--  -->
+                            
+                            <!-- TABLE FOR RECORD -->
+                            <t t-set="total_kredit" t-value="0"/>
+                            <div>
+                                <table class="table o_report_block_table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="border border-dark" style="width: 400px;">
+                                                <span style="font-size: 14px;">
+                                                    Akun
+                                                </span>
+                                            </th>
+                                            <th class="border border-dark o_bold text-left" style="width: 250px;">
+                                                <span style="font-size: 14px;">
+                                                    Keterangan
+                                                </span>
+                                            </th>
+                                            <th class="border border-dark text-left" style="width: 150px;">
+                                                <span style="font-size: 14px; margin-right: 30px;">
+                                                    Debit
+                                                </span>
+                                            </th>
+                                            <th class="border border-dark" style="width: 150px;">
+                                                <span style="font-size: 14px;">
+                                                    Kredit
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.line_ids" t-as="line">
+                                            <td class="border border-dark" style="width: 400px;">
+                                                <span style="font-size: 14px;">
+                                                    <span t-field="line.account_id.code"/> - <span t-field="line.account_id.name"/>
+                                                </span>
+                                            </td>
+                                            <td class="border border-dark" style="width: 250px;">
+                                                <span style="font-size: 14px;">
+                                                    <span t-field="line.name"/>
+                                                </span>
+                                            </td>
+                                            <td class="border border-dark" style="width: 150px;">
+                                                <span style="font-size: 14px;">
+                                                    <span t-field="line.debit"/>
+                                                </span>
+                                            </td>
+                                            <t t-set="total_kredit" t-value="total_kredit + line.credit"/>
+                                            <td class="border border-dark" style="width: 150px;">
+                                                <span style="font-size: 14px;">
+                                                    <span t-field="line.credit"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="w-100">
+                                        <span style="margin-left: 79%;">
+                                            TOTAL : Rp. <span t-esc="total_kredit" t-options='{"widget": "float", "precision": 2}'/>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <table class="table o_report_block_table table-sm">
+                                    <thead class="border border-dark col-12">
+                                        <tr>
+                                            <th class="border border-dark" style="width: 33.4%">
+                                                <span style="font-size: 14px; margin-left: 10px;">
+                                                    CASH/GIRO
+                                                </span>
+                                            </th>
+                                            <th class="border border-dark o_bold text-left" style="width: 33.3%">
+                                                <span style="font-size: 14px; margin-left: 10px;">
+                                                    BANK : <span t-field="doc.journal_id.name"/>
+                                                </span>
+                                            </th>
+                                            <th class="border border-dark text-left" style="width: 33.3%">
+                                                <span style="font-size: 14px; margin-left: 10px;">
+                                                    NO :
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                <div style="margin-top: 45px; margin-left: 60px;">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <span>
+                                                <strong style="font-size: 14px;">
+                                                    Mengetahui
+                                                </strong>
+                                                <!-- <br/>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <span>
+                                                    <hr style="background-color: black; width:70%"/>
+                                                </span>
+                                                <span>
+                                                    <u/>
+                                                </span> -->
+                                            </span>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>
+                                                <strong style="font-size: 14px;">Menyetujui</strong>
+                                                <!-- <br/>
+                                                <span>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <span>
+                                                        <hr style="background-color: black; width:70%"/>
+                                                    </span>
+                                                </span> -->
+                                            </span>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>
+                                                <strong style="font-size: 14px;">Kasir</strong>
+                                                <!-- <br/>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <span>
+                                                    <hr style="background-color: black; width:70%"/>
+                                                </span> -->
+                                            </span>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>
+                                                <strong style="font-size: 14px;">Pembukuan</strong>
+                                                <!-- <br/>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <span>
+                                                    <hr style="background-color: black; width:70%"/>
+                                                </span> -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_tranindo_voucher_a4_journal_entries" model="ir.actions.report">
+        <field name="name">Voucher A4</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fal_tranindo_ext.tranindo_voucher_a4_journal_entries</field>
+        <field name="report_file">fal_tranindo_ext.tranindo_voucher_a4_journal_entries</field>
+        <field name="print_report_name">'Voucher A4 - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="paperformat_tranindo_voucher_a4_journal_entries" model="report.paperformat">
+        <field name="name">Voucher A4</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">28</field>
+        <field name="dpi">90</field>
+        <field name="report_ids" eval="[(4, ref('action_tranindo_voucher_a4_journal_entries'))]"/>
+    </record>
+</odoo>

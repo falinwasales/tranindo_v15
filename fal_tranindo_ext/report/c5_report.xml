@@ -1,0 +1,320 @@
+<odoo>
+    <template id="tranindo_c5_report">
+        <t t-call="web.html_container">
+            <t t-name='tranindo_c5_report'>
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-2">
+                                    <span/>
+                                    <span t-field="res_company.logo" t-options-widget="&quot;image&quot;" style="width:140px;display:inline-block"/>
+                                </div>
+                                <!--  -->
+                                <div class="col-5">
+                                    <span/>
+                                    <span t-field="res_company.name" class="o_bold"/>
+                                    <br/>
+                                    <span class="small o_bold"><span t-field="res_company.street" class="o_bold"/></span>
+                                    <br/>
+                                    <span class="small o_bold">Telp.<span t-field="res_company.phone" class="o_bold"/> Fax: 021-3842583</span>
+                                </div>
+                                <!--  -->
+                                <div class="col-4 text-right">
+                                    <span/>
+                                    <span class="h2 o_bold">SURAT JALAN</span>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <hr style="background-color: black;margin-top:0px;margin-bottom:0px"/>
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>
+                                        <b>Nomor:</b>
+                                        <span t-field="doc.display_name" class="o_bold"/>
+                                    </span>
+                                </div>
+                                <!--  -->
+                                <div class="col-6">
+                                    <span>
+                                        <b>Kepada:</b>
+                                        <span t-field="doc.name" class="o_bold"/>
+                                        <span class="o_bold">/</span>
+                                        <span t-field="doc.name" class="o_bold"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>
+                                        <b>Tanggal:</b>
+                                    </span>
+                                    <span t-field="doc.scheduled_date" t-options-widget="&quot;date&quot;" t-options-format="&quot;dd-MM-yyyy&quot;" class="o_bold"/>
+                                </div>
+                                <!--  -->
+                                <div class="col-6">
+                                    <span>
+                                        <b>Alamat:</b>
+                                    </span>
+                                    <span t-field="doc.name"/>
+                                        <t t-if="doc.partner_id.city">, 
+                                            <span t-field="doc.partner_id.city"/>
+                                        </t>
+                                        <t t-if="doc.partner_id.state_id">
+                                            <t t-if="doc.partner_id.state_id">, 
+                                                <span t-field="doc.partner_id.state_id"/>
+                                            </t>, 
+                                            <span t-field="doc.partner_id.zip"/>
+                                        </t>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="row" style="margin-bottom:10px">
+                                <div class="col-6">
+                                    <span>
+                                        <b>No. PO:</b>
+                                    </span>
+                                    <span t-field="doc.name" class="o_bold"/>
+                                </div>
+                            </div>
+                            <!-- TABLE FOR RECORD -->
+                            <table class="table o_report_block_table table-sm h5">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top border-dark">
+                                            <span>
+                                                <font style="font-size: 14px;">
+                                                    <font style="font-size: 14px;">
+                                                        <font style="font-size: 16px;">No</font>
+                                                    </font>
+                                                </font>
+                                            </span>
+                                        </th>
+                                        <th class="border-top border-dark h5 o_bold">
+                                            <span>
+                                                <font style="font-size: 14px;">
+                                                    <font style="font-size: 16px;">Nama Barang/Pesanan</font>
+                                                </font>
+                                            </span>
+                                        </th>
+                                        <th class="border-top border-dark">
+                                            <span>
+                                                <font style="font-size: 14px;">
+                                                    <font style="font-size: 16px;">Jumlah</font>
+                                                </font>
+                                            </span>
+                                        </th>
+                                        <th class="border-top border-dark">
+                                            <span>
+                                                <font style="font-size: 14px;">
+                                                    <font style="font-size: 16px;">Unit</font>
+                                                </font>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!-- TBODY -->
+                                <tbody>
+                                    <t t-if="not doc.sale_id or doc.backorder_id or doc.backorder_ids">
+                                        <t t-set="i" t-value="0"/>
+                                        <tr t-foreach="doc.move_ids_without_package" t-as="table_line">
+                                            <t t-set="i" t-value="i+1"/>
+                                                <td>
+                                                    <span t-esc="i" class="h5"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="table_line.product_id.display_name"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-field="table_line.quantity_done"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="table_line.product_uom.display_name"/>
+                                                </td>
+                                        </tr>            
+                                    </t>
+                                    <!--  -->
+                                    <t t-if="doc.sale_id and not doc.backorder_id and not doc.backorder_ids">
+                                        <t t-set="a" t-value="0"/>
+                                        <t t-foreach="doc._get_product_bom_report()" t-as="table_line1">
+                                            <tr>
+                                                <t t-set="a" t-value="a+1"/>           
+                                                <td>
+                                                    <span t-esc="a" class="h5"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="table_line1['product'].display_name"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <t t-if="not table_line1['product'].bom_ids">
+                                                        <span t-field="table_line1['table'].quantity_done"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="not table_line1['product'].bom_ids">
+                                                        <span t-esc="table_line1['table'].product_uom.display_name"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                            <t t-if="table_line1['product'].bom_ids">
+                                                <t t-foreach="table_line1['product'].bom_ids[0].bom_line_ids" t-as="table_line2">
+                                                    <tr>
+                                                        <td/>
+                                                        <td>•
+                                                            <span style="margin-left:25px;" t-field="table_line2.product_id.display_name"/>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <t t-if="not table_line2.product_id.bom_ids">
+                                                                <span t-field="table_line1['table'].quantity_done"/>
+                                                            </t>
+                                                        </td>
+                                                        <td> 
+                                                            <t t-if="not table_line2.product_id.bom_ids">
+                                                                <span t-field="table_line2.product_uom_id.display_name"/>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                    <t t-if="table_line2.product_id.bom_ids">
+                                                        <tr t-foreach="table_line2.product_id.bom_ids[0].bom_line_ids" t-as="table_line3">
+                                                            <td/>
+                                                            <td>
+                                                                <span style="margin-left:65px;" t-field="table_line3.product_id.display_name"/>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span t-field="table_line1['table'].quantity_done"/>
+                                                            </td>
+                                                            <td> 
+                                                                <span t-field="table_line3.product_uom_id.display_name"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>            
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <!--  -->
+                            <div class="row" style="position:absolute;top:500px">
+                            </div>
+
+                            <div class="row" style="position:absolute;top:450px">
+                            </div>
+
+                            <div class="row" style="position:absolute;top:525px">
+                            </div>
+
+                            <div class="row">
+                            </div>
+
+                            <div class="row">
+                                <div class="col" style="margin-bottom:30px">
+                                <br/>
+                                    <span>
+                                        <font style="font-size: 14px;">
+                                            <b>NOTE:</b>
+                                        </font>
+                                        <span t-field="doc.name"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="row">
+                                <div class="col-3">
+                                    <span>
+                                        <strong>
+                                            Dikeluarkan Oleh
+                                        </strong>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <span>
+                                            ____________________
+                                        </span>
+                                        <span>
+                                            <u/>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="col-3">
+                                    <span>
+                                        <strong>Mengetahui</strong>
+                                        <br/>
+                                        <span>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <u>
+                                                KA. Gudang
+                                            </u>
+                                        </span>
+                                    </span>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <span t-field="res_company.name"/>
+                                </div>
+                                <div class="col-3">
+                                    <span>
+                                        <strong>Dikirim Oleh</strong>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <span>
+                                            ________________
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="col-3">
+                                    <span>
+                                        <strong>Diterima Oleh</strong>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <span t-field="doc.name"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <div class="row">
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_tranindo_c5" model="ir.actions.report">
+        <field name="name">C5 Report</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fal_tranindo_ext.tranindo_c5_report</field>
+        <field name="report_file">fal_tranindo_ext.tranindo_c5_report</field>
+        <field name="print_report_name">'C5 - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="paperformat_tranindo_c5" model="report.paperformat">
+        <field name="name">C5 Report</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">139</field>
+        <field name="page_width">216</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">1</field>
+        <field name="dpi">90</field>
+        <field name="report_ids" eval="[(4, ref('action_tranindo_c5'))]"/>
+    </record>
+</odoo>

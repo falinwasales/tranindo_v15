@@ -1,0 +1,183 @@
+<odoo>
+    <template id="tranindo_rpj_c5">
+        <t t-call="web.html_container">
+            <t t-name='tranindo_rpj_c5'>
+                <t t-call="fal_tranindo_ext.tranindo_custom_header_footer_rpj">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <style>
+                                .page-break {
+                                    page-break-after: always;
+                                }
+                            </style>
+                            <!--  -->
+                            
+                            <!-- TABLE FOR RECORD -->
+                            <div>
+                                <table class="table o_report_block_table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0 border-bottom border-dark">
+                                                <span style="font-size: 14px;">
+                                                    No.
+                                                </span>
+                                            </th>
+                                            <th class="border-top-0 border-bottom border-dark o_bold text-center">
+                                                <span style="font-size: 14px;">
+                                                    Nama Barang
+                                                </span>
+                                            </th>
+                                            <th class="border-top-0 border-bottom border-dark text-right" style="width: 13%;">
+                                                <span style="font-size: 14px; margin-right: 20px;">
+                                                    Jumlah
+                                                </span>
+                                            </th>
+                                            <th class="border-top-0 border-bottom border-dark">
+                                                <span style="font-size: 14px;">
+                                                    Unit
+                                                </span>
+                                            </th>
+                                            <th class="border-top-0 border-bottom border-dark text-left" style="width: 10%;">
+                                                <span style="font-size: 14px;">
+                                                    Harga
+                                                </span>
+                                            </th>
+                                            <th class="border-top-0 border-bottom border-dark text-right">
+                                                <span style="white-space:nowrap; font-size: 14px;">
+                                                    Disc.(%)
+                                                </span>
+                                            </th>
+                                            <th class="border-top-0 border-bottom border-dark text-center" style="width: 14%;">
+                                                <span style="font-size: 14px;">
+                                                    Subtotal
+                                                </span>
+                                            </th>
+                                            <th class="border-top-0 border-bottom border-dark text-right" style="width: 7%;">
+                                                <span style="font-size: 14px;">
+                                                    Pajak
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <!-- TBODY -->
+                                    <tbody>
+                                        <t t-set="i" t-value="0"/>
+                                        <tr t-foreach="doc.invoice_line_ids" t-as="invoice">
+                                            <t t-set="i" t-value="i+1"/>
+                                            <td class="text-center font-size: 14px;">
+                                                <span t-esc="i"/>
+                                            </td>
+                                            <td>
+                                                <span style="font-size: 14px;" t-field="invoice.name"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span style="font-size: 14px; margin-right: 20px;" t-field="invoice.quantity"/>
+                                            </td>
+                                            <td>
+                                                <span style="font-size: 14px;" t-field="invoice.product_uom_id.name"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span style="font-size: 14px;" t-field="invoice.price_unit"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span style="font-size: 14px;" t-field="invoice.disc_round"/>
+                                            </td>
+                                            <td class="text-right" style="font-size: 14px;"> 
+                                                Rp. <span t-esc="invoice.price_subtotal" t-options="{'widget': 'float', 'precision': 0}"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span style="font-size: 14px;" t-field="invoice.tax_ids.description"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <hr style="background-color: black; width:30%; margin-left: 69%; margin-bottom: 0px;"/>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-8"/>
+                                        <div class="col-2 text-left">
+                                            <span class="h7 o_bold">Subotal</span>
+                                        </div>
+                                        <div style="margin-left: 10px;" class="text-right">
+                                            : <span t-field="doc.amount_untaxed"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8"/>
+                                        <div class="col-2 text-left">
+                                            <span class="h7 o_bold">Taxes</span>
+                                        </div>
+                                        <div style="margin-left: 10px;" class="text-right">
+                                            : <span t-field="doc.amount_tax_signed"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8"/>
+                                        <div class="col-2 text-left">
+                                            <span class="h7 o_bold">Total</span>
+                                        </div>
+                                        <div style="margin-left: 10px;" class="text-right">
+                                            : <span t-field="doc.amount_total"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="row">
+                                    <div class="col-6 page-break">
+                                        <br/>
+                                        <span>
+                                            <span>
+                                            <b>
+                                                <span t-field="doc.company_id.company_keterangan"/>
+                                            </b>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <span style="margin-left:30px"/>
+                                        <span t-field="doc.company_id.invoice_name" style="margin-left:100px"/>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_tranindo_rpj_c5" model="ir.actions.report">
+        <field name="name">RPJ C5</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fal_tranindo_ext.tranindo_rpj_c5</field>
+        <field name="report_file">fal_tranindo_ext.tranindo_rpj_c5</field>
+        <field name="print_report_name">'RPJ C5 - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="paperformat_tranindo_rpj_c5_paperformat" model="report.paperformat">
+        <field name="name">RPJ C5</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">139</field>
+        <field name="page_width">216</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">38</field>
+        <field name="dpi">90</field>
+        <field name="report_ids" eval="[(4, ref('action_tranindo_rpj_c5'))]"/>
+    </record>
+</odoo>

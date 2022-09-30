@@ -1,0 +1,155 @@
+<odoo>
+    <template id="tranindo_custom_header_footer_vendor_bill_c5">
+
+		<t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        
+        <t t-call="fal_tranindo_ext.tranindo_external_header_footer_vendor_bill_c5"><t t-raw="0"/></t>
+	</template>
+
+    <template id="tranindo_external_header_footer_vendor_bill_c5">
+        <div class='header'> 
+            <div class="row">
+                <!--  -->
+                <div class="col-sm">
+                    <div>
+                        <div class="row">
+                            <div class="w-75 text-right">
+                                <span style="margin-right: 75px;" t-field="res_company.name" class="h4 o_bold"/>
+                            </div>
+                            <div class="w-25 text-right">
+                                <span style="margin-right: 20px;">
+                                    <span class="h7 o_bold">Page : <span class="page"/>/<span class="topage"/></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100 text-center">
+                        <span class="h4 o_bold" style="text-transform: uppercase;">
+                            Vendor Bills 
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-12 text-right">
+                    <span class="h7 o_bold">Page : <span class="page"/>/<span class="topage"/></span>
+                </div>
+            </div> -->
+            <hr style="background-color: black; margin-bottom: 0px; margin-top: 0px;"/>
+            <div class="row">
+                <div class="w-50">
+                    <div class="row w-100">
+                        <div class="w-25">
+                            <span style="font-size:14px; margin-left: 30px;">
+                                <b>Dibayar kepada</b>
+                            </span>
+                        </div>
+                        <div class="w-75">
+                            <span style="margin-left: 30px;">
+                                : <span style="font-size:14px;" t-field="doc.partner_id.name" class="o_bold"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="w-25">
+                            <span style="font-size:14px; margin-left: 30px;">
+                                <b>Pembayaran</b>
+                            </span>
+                        </div>
+                        <div class="w-75">
+                            <span style="margin-left: 30px;">
+                                : <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="w-25">
+                            <span style="font-size:14px; margin-left: 30px;">
+                                <b>No. Rek</b>
+                            </span>
+                        </div>
+                        <div class="w-75">
+                            <span style="font-size:14px; margin-left: 30px;">
+                                : <span t-field="doc.partner_bank_id" class="o_bold"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="w-25">
+                            <span style="font-size:14px; margin-left: 30px;">
+                                <b>Email</b>
+                            </span>
+                        </div>
+                        <div class="w-75">
+                            <span style="font-size:14px; margin-left: 30px;">
+                                : <span t-field="doc.partner_id.email" class="o_bold"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <div class="w-50">
+                    <div class="row w-100">
+                        <div class="w-25">
+                            <span style="font-size:14px; margin-left: 20px;">
+                                <b>No. Voucher</b>
+                            </span>
+                        </div>
+                        <div class="w-75">
+                            <span style="margin-left: 20px;">
+                                : 
+                                <!-- <span style="font-size:14px;" t-field="doc.name" class="o_bold"/> -->
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="w-25">
+                            <span style="font-size:14px; margin-left: 20px;">
+                                <b>No. Bill</b>
+                            </span>
+                        </div>
+                        <div class="w-75">
+                            <span style="margin-left: 20px;">
+                                : <span style="font-size:14px;" t-field="doc.name" class="o_bold"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="w-25">
+                            <span style="font-size:14px; margin-left: 20px;">
+                                <b>Tanggal</b>
+                            </span>
+                        </div>
+                        <div class="w-75">
+                            <span style="margin-left: 20px;">
+                                : <span t-esc="doc.invoice_date.strftime('%d %b %Y')" class="o_bold"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <hr style="background-color: black; margin-top: 0px;"/>
+        </div>
+        <!--  -->
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-0">
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-raw="0"/>
+        </div>
+        <!--  -->
+    </template>
+</odoo>

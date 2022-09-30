@@ -1,0 +1,15 @@
+<odoo>
+    <template id="line_template_followup_report_custom" inherit_id="account_reports.line_template" primary="True">
+        <xpath expr="//span[hasclass('o_account_report_column_value')]" position="replace">
+            <span class="'o_account_report_column_value'">
+                <t t-if="cell.get('blocked') != None">
+                    <input t-if="cell['blocked'] == False" type="checkbox" name="blocked" value="True" />
+                    <input t-if="cell['blocked'] == True or cell.get('color-red') == True" type="checkbox" name="blocked" value="True" checked="checked" />
+                </t>
+                <t t-if="cell.get('blocked') == None">
+                    <t t-esc="cell.get('name')"/>
+                </t>
+            </span>
+        </xpath>
+    </template>
+</odoo>
