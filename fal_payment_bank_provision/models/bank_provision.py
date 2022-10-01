@@ -39,7 +39,7 @@ class BankProvision(models.Model):
         string="Currency",
         default=lambda self: self.jurnal_dest_id.currency_id)
     invoice_ids = fields.Many2many(
-        'account.move', 'fal_bank_provision_invoice_rel',
+        'account.move', 'fal_bank_provision_invoice_rels',
         'bank_provision_id', 'move_id', string="Invoices", copy=False,
         readonly=True)
     communication = fields.Char(string='Memo')
