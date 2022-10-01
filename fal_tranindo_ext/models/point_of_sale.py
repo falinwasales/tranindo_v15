@@ -16,6 +16,8 @@ class PosOrder(models.Model):
     subtotal_tax = fields.Float(string="Subtotal W/O Tax", compute="subtotal_get")
 
     vendor_bill_id = fields.Many2one("account.move", string="Vendor Bill ID",compute="get_vendor_bill")
+
+    vendor_bill_ids = fields.Many2many("account.move", string="Vendor Bill ID",compute="get_vendor_bill_ids")
     
 
     def get_vendor_bill(self):
@@ -24,6 +26,19 @@ class PosOrder(models.Model):
             vendor =  self.env['account.move'].search([("pos_comission_id","=",record.id),('move_type','in',['in_invoice'])],limit=1)
             if vendor:
                 record.vendor_bill_id = vendor[-1].id
+
+    def get_vendor_bill_ids(self):
+        for record in self:
+            record.vendor_bill_ids = False
+            vendor =  self.env['account.move'].search([("pos_comission_id","=",record.id),('move_type','in',['in_invoice'])])
+            if vendor:
+                record.vendor_bill_ids = vendor
+
+    vendor_count_field = fields.Integer(compute='_compute_invoice_count', string='Vendor Bill Order Count')
+
+    def _compute_invoice_count(self):
+        self.vendor_count_field = len(self.vendor_bill_ids)
+
 
     @api.depends("lines")
     def subtotal_get(self):
@@ -40,12 +55,19 @@ class PosOrder(models.Model):
         return vals
 
     def action_view_vendor_bill(self):
-        return {
-            'name': _('Vendor Bill'),
-            'view_mode': 'form',
-            'view_id': self.env.ref('account.view_move_form').id,
+        self.ensure_one()
+        invoice_order_ids = self.vendor_bill_ids.ids
+        action = {
             'res_model': 'account.move',
-            'context': "{'move_type':'in_invoice'}",
             'type': 'ir.actions.act_window',
-            'res_id': self.vendor_bill_id.id,
         }
+        action.update({
+            'name': _("Vendor Bill"),
+            'domain': [('id', 'in', invoice_order_ids)],
+            'view_mode': 'tree,form,kanban',
+            'context': {
+                'default_move_type': 'in_invoice',
+                "create":False
+            }
+        })
+        return action
