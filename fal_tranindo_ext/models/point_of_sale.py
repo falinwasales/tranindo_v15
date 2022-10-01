@@ -67,6 +67,7 @@ class PosOrder(models.Model):
             'view_mode': 'tree,form,kanban',
             'context': {
                 'default_move_type': 'in_invoice',
+                "create":False
             }
         })
         return action
