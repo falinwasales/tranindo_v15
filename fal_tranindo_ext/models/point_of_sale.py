@@ -22,12 +22,14 @@ class PosOrder(models.Model):
 
     def get_vendor_bill(self):
         for record in self:
+            record.vendor_bill_id = False
             vendor =  self.env['account.move'].search([("pos_comission_id","=",record.id),('move_type','in',['in_invoice'])],limit=1)
             if vendor:
                 record.vendor_bill_id = vendor[-1].id
 
     def get_vendor_bill_ids(self):
         for record in self:
+            record.vendor_bill_ids = False
             vendor =  self.env['account.move'].search([("pos_comission_id","=",record.id),('move_type','in',['in_invoice'])])
             if vendor:
                 record.vendor_bill_ids = vendor
