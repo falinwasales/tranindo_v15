@@ -16,8 +16,8 @@ class AccountInvoice(models.Model):
     is_delivery_address = fields.Boolean(string="Delivery Address", help="Apabila dichecklist, maka akan mengambil delivery address di account.move")
     credit_note = fields.Boolean(string="Credit Note")
 
-    customer_npwp = fields.Char(string="NPWP")
-    customer_pkp = fields.Boolean(string="Customer PKP")
+    customer_npwp = fields.Char(string="NPWP", related="partner_id.vat")
+    customer_pkp = fields.Boolean(string="Customer PKP", related="partner_id.l10n_id_pkp")
     invoice_salesperson = fields.Many2one(string="Salesperson", related="fal_stock_picking_id.sale_id.user_id")
 
     after_date = fields.Date(string="After Due Date Custom")

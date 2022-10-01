@@ -10,18 +10,19 @@
 
             <xpath expr="//field[@name='table_id']" position="after">
                 <field name="pos_comission"/>
-                <field name="vendor_bill_id"/>
+                <field name="vendor_bill_id" invisible="1"/>
+                <field name="vendor_bill_ids" invisible="1"/>
                 <field name="partner_comission"/>
                 <field name="subtotal_tax" widget='monetary' options="{'currency_field': 'currency_id'}" invisible="1"/>
             </xpath>
 
             <xpath expr="//div/button[@name='action_view_invoice']" position="after">
                 <button name="action_view_vendor_bill"
-                    string="Vendor Bills"
                     type="object"
                     class="oe_stat_button"
                     icon="fa-pencil-square-o"
-                    attrs="{'invisible':[('state','!=','invoiced')]}">
+                    attrs="{'invisible': [('vendor_count_field', '=', 0)]}">
+                    <field name="vendor_count_field" widget="statinfo" string="Vendor Bills"/>
                 </button>
             </xpath>
         </field>
