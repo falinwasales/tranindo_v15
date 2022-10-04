@@ -38,7 +38,9 @@ class SaleOrder(models.Model):
 
     def action_confirm(self):
         for order in self:
-            if self.name[:2] != "SQ":
+            if self.name[:2] != "SQ" and order.company_id.id == 1:
+                continue
+            if self.name[:3] != "BCQ" and order.company_id.id == 2:
                 continue
             if order.state not in ("draft", "sent") or order.company_id.keep_name_so:
                 continue
