@@ -9,6 +9,7 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     disc_round = fields.Float(string="Disc Round", compute="_round_discount")
+    product_qty_available = fields.Float(string="Qty Available", related="product_id.qty_available")
 
     @api.depends('discount')
     def _round_discount(self):
