@@ -69,9 +69,14 @@
                             </span>
                         </div>
                         <div class="w-75">
-                            <span style="margin-left: 30px;">
-                                : <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
-                            </span>
+                            <div class="row" style="margin-left: 30px;">
+                                <span>
+                                    : 
+                                    <div>
+                                        <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
+                                    </div>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="row w-100">

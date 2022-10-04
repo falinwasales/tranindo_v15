@@ -197,7 +197,7 @@
                                         <div class="w-75" style="margin-left: 10px;">
                                             <span style="font-size:14px;">
                                                 <div>
-                                                    <span t-esc="doc.partner_id.street[0:100] if doc.partner_id else ''"/>
+                                                    <span t-esc="doc.partner_id.street[0:100] if doc.partner_id.street else ''"/>
                                                 </div>
                                             </span>
                                         </div>

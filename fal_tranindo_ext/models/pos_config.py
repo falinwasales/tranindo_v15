@@ -12,3 +12,7 @@ class PosConfig(models.Model):
 
     image_pos = fields.Binary(string="Picture")
     report_text = fields.Text(string="Additional Info")
+    pos_internal = fields.Boolean(string="PoS Internal")
+
+    default_warehouse_location = fields.Many2one("stock.location",string="Default Warehouse")
+    default_location_dest = fields.Many2one("stock.location",string="Default Destination")
