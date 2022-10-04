@@ -40,12 +40,17 @@ class SaleOrder(models.Model):
         for order in self:
             if self.name[:2] != "SQ":
                 continue
+            if self.name[:3] != "BCQ":
+                continue
             if order.state not in ("draft", "sent") or order.company_id.keep_name_so:
                 continue
             if order.origin and order.origin != "":
                 quo = order.origin + ", " + order.name
             else:
                 quo = order.name
-            sequence = self.env["ir.sequence"].next_by_code("sale.order")
+            if order.company_id.id == 1:
+                sequence = self.env["ir.sequence"].next_by_code("sale.order")
+            else:
+                sequence = self.env["ir.sequence"].next_by_code("sale.quotation.brenn")
             order.write({"origin": quo, "name": sequence})
         return super().action_confirm()
