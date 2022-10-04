@@ -72,6 +72,11 @@ class StockPicking(models.Model):
                 "product_uom_qty": quant,
             }
             move_line_object.create(vals)
+            # # for record in move.move_line_ids:
+            #     # record.create(6, 0,[vals])
+            # self.move_line_ids_without_package.update(vals)
+            # print("******************")
+            # print(move.id)
 
     
             
