@@ -46,6 +46,9 @@ class SaleOrder(models.Model):
                 quo = order.origin + ", " + order.name
             else:
                 quo = order.name
-            sequence = self.env["ir.sequence"].next_by_code("sale.order")
+            if order.company_id.id == 1: 
+                sequence = self.env["ir.sequence"].next_by_code("sale.order").filtered(lambda x: x.id == 7)
+            else:
+                sequence = self.env["ir.sequence"].next_by_code("sale.order").filtered(lambda x: x.id == 165)
             order.write({"origin": quo, "name": sequence})
         return super().action_confirm()
