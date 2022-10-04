@@ -15,3 +15,5 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     line_product_uom_qty = fields.Float(string="On hand Qty Qty", related="product_id.qty_available")
+    product_uom_qty = fields.Float(
+        'Reserved', default=0.0, digits='Product Unit of Measure', required=True)

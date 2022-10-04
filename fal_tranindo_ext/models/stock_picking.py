@@ -57,20 +57,21 @@ class StockPicking(models.Model):
         move_line_object = self.env['stock.move.line']
         for move in self.move_ids_without_package:
             uom = move.product_uom.id
+            quant = 0
+            if move.move_product_uom_qty > move.product_uom_qty or move.move_product_uom_qty == move.product_uom_qty:
+                quant = move.product_uom_qty
+            else:
+                quant = move.move_product_uom_qty
             vals = {
                 "product_id": move.product_id.id,
                 "product_uom_id": uom,
                 "location_id":self.location_id.id,
                 "location_dest_id":self.location_dest_id.id,
                 "move_id": move.id,
-                "picking_id": self.id
+                "picking_id": self.id,
+                "product_uom_qty": quant,
             }
             move_line_object.create(vals)
-            # # for record in move.move_line_ids:
-            #     # record.create(6, 0,[vals])
-            # self.move_line_ids_without_package.update(vals)
-            # print("******************")
-            # print(move.id)
 
     
             
