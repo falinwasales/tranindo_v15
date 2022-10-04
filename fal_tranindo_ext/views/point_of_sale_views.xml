@@ -133,11 +133,11 @@
                             </div>
                             <div class="content-group mt16" attrs="{'invisible' : [('pos_internal', '=', False)]}">
                                 <div>
-                                    <label for="limited_products_amount" string="Default Warehouse" class="oe_inline"/>
+                                    <label for="limited_products_amount" string="Default Warehouse" class="col-lg-5 o_light_label"/>
                                     <field name="default_warehouse_location" class="oe_inline"/>
                                 </div>
                                 <div>
-                                    <label for="limited_products_amount" string="Default Location" class="oe_inline"/>
+                                    <label for="limited_products_amount" string="Default Location" class="col-lg-5 o_light_label"/>
                                     <field name="default_location_dest" class="oe_inline"/>
                                 </div>
                             </div>
