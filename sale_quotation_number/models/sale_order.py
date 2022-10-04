@@ -40,6 +40,8 @@ class SaleOrder(models.Model):
         for order in self:
             if self.name[:2] != "SQ":
                 continue
+            # if self.name[:3] != "BCQ":
+            #     continue
             if order.state not in ("draft", "sent") or order.company_id.keep_name_so:
                 continue
             if order.origin and order.origin != "":
