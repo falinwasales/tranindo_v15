@@ -12,6 +12,14 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
         <field name="code">sale.quotation</field>
         <field name="prefix">SQ</field>
         <field name="padding">3</field>
-        <field name="company_id" eval="False" />
+        <field name="company_id" eval="1"/>
+    </record>
+
+    <record id="seq_sale_quotation_brenn" model="ir.sequence">
+        <field name="name">Sales Quotation(Brenn)</field>
+        <field name="code">sale.quotation</field>
+        <field name="prefix">BCQ</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="2"/>
     </record>
 </odoo>
