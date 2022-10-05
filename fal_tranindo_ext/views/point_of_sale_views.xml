@@ -25,6 +25,20 @@
                     <field name="vendor_count_field" widget="statinfo" string="Vendor Bills"/>
                 </button>
             </xpath>
+
+            <xpath expr="//label[@for='margin']" position="replace">
+                <label for="margin" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//div[hasclass('text-nowrap')]" position="replace">
+                <div class="text-nowrap" invisible="1">
+                    <field name="margin" class="oe_inline" attrs="{'invisible': [('is_total_cost_computed','=', False)]}"/>
+                    <span class="oe_inline" attrs="{'invisible': [('is_total_cost_computed','=', False)]}">
+                        (<field name="margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+                    </span>
+                    <span attrs="{'invisible': [('is_total_cost_computed','=', True)]}">TBD</span>
+                </div>
+            </xpath>
         </field>
     </record>
 
