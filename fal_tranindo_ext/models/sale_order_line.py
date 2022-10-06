@@ -9,7 +9,31 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     disc_round = fields.Float(string="Disc Round", compute="_round_discount")
-    product_qty_available = fields.Float(string="Qty Available", related="product_id.qty_available")
+    product_qty_available = fields.Float(string="Qty Available", compute="_get_product_uom_warehouse")
+
+    @api.depends('warehouse_id')
+    def _get_product_uom_warehouse(self):
+        for record in self:
+            ware = record.warehouse_id.lot_stock_id
+            quant = self.env['stock.quant'].search([('product_id','=',record.product_id.id),('location_id','=',ware.id)])
+            qty = 0
+            if quant:
+                qty = quant.quantity
+                record.product_qty_available = qty
+            else:
+                record.product_qty_available = 0
+
+    @api.onchange('product_id')
+    def _onchange_product_uom_product(self):
+        for record in self:
+            ware = record.order_id.warehouse_id
+            quant = self.env['stock.quant'].search([('product_id','=',record.product_id.id),('location_id','=',ware.lot_stock_id.id)])
+            qty = 0
+            if quant:
+                qty = quant.quantity
+                record.product_qty_available = qty
+            else:
+                record.product_qty_available = 0
 
     @api.depends('discount')
     def _round_discount(self):
