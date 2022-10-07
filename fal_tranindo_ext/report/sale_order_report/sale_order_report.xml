@@ -149,35 +149,49 @@
                                     </div>
                                 </div>
                                 
-                                <div class="pt-2"/>
+                                <div class="pt-4"/>
                                 <div class="row">
-                                    <div class="col-2">
+                                    <div class="col-4">
                                         <span style="font-weight: bold;">
                                             NB : Harga sudah termasuk PPN
                                         </span>
                                     </div>
-                                    <!-- <div class="col-9" style="margin-left:-100px;">
+                                </div>
+
+                                <div class="pt-4"/>
+                                <div class="row">
+                                    <div class="col-10">
                                         <span>
-                                            <span t-raw="doc.note"/>
+                                            <span t-field="doc.company_id.company_keterangan"/>
                                         </span>
-                                    </div> -->
+                                    </div>
                                 </div>
 
                                 <div class="pt-4"/>
                                 <div class="">
                                     <div class="">
                                         <span style="font-size: 16px;">
-                                            Demikian surat penawaran ini kami buat. Untuk lebih lanjut Bapak/Ibu bisa menghubungi nomor telepon di bawah ini:
+                                            Demikian surat penawaran ini kami buat. <br/>Untuk lebih lanjut Bapak/Ibu bisa menghubungi nomor telepon di bawah ini:
                                         </span>
                                     </div>
                                     <div class="">
                                         <span style="font-size: 16px;">
-                                            <span t-field="doc.user_id.name"/>(<span t-field="doc.user_id.phone"/>)
+                                            <span t-field="doc.user_id.name"/>
+                                            <t t-if="doc.user_id.phone">
+                                                <span style="margin-left: 5px;">
+                                                    (<span t-field="doc.user_id.phone"/>)
+                                                </span>
+                                            </t>
                                         </span>
                                     </div>
                                     <div class="">
                                         <span style="font-size: 16px;">
-                                            Kantor(<span t-field="doc.user_id.company_id.phone"/>)
+                                            Kantor
+                                            <t t-if="doc.user_id.company_id.phone">
+                                                <span style="margin-left: 5px;">
+                                                    (<span t-field="doc.user_id.company_id.phone"/>)
+                                                </span>
+                                            </t>
                                         </span>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    move_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location", stored=True)
+    move_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location")
 
     @api.depends('location_id')
     def _get_qty_location(self):
