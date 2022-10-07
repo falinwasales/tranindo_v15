@@ -48,7 +48,7 @@
         'report/tranindo_vendor_bill_c5_header_footer.xml',
         'report/tranindo_vendor_bill_a4_header_footer.xml',
         'report/tranindo_rpj_c5_header_footer.xml',
-        'report/layouts.xml',
+        # 'report/layouts.xml',
         'report/invoice_letter.xml',
         'report/invoice_letter_c5.xml',
         'report/sj_transfers_c5.xml',
