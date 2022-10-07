@@ -13,46 +13,231 @@
                             <!--  -->
                             
                             <!-- TABLE FOR RECORD -->
+                            <div class="row">
+                                <div class="w-50">
+                                    <!-- <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>No. Invoice</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                : <span t-field="doc.name"/>
+                                            </span>
+                                        </div>
+                                    </div> -->
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>No. SJ</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                : <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>Tanggal</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                : <span t-field="doc.invoice_date"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>No. Faktur Pajak</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <t t-if="doc.replace_faktur">
+                                                    : <span t-field="doc.replace_faktur"/>
+                                                </t>
+                                                <t t-else="">
+                                                    : <span t-field="doc.l10n_id_tax_number"/>
+                                                </t>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="w-50">
+                                    <!-- <div class="row w-100">
+                                        <div style="width: 65px;">
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>Nama</b>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>:</b>
+                                            </span>
+                                        </div>
+                                        <t t-if="doc.fal_stock_picking_id.sale_id">
+                                            <t t-foreach="doc.fal_stock_picking_id.sale_id" t-as="sale">
+                                                <t t-if='doc.is_delivery_address'>
+                                                    <div class="w-75">
+                                                        <span style="font-size:14px; margin-left: 10px;">
+                                                            <span t-esc="doc.partner_id.name if doc.partner_id else ''"/>
+                                                        </span>
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-if="sale.is_final_customer">
+                                                        <div class="w-75">
+                                                            <span style="font-size:14px; margin-left: 10px;">
+                                                                <span t-esc="sale.invoice_street.name if sale.invoice_street else ''"/>
+                                                            </span>
+                                                        </div>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <div class="w-75">
+                                                            <span style="font-size:14px; margin-left: 10px;">
+                                                                <span t-field="doc.partner_id.name"/>
+                                                            </span>
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="w-75">
+                                                <t t-if='doc.is_delivery_address'>
+                                                    <div class="w-75">
+                                                        <span style="font-size:14px; margin-left: 10px;">
+                                                            <span t-esc="doc.partner_id.name if doc.partner_id else ''"/>
+                                                        </span>
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                    <span style="font-size:14px; margin-left: 10px;">
+                                                        <span t-field="doc.partner_id.name"/>
+                                                    </span>
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </div> -->
+                                    <div class="row w-100">
+                                        <div style="width: 65px;">
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>Alamat</b>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>:</b>
+                                            </span>
+                                        </div>
+                                        <t t-if="doc.is_delivery_address">
+                                            <div class="w-75" style="margin-left: 10px;">
+                                                <span style="font-size:14px;">
+                                                    <span t-esc="doc.partner_shipping_id.street[0:100] if doc.partner_shipping_id else ''"/>
+                                                </span>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if="doc.fal_stock_picking_id.sale_id">
+                                                <t t-foreach="doc.fal_stock_picking_id.sale_id" t-as="sale">
+                                                    <t t-if="sale.is_final_customer">
+                                                        <div class="w-75" style="margin-left: 10px;">
+                                                            <span style="font-size:14px;">
+                                                                <span t-esc="sale.invoice_street.street[0:100] if sale.invoice_street else ''"/>
+                                                            </span>
+                                                        </div>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <div class="w-75" style="margin-left: 10px;">
+                                                            <span style="font-size:14px;">
+                                                                <div>
+                                                                    <span t-esc="doc.partner_id.street[0:100] if doc.partner_id.street else ''"/>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="w-75" style="margin-left: 10px;">
+                                                    <span style="font-size:14px;">
+                                                        <div>
+                                                            <span t-esc="doc.partner_id.street[0:100] if doc.partner_id.street else ''"/>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </t>
+                                        </t>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div style="width: 65px;">
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>No. PO</b>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>:</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <div style="margin-left: 10px;">
+                                                <span style="font-size:14px;">
+                                                    <span t-esc="doc.ref if doc.ref else ''"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div>
                                 <table class="table o_report_block_table table-sm">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0 border-bottom border-dark">
+                                            <th class="border-top border-bottom border-dark">
                                                 <span style="font-size: 14px;">
                                                     No.
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark o_bold text-center">
+                                            <th class="border-top border-bottom border-dark o_bold text-center">
                                                 <span style="font-size: 14px;">
                                                     Nama Barang
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-right" style="width: 13%;">
+                                            <th class="border-top border-bottom border-dark text-right" style="width: 13%;">
                                                 <span style="font-size: 14px; margin-right: 20px;">
                                                     Jumlah
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark">
+                                            <th class="border-top border-bottom border-dark">
                                                 <span style="font-size: 14px;">
                                                     Unit
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-left" style="width: 10%;">
+                                            <th class="border-top border-bottom border-dark text-left" style="width: 10%;">
                                                 <span style="font-size: 14px;">
                                                     Harga
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-right">
+                                            <th class="border-top border-bottom border-dark text-right">
                                                 <span style="white-space:nowrap; font-size: 14px;">
                                                     Disc.(%)
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-center" style="width: 14%;">
+                                            <th class="border-top border-bottom border-dark text-center" style="width: 14%;">
                                                 <span style="font-size: 14px;">
                                                     Subtotal
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-right" style="width: 7%;">
+                                            <th class="border-top border-bottom border-dark text-right" style="width: 7%;">
                                                 <span style="font-size: 14px;">
                                                     Pajak
                                                 </span>
@@ -205,12 +390,12 @@
         <field name="default" eval="True" />
         <field name="format">A4</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">42</field>
+        <field name="margin_top">24</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">40</field>
+        <field name="header_spacing">23</field>
         <field name="dpi">90</field>
         <field name="report_ids" eval="[(4, ref('action_tranindo_invoice_letter'))]"/>
     </record>
