@@ -189,7 +189,7 @@
                                     <t t-if="sale.is_final_customer">
                                         <div class="w-75" style="margin-left: 10px;">
                                             <span style="font-size:14px;">
-                                                <span t-esc="doc.invoice_street.street[0:100] if doc.invoice_street else ''"/>
+                                                <span t-esc="sale.invoice_street.street[0:100] if sale.invoice_street else ''"/>
                                             </span>
                                         </div>
                                     </t>

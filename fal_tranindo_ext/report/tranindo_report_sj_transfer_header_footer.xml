@@ -68,7 +68,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="row w-100">
+                    <!-- <div class="row w-100">
                         <div class="w-25">
                             <span style="font-size:14px; margin-left: 30px;">
                                 <b>Tanggal</b>
@@ -79,8 +79,8 @@
                                 : <span t-field="doc.scheduled_date" t-options-widget="&quot;date&quot;" t-options-format="&quot;dd-MM-yyyy&quot;" class="o_bold"/>
                             </span>
                         </div>
-                    </div>
-                    <div class="row w-100">
+                    </div> -->
+                    <!-- <div class="row w-100">
                         <div class="w-25">
                             <span style="font-size:14px; margin-left: 30px;">
                                 <b>No. PO</b>
@@ -96,7 +96,7 @@
                                 </t>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="w-50">
@@ -131,7 +131,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="row w-100">
+                    <!-- <div class="row w-100">
                         <div style="width: 65px;">
                             <span style="font-size:14px; margin-left: 20px;">
                                 <b>Alamat</b>
@@ -163,10 +163,10 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <hr style="background-color: black; margin-top: 0px; margin-bottom: 0px;"/>
+            <!-- <hr style="background-color: black; margin-top: 0px; margin-bottom: 0px;"/> -->
             <!-- <hr style="background-color: black;"/> -->
         </div>
         <!--  -->
