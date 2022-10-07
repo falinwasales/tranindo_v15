@@ -12,23 +12,94 @@
                             </style>
                             <!--  -->
                             <!-- TABLE FOR RECORD -->
+                            <div class="row">
+                                <div class="w-50">
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>Tanggal</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                : <span t-field="doc.scheduled_date" t-options-widget="&quot;date&quot;" t-options-format="&quot;dd-MM-yyyy&quot;" class="o_bold"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>No. PO</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <t t-if="doc.sale_id">
+                                                    : <span t-field="doc.sale_id.client_order_ref" class="o_bold"/>
+                                                </t>
+                                                <t t-else="">
+                                                    : <span t-field="doc.no_po_do" class="o_bold"/>
+                                                </t>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="w-50">
+                                    <div class="row w-100">
+                                        <div style="width: 65px;">
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>Alamat</b>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>:</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <div style="margin-left: 10px;">
+                                                <span style="font-size:14px;">
+                                                    <t t-if="doc.sale_id.is_final_customer">
+                                                        <t t-foreach="doc.sale_id" t-as="sale">
+                                                            <span t-esc="sale.delivery_street.street[0:100] if sale.delivery_street.street else ''"/>
+                                                        </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="doc.sale_id">
+                                                            <t t-foreach="doc.sale_id" t-as="sale">
+                                                                <span t-esc="sale.partner_shipping_id.street[0:100] if sale.partner_shipping_id.street else ''"/>
+                                                            </t>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-esc="doc.partner_id.street[0:100] if doc.partner_id.street else ''"/>
+                                                        </t>
+                                                    </t>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="pt-4"/> -->
                             <table class="table o_report_block_table table-sm">
                                 <thead>
                                     <tr>
-                                        <th class="border-top-0 border-dark" style="font-size: 14px;" width="8%">
+                                        <th class="border-top border-dark" style="font-size: 14px;" width="8%">
                                             No
                                         </th>
-                                        <th class="border-top-0 border-dark o_bold" style="font-size: 14px;">
+                                        <th class="border-top border-dark o_bold" style="font-size: 14px;">
                                             <span>
                                                 Nama Barang/Pesanan
                                             </span>
                                         </th>
-                                        <th class="border-top-0 border-dark" style="font-size: 14px;" width="10%">
+                                        <th class="border-top border-dark" style="font-size: 14px;" width="10%">
                                             <span>
                                                 Jumlah
                                             </span>
                                         </th>
-                                        <th class="border-top-0 border-dark" style="font-size: 14px;">
+                                        <th class="border-top border-dark" style="font-size: 14px;">
                                             <span>
                                                 Unit
                                             </span>
@@ -293,31 +364,17 @@
         <field name="binding_type">report</field>
     </record>
 
-    <!-- <record id="paperformat_tranindo_sj_letter_c5" model="report.paperformat">
-        <field name="name">SJ(Surat Jalan) Letter-C5</field>
-        <field name="default" eval="True" />
-        <field name="format">A4</field>
-        <field name="orientation">Portrait</field>
-        <field name="margin_top">34</field>
-        <field name="margin_bottom">0</field>
-        <field name="margin_left">0</field>
-        <field name="margin_right">0</field>
-        <field name="header_line" eval="False"/>
-        <field name="header_spacing">33</field>
-        <field name="dpi">90</field>
-        <field name="report_ids" eval="[(4, ref('action_tranindo_sj_letter_c5'))]"/>
-    </record> -->
     <record id="tranindo_sj_letter" model="report.paperformat">
         <field name="name">SJ-Letter</field>
         <field name="default" eval="True" />
         <field name="format">Letter</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">36</field>
+        <field name="margin_top">26</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">34</field>
+        <field name="header_spacing">24</field>
         <field name="dpi">90</field>
         <field name="report_ids" eval="[(4, ref('action_tranindo_sj_letter_c5'))]"/>
     </record>
