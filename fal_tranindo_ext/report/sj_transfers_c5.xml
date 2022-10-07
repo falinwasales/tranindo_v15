@@ -33,12 +33,34 @@
                                             </span>
                                         </div>
                                         <div class="w-75">
-                                            <span style="font-size:14px; margin-left: 30px;">
+                                            <span style="font-size:14px;">
                                                 <t t-if="doc.sale_id">
-                                                    : <span t-field="doc.sale_id.client_order_ref" class="o_bold"/>
+                                                    <div class="row w-100">
+                                                        <div class="" style="margin-left:45px;">
+                                                            <span style="font-size:14px;" class="text-right">
+                                                                <b>:</b>
+                                                            </span>
+                                                        </div>
+                                                        <div class="w-75" style="margin-left:3px;">
+                                                            <span>
+                                                                <span t-field="doc.sale_id.client_order_ref" class="o_bold"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </t>
                                                 <t t-else="">
-                                                    : <span t-field="doc.no_po_do" class="o_bold"/>
+                                                    <div class="row w-100">
+                                                        <div class="" style="margin-left:45px;">
+                                                            <span style="font-size:14px;" class="text-right">
+                                                                <b>:</b>
+                                                            </span>
+                                                        </div>
+                                                        <div class="w-75" style="margin-left:3px;">
+                                                            <span>
+                                                                <span t-field="doc.no_po_do" class="o_bold"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </t>
                                             </span>
                                         </div>
