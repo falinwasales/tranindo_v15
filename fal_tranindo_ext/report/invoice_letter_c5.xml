@@ -268,7 +268,7 @@
                                                 <span style="font-size: 14px;" t-field="invoice.disc_round"/>
                                             </td>
                                             <td class="text-right" style="font-size: 14px;"> 
-                                                Rp. <span t-esc="invoice.price_subtotal" t-options="{'widget': 'float', 'precision': 0}"/>
+                                                Rp. <span t-esc="invoice.price_subtotal" t-options="{'widget': 'float', 'precision': 2}"/>
                                             </td>
                                             <td class="text-right">
                                                 <span style="font-size: 14px;" t-field="invoice.tax_ids.description"/>
@@ -311,7 +311,7 @@
                                 <div class="row">
                                     <div class="col-2">
                                         <span>
-                                            Memos
+                                            Memo
                                         </span>
                                     </div>
                                     <div class="col-1" style="margin-left: -50px;">
@@ -350,7 +350,7 @@
                                         <span>
                                             <span>
                                             <b>
-                                                <span t-field="doc.company_id.company_keterangan"/>
+                                                <span style="font-size:13px;" t-field="doc.company_id.company_keterangan"/>
                                             </b>
                                             </span>
                                         </span>
