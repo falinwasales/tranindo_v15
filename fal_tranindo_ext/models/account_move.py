@@ -162,7 +162,7 @@ class AccountInvoice(models.Model):
 
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
 
-                total = line.price_unit / (100+line.tax_ids.amount)
+                total = line.price_unit / ((100/100) + (line.tax_ids.amount/100))
 
                 line_dict = {
                     'KODE_OBJEK': line.product_id.default_code or '',
