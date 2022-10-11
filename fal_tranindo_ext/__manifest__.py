@@ -18,7 +18,6 @@
         'sales_team',
         'account',
         'account_reports',
-        'account_followup',
         'stock',
         'purchase',
         'point_of_sale',

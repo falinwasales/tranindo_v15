@@ -18,7 +18,7 @@
         add filtered calculate summary by option
     """,
     "depends": [
-        "stock_account",
+        "stock_account","stock",
     ],
     "data": [
         "data/ir_sequence.xml",

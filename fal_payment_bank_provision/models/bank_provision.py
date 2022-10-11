@@ -44,8 +44,10 @@ class BankProvision(models.Model):
         readonly=True)
     communication = fields.Char(string='Memo')
     move_id = fields.Many2one('account.move', string="Journal Entry")
+    # count_day = fields.Integer(
+    #     string="Count Day", compute="_computeCountDate")
     count_day = fields.Integer(
-        string="Count Day", compute="_computeCountDate")
+        string="Count Day")
 
     def _computeCountDate(self):
         for data in self:
