@@ -162,13 +162,15 @@ class AccountInvoice(models.Model):
 
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
 
+                total = line.price_unit / (100/line.tax_ids.amount)
+
                 line_dict = {
                     'KODE_OBJEK': line.product_id.default_code or '',
                     'NAMA': line.product_id.name or '',
                     'HARGA_SATUAN': int(float_round(invoice_line_unit_price, 0)),
                     'JUMLAH_BARANG': line.quantity,
-                    'HARGA_TOTAL': int(float_round(invoice_line_total_price, 0)),
-                    'DPP': int(float_round(line.price_subtotal, 0)),
+                    'HARGA_TOTAL': int(total),
+                    'DPP': int(line.price_subtotal),
                     'product_id': line.product_id.id,
                 }
 
@@ -176,8 +178,8 @@ class AccountInvoice(models.Model):
                 print(line_dict)
 
                 line_dict.update({
-                        'DISKON': int(float_round(invoice_line_total_price - line.price_subtotal, 0)),
-                        'PPN': int(float_round(invoice_line_total_price - line.price_subtotal, 0)),
+                        'DISKON': int(total*(line.discount/100)),
+                        'PPN': int(total - (total*(line.discount/100))),
                     })
                 free.append(line_dict)
                 sales.append(line_dict)
