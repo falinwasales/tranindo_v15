@@ -178,8 +178,8 @@ class AccountInvoice(models.Model):
                 print(line_dict)
 
                 line_dict.update({
-                        'DISKON': int(total*(line.discount/100)),
-                        'PPN': int(total - (total*(line.discount/100))),
+                        'DISKON': int(total-(line.discount/100)),
+                        'PPN': int(total*(line.discount/100)),
                     })
                 free.append(line_dict)
                 sales.append(line_dict)
