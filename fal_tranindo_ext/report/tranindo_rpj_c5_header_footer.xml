@@ -187,7 +187,7 @@
                             <t t-if="doc.is_delivery_address">
                                 <div class="w-75" style="margin-left: 10px;">
                                     <span style="font-size:14px;">
-                                        <span t-esc="doc.partner_shipping_id.street[0:100] if doc.partner_shipping_id.street else ''"/>
+                                        <span t-esc="doc.partner_shipping_id.street if doc.partner_shipping_id.street else ''"/>
                                     </span>
                                 </div>
                             </t>
@@ -195,7 +195,7 @@
                                 <t t-if="sale.is_final_customer">
                                     <div class="w-75" style="margin-left: 10px;">
                                         <span style="font-size:14px;">
-                                            <span t-esc="sale.invoice_street.street[0:100] if sale.invoice_street.street else ''"/>
+                                            <span t-esc="sale.invoice_street.street if sale.invoice_street.street else ''"/>
                                         </span>
                                     </div>
                                 </t>
@@ -203,7 +203,7 @@
                                     <div class="w-75" style="margin-left: 10px;">
                                         <span style="font-size:14px;">
                                             <div>
-                                                <span t-esc="doc.partner_id.street[0:100] if doc.partner_id.street else ''"/>
+                                                <span t-esc="doc.partner_id.street if doc.partner_id.street else ''"/>
                                             </div>
                                         </span>
                                     </div>

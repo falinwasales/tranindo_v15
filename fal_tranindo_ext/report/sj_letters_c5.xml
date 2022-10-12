@@ -84,17 +84,17 @@
                                                 <span style="font-size:14px;">
                                                     <t t-if="doc.sale_id.is_final_customer">
                                                         <t t-foreach="doc.sale_id" t-as="sale">
-                                                            <span t-esc="sale.delivery_street.street[0:100] if sale.delivery_street.street else ''"/>
+                                                            <span t-esc="sale.delivery_street.street if sale.delivery_street.street else ''"/>
                                                         </t>
                                                     </t>
                                                     <t t-else="">
                                                         <t t-if="doc.sale_id">
                                                             <t t-foreach="doc.sale_id" t-as="sale">
-                                                                <span t-esc="sale.partner_shipping_id.street[0:100] if sale.partner_shipping_id.street else ''"/>
+                                                                <span t-esc="sale.partner_shipping_id.street if sale.partner_shipping_id.street else ''"/>
                                                             </t>
                                                         </t>
                                                         <t t-else="">
-                                                            <span t-esc="doc.partner_id.street[0:100] if doc.partner_id.street else ''"/>
+                                                            <span t-esc="doc.partner_id.street if doc.partner_id.street else ''"/>
                                                         </t>
                                                     </t>
                                                 </span>

@@ -89,7 +89,7 @@
                     <div class="row w-100">
                         <div class="" style="margin-left: 30px;">
                             <span style="font-size:12px;">
-                                <span class="o_bold" t-esc="doc.customer_street[0:100] if doc.customer_street else ''"/>
+                                <span class="o_bold" t-esc="doc.customer_street if doc.customer_street else ''"/>
                             </span>
                         </div>
                     </div>
