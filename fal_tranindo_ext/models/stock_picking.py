@@ -27,26 +27,19 @@ class StockPicking(models.Model):
             else:
                 record.diff_trans_del = False
 
-    # @api.depends("sale_id")
-    # def _get_customer_reference(self):
-    #     for record in self:
-    #         record.no_po_do = ""
-    #         if record.sale_id.client_order_ref:
-    #             record.no_po_do = record.sale_id.client_order_ref
-
     def _get_product_bom_report(self):
         data = []
         for record in self.move_ids_without_package:
             # for x in record.sale_line_id.product_id:
-            data.append([record, record.sale_line_id.product_id, record.sale_line_id])
+            data.append([record, record.product_id, record.product_move_bom])
         
         res = {}
-        for table, sale_product, sale_id in data:
-            if sale_id in res:
-                res[sale_id]['product'] = sale_id.product_id
-                res[sale_id]['table'] = table
+        for table, sale_product, bom in data:
+            if bom in res:
+                res[bom]['product'] = bom
+                res[bom]['table'] = table
             else:
-                res[sale_id] = {'product': sale_id.product_id, 'table':table,}
+                res[bom] = {'product': bom, 'table':table,}
 
         data_new = []
         for record in res:

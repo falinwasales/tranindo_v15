@@ -141,7 +141,7 @@
                                                 <span t-field="order_line['product'].display_name"/>
                                             </td>
                                             <td class="text-center" style="font-size: 16px;">
-                                                <span t-field="order_line['table'].quantity_done"/>
+                                                <span t-field="order_line['table'].product_uom_qty"/>
                                             </td>
                                             <td style="font-size: 16px;">
                                                 <span t-field="order_line['table'].product_uom.display_name"/>
@@ -151,26 +151,7 @@
                                 </t>
                                 <t t-else="">
                                     <tbody>
-                                        <t t-if="not doc.sale_id or doc.backorder_id or doc.backorder_ids">
-                                            <t t-set="i" t-value="0"/>
-                                            <tr t-foreach="doc.move_ids_without_package" t-as="table_line">
-                                                <t t-set="i" t-value="i+1"/>
-                                                    <td style="font-size: 16px;">
-                                                        <span t-esc="i"/>
-                                                    </td>
-                                                    <td style="font-size: 16px;">
-                                                        <span t-field="table_line.product_id.display_name"/>
-                                                    </td>
-                                                    <td class="text-center" style="font-size: 16px;">
-                                                        <span t-field="table_line.quantity_done"/>
-                                                    </td>
-                                                    <td style="font-size: 16px;">
-                                                        <span t-field="table_line.product_uom.display_name"/>
-                                                    </td>
-                                            </tr>            
-                                        </t>
-                                        <!--  -->
-                                        <t t-if="doc.sale_id and not doc.backorder_id and not doc.backorder_ids">
+                                        <t>
                                             <t t-set="a" t-value="0"/>
                                             <t t-foreach="doc._get_product_bom_report()" t-as="table_line1">
                                                 <tr>
