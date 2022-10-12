@@ -18,6 +18,7 @@ class StockPicking(models.Model):
     sj_binary = fields.Binary(string="SJ Binary")
 
     diff_trans_del = fields.Boolean(string="Bool", compute="_get_value")
+    contact_phone_show = fields.Boolean(string="Partner Phone")
 
     def _get_value(self):
         for record in self:

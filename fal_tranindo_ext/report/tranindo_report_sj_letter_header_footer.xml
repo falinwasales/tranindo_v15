@@ -31,9 +31,6 @@
                     <br/>
                     <span class="small o_bold"><span t-field="res_company.street" class="o_bold"/></span>
                     <br/>
-                    <!-- <span class="small o_bold">
-                        Telp.<span t-field="res_company.phone" class="o_bold"/>
-                    </span> -->
                     <span class="small o_bold">
                         Phone : <span t-field="o.company_id.phone" class="o_bold"/>
                         Fax : <span t-field="o.company_id.fax" class="o_bold"/>
@@ -68,35 +65,6 @@
                             </span>
                         </div>
                     </div>
-                    <!-- <div class="row w-100">
-                        <div class="w-25">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                <b>Tanggal</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                : <span t-field="doc.scheduled_date" t-options-widget="&quot;date&quot;" t-options-format="&quot;dd-MM-yyyy&quot;" class="o_bold"/>
-                            </span>
-                        </div>
-                    </div> -->
-                    <!-- <div class="row w-100">
-                        <div class="w-25">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                <b>No. PO</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                <t t-if="doc.sale_id">
-                                    : <span t-field="doc.sale_id.client_order_ref" class="o_bold"/>
-                                </t>
-                                <t t-else="">
-                                    : <span t-field="doc.no_po_do" class="o_bold"/>
-                                </t>
-                            </span>
-                        </div>
-                    </div> -->
                 </div>
 
                 <div class="w-50">
@@ -115,59 +83,33 @@
                             <span style="font-size:14px; margin-left: 10px;">
                                 <t t-if="doc.sale_id.is_final_customer">
                                     <t t-foreach="doc.sale_id" t-as="sale">
-                                        <span t-esc="sale.delivery_street.name if sale.delivery_street.name else ''"/>
+                                        <span t-esc="sale.delivery_street.name if sale.delivery_street.name else ''"/> 
+                                        <span t-if="doc.contact_phone_show and sale.delivery_street.phone">
+                                            - <span t-esc="sale.delivery_street.phone if sale.delivery_street.phone else ''"/>
+                                        </span>
                                     </t>
                                 </t>
                                 <t t-else="">
                                     <t t-if="doc.sale_id">
                                         <t t-foreach="doc.sale_id" t-as="sale">
-                                            <span t-esc="sale.partner_id.name if sale.partner_id else ''"/>
+                                            <span t-esc="sale.partner_id.name if sale.partner_id else ''"/> 
+                                            <span t-if="doc.contact_phone_show and sale.partner_id.phone">
+                                                - <span t-esc="sale.partner_id.phone if sale.partner_id else ''"/>
+                                            </span>
                                         </t>
                                     </t>
                                     <t t-else="">
-                                        <span t-esc="doc.partner_id.name if doc.partner_id else ''"/>
+                                        <span t-esc="doc.partner_id.name if doc.partner_id else ''"/> 
+                                        <span t-if="doc.contact_phone_show and doc.partner_id.phone">
+                                            - <span t-esc="doc.partner_id.phone if doc.partner_id else ''"/>
+                                        </span>
                                     </t>
                                 </t>
                             </span>
                         </div>
                     </div>
-                    <!-- <div class="row w-100">
-                        <div style="width: 65px;">
-                            <span style="font-size:14px; margin-left: 20px;">
-                                <b>Alamat</b>
-                            </span>
-                        </div>
-                        <div>
-                            <span style="font-size:14px; margin-left: 20px;">
-                                <b>:</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <div style="margin-left: 10px;">
-                                <span style="font-size:14px;">
-                                    <t t-if="doc.sale_id.is_final_customer">
-                                        <t t-foreach="doc.sale_id" t-as="sale">
-                                            <span t-esc="sale.delivery_street.street[0:100] if sale.delivery_street.street else ''"/>
-                                        </t>
-                                    </t>
-                                    <t t-else="">
-                                        <t t-if="doc.sale_id">
-                                            <t t-foreach="doc.sale_id" t-as="sale">
-                                                <span t-esc="sale.partner_shipping_id.street[0:100] if sale.partner_shipping_id.street else ''"/>
-                                            </t>
-                                        </t>
-                                        <t t-else="">
-                                            <span t-esc="doc.partner_id.street[0:100] if doc.partner_id.street else ''"/>
-                                        </t>
-                                    </t>
-                                </span>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
-            <!-- <hr style="background-color: black; margin-top: 0px; margin-bottom: 0px;"/> -->
-            <!-- <hr style="background-color: black;"/> -->
         </div>
         <!--  -->
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">

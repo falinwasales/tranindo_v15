@@ -13,6 +13,7 @@
 
                 <xpath expr="//field[@name='origin']" position="after">
                     <field name="is_print_kit"/>
+                    <field name="contact_phone_show"/>
                     <field name="sticker_delivery"/>
                 </xpath>
 
