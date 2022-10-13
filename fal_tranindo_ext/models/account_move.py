@@ -170,6 +170,7 @@ class AccountInvoice(models.Model):
                 harga_total_round = math.ceil(harga_total) if (harga_total%1) >= 0.44 else math.floor(harga_total)
                 discount_value_round = math.ceil(discount_value) if (discount_value%1) >= 0.44 else math.floor(discount_value)
                 dpp_amount_round = math.ceil(dpp_amount) if (dpp_amount%1) >= 0.44 else math.floor(dpp_amount)
+                ppn_amount_round = math.ceil(ppn_amount) if (ppn_amount%1) >= 0.44 else math.floor(ppn_amount)
 
                 line_dict = {
                     'KODE_OBJEK': line.product_id.default_code or '',
@@ -187,7 +188,7 @@ class AccountInvoice(models.Model):
 
                     line_dict.update({
                         'DISKON': discount_value_round,
-                        'PPN': int(float_round(ppn_amount, 0)),
+                        'PPN': ppn_amount_round,
                     })
                     free.append(line_dict)
                 elif line.price_subtotal != 0.0 or line.price_subtotal == 0:
@@ -195,7 +196,7 @@ class AccountInvoice(models.Model):
 
                     line_dict.update({
                         'DISKON': discount_value_round,
-                        'PPN': int(float_round(ppn_amount, 0)),
+                        'PPN': ppn_amount_round,
                     })
                     sales.append(line_dict)
 
