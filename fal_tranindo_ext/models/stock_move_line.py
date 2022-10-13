@@ -9,13 +9,13 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     move_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location")
-    product_move_bom = fields.Many2one('product.template', string="Product BoM", compute="_get_bom_product")
+    product_move_bom = fields.Many2one('product.product', string="Product BoM", compute="_get_bom_product")
 
     @api.depends('product_id')
     def _get_bom_product(self):
         for record in self:
-            test = self.env['product.template'].search([('name','=',record.name)])
-            record.product_move_bom = record.product_id.id if record.product_id else ''
+            test = self.env['product.product'].search([('name','=',record.name)])
+            record.product_move_bom = record.product_id.id if record.product_id else record.product_id.id
             for line in test:
                 print(line)
                 if line:

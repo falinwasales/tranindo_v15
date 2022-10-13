@@ -14,5 +14,5 @@ class PosConfig(models.Model):
     report_text = fields.Text(string="Additional Info")
     pos_internal = fields.Boolean(string="PoS Internal")
 
-    default_warehouse_location = fields.Many2one("stock.location",string="Default Warehouse")
+    default_warehouse_location = fields.Many2one("stock.location",string="Default PIcking")
     default_location_dest = fields.Many2one("stock.location",string="Default Destination")

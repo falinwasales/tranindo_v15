@@ -119,6 +119,22 @@ class AccountInvoice(models.Model):
                 invoice_npwp = move.partner_id.l10n_id_nik
             invoice_npwp = invoice_npwp.replace('.', '').replace('-', '')
 
+            jumlah_dpp = 0
+
+            for line in move.line_ids.filtered(lambda l: not l.exclude_from_invoice_tab and not l.display_type):
+                invoice_line_unit_price = line.price_unit
+
+                invoice_line_total_price = invoice_line_unit_price * line.quantity
+                harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100)) if line.tax_ids.price_include else invoice_line_total_price
+                discount_value = harga_total * line.discount/100
+                dpp_amount = harga_total - discount_value
+                # ppn_amount = (harga_total - discount_value) * line.tax_ids.amount/100
+
+                # harga_total_round = math.ceil(harga_total) if (harga_total%1) >= 0.44 else math.floor(harga_total)
+                # discount_value_round = math.ceil(discount_value) if (discount_value%1) >= 0.44 else math.floor(discount_value)
+                jumlah_dpp += math.ceil(dpp_amount) if (dpp_amount%1) >= 0.44 else math.floor(dpp_amount)
+
+
             # Here all fields or columns based on eTax Invoice Third Party
             eTax['KD_JENIS_TRANSAKSI'] = move.l10n_id_tax_number[0:2] or 0
             eTax['FG_PENGGANTI'] = move.l10n_id_tax_number[2:3] or 0
@@ -129,7 +145,7 @@ class AccountInvoice(models.Model):
             eTax['NPWP'] = invoice_npwp
             eTax['NAMA'] = move.partner_id.name if eTax['NPWP'] == '000000000000000' else move.partner_id.l10n_id_tax_name or move.partner_id.name
             eTax['ALAMAT_LENGKAP'] = move.partner_id.contact_address.replace('\n', '') if eTax['NPWP'] == '000000000000000' else move.partner_id.l10n_id_tax_address or street
-            eTax['JUMLAH_DPP'] = int(float_round(move.amount_untaxed, 0)) # currency rounded to the unit
+            eTax['JUMLAH_DPP'] = jumlah_dpp
             eTax['JUMLAH_PPN'] = int(float_round(move.amount_tax, 0))
             eTax['ID_KETERANGAN_TAMBAHAN'] = '1' if move.l10n_id_kode_transaksi == '07' else ''
             eTax['REFERENSI'] = number_ref

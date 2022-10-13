@@ -17,7 +17,7 @@ class PosOrder(models.Model):
 
     vendor_bill_id = fields.Many2one("account.move", string="Vendor Bill ID",compute="get_vendor_bill")
 
-    vendor_bill_ids = fields.Many2many("account.move", string="Vendor Bill ID",compute="get_vendor_bill_ids")
+    vendor_bill_ids = fields.Many2many("account.move", string="Vendor Bill IDs",compute="get_vendor_bill_ids")
     
 
     def get_vendor_bill(self):
@@ -71,3 +71,29 @@ class PosOrder(models.Model):
             }
         })
         return action
+
+    def _create_order_picking(self):
+        self.ensure_one()
+        if self.to_ship:
+            self.lines._launch_stock_rule_from_pos_order_lines()
+        else:
+            if self._should_create_picking_real_time():
+                picking_type = self.config_id.picking_type_id
+                if self.partner_id.property_stock_customer:
+                    destination_id = self.partner_id.property_stock_customer.id
+                elif not picking_type or not picking_type.default_location_dest_id:
+                    destination_id = self.env['stock.warehouse']._get_partner_locations()[0].id
+                else:
+                    destination_id = picking_type.default_location_dest_id.id
+
+                pickings = self.env['stock.picking']._create_picking_from_pos_order_lines(destination_id, self.lines, picking_type, self.partner_id)
+                pickings.write({'pos_session_id': self.session_id.id, 'pos_order_id': self.id, 'origin': self.name})
+
+                if self.config_id.pos_internal:
+                    picking = self.config_id.default_warehouse_location
+                    location = self.config_id.default_location_dest
+
+                    # origin_dupli = '%s (%s)' %(pickings.origin)
+
+                    tranindo_brenn = pickings.copy({'picking_type_id':self.picking_type_id.id,'location_id':location.id, 'location_dest_id': picking.id, 'no_po_do':pickings.origin})
+                    tranindo_brenn.move_ids_without_package.write({'location_id':location.id,'location_dest_id': pickings.location_id.id})
