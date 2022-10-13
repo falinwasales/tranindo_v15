@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta, MO, SU
 from odoo.exceptions import UserError, ValidationError
 from num2words import num2words
 from odoo.tools import float_round
+import math
 
 FK_HEAD_LIST = ['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK', 'TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP', 'NAMA', 'ALAMAT_LENGKAP', 'JUMLAH_DPP', 'JUMLAH_PPN', 'JUMLAH_PPNBM', 'ID_KETERANGAN_TAMBAHAN', 'FG_UANG_MUKA', 'UANG_MUKA_DPP', 'UANG_MUKA_PPN', 'UANG_MUKA_PPNBM', 'REFERENSI', 'KODE_DOKUMEN_PENDUKUNG']
 
@@ -165,13 +166,17 @@ class AccountInvoice(models.Model):
                 dpp_amount = harga_total - discount_value
                 ppn_amount = (harga_total - discount_value) * line.tax_ids.amount/100
 
+                harga_total_round = math.ceil(harga_total) if (harga_total%1) >= 0.44 else math.floor(harga_total)
+                discount_value_round = math.ceil(discount_value) if (discount_value%1) >= 0.44 else math.floor(discount_value)
+                dpp_amount_round = math.ceil(dpp_amount) if (dpp_amount%1) >= 0.44 else math.floor(dpp_amount)
+
                 line_dict = {
                     'KODE_OBJEK': line.product_id.default_code or '',
                     'NAMA': '[%s] %s'%(line.product_id.default_code, line.product_id.name) if line.product_id.default_code else line.product_id.name or '',
                     'HARGA_SATUAN': int(float_round(invoice_line_unit_price, 0)),
                     'JUMLAH_BARANG': line.quantity,
-                    'HARGA_TOTAL': int(float_round(harga_total, 0)),
-                    'DPP': int(float_round(dpp_amount,0)),
+                    'HARGA_TOTAL': harga_total_round,
+                    'DPP': dpp_amount_round,
                     'product_id': line.product_id.id,
                 }
 
@@ -180,7 +185,7 @@ class AccountInvoice(models.Model):
                         free_tax_line += (line.price_subtotal * (tax.amount / 100.0)) * -1.0
 
                     line_dict.update({
-                        'DISKON': int(float_round(discount_value, 0)),
+                        'DISKON': discount_value_round,
                         'PPN': int(float_round(ppn_amount, 0)),
                     })
                     free.append(line_dict)
@@ -188,7 +193,7 @@ class AccountInvoice(models.Model):
                     invoice_line_discount_m2m = invoice_line_total_price - line.price_subtotal
 
                     line_dict.update({
-                        'DISKON': int(float_round(discount_value, 0)),
+                        'DISKON': discount_value_round,
                         'PPN': int(float_round(ppn_amount, 0)),
                     })
                     sales.append(line_dict)
