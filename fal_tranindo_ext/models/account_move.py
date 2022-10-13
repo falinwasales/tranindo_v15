@@ -189,7 +189,8 @@ class AccountInvoice(models.Model):
 
                 line_dict = {
                     'KODE_OBJEK': line.product_id.default_code or '',
-                    'NAMA': '[%s] %s'%(line.product_id.default_code, line.product_id.name) if line.product_id.default_code else line.product_id.name or '',
+                    # 'NAMA': '[%s] %s'%(line.product_id.default_code, line.product_id.name) if line.product_id.default_code else line.product_id.name or '',
+                    'NAMA': line.name,
                     'HARGA_SATUAN': int(float_round(invoice_line_unit_price, 0)),
                     'JUMLAH_BARANG': line.quantity,
                     'HARGA_TOTAL': harga_total_round,
