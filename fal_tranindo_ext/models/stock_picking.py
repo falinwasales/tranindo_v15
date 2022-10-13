@@ -71,6 +71,3 @@ class StockPicking(models.Model):
             # self.move_line_ids_without_package.update(vals)
             # print("******************")
             # print(move.id)
-
-    
-            
