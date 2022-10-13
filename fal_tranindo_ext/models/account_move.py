@@ -105,9 +105,9 @@ class AccountInvoice(models.Model):
             nik = str(move.partner_id.l10n_id_nik) if not move.partner_id.vat else ''
 
             if move.l10n_id_replace_invoice_id:
-                number_ref = str(move.l10n_id_replace_invoice_id.name) + " replaced by " + str(move.name) + " " + nik
+                number_ref = str(move.l10n_id_replace_invoice_id.name) + " replaced by " + str(move.name)
             else:
-                number_ref = str(move.name) + " " + nik
+                number_ref = str(move.name)
 
             street = ', '.join([x for x in (move.partner_id.street, move.partner_id.street2) if x])
 
@@ -160,14 +160,14 @@ class AccountInvoice(models.Model):
                 invoice_line_unit_price = line.price_unit
 
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
-                harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100))
+                harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100)) if line.tax_ids.price_include else invoice_line_total_price
                 discount_value = harga_total * line.discount/100
                 dpp_amount = harga_total - discount_value
                 ppn_amount = (harga_total - discount_value) * line.tax_ids.amount/100
 
                 line_dict = {
                     'KODE_OBJEK': line.product_id.default_code or '',
-                    'NAMA': line.product_id.name or '',
+                    'NAMA': '[%s] %s'%(line.product_id.default_code, line.product_id.name) if line.product_id.default_code else line.product_id.name or '',
                     'HARGA_SATUAN': int(float_round(invoice_line_unit_price, 0)),
                     'JUMLAH_BARANG': line.quantity,
                     'HARGA_TOTAL': int(float_round(harga_total, 0)),
