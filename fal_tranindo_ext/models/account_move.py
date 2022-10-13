@@ -123,6 +123,8 @@ class AccountInvoice(models.Model):
             jumlah_ppn = 0
 
             for line in move.line_ids.filtered(lambda l: not l.exclude_from_invoice_tab and not l.display_type):
+                invoice_line_unit_price = line.price_unit
+
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
                 harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100)) if line.tax_ids.price_include else invoice_line_total_price
                 discount_value = harga_total * line.discount/100
