@@ -45,7 +45,7 @@ class AccountMove(models.Model):
         for record in self:
             # record.customer_reference = ''
             for line in record.invoice_line_ids:
-                for test in line.sale_Line_ids:
+                for test in line.sale_line_ids:
                     for result in test.order_id:
                         if result.client_order_ref:
                             record.customer_reference = result.client_order_ref
