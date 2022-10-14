@@ -148,11 +148,16 @@
                             <div class="content-group mt16" attrs="{'invisible' : [('pos_internal', '=', False)]}">
                                 <div>
                                     <label for="limited_products_amount" string="Default Warehouse" class="col-lg-5 o_light_label"/>
-                                    <field name="default_warehouse_location" class="oe_inline"/>
+                                    <field name="default_warehouse_location" class="oe_inline" required="1"/>
                                 </div>
                                 <div>
                                     <label for="limited_products_amount" string="Default Destination" class="col-lg-5 o_light_label"/>
-                                    <field name="default_location_dest" class="oe_inline"/>
+                                    <field name="default_location_dest" class="oe_inline" required="1"/>
+                                </div>
+
+                                <div>
+                                    <label for="limited_products_amount" string="Default Sequence" class="col-lg-5 o_light_label"/>
+                                    <field name="default_sequence_id" domain="[('use_date_range','=',True)]" class="oe_inline" required="1"/>
                                 </div>
                             </div>
                         </div>

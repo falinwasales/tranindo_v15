@@ -16,3 +16,5 @@ class PosConfig(models.Model):
 
     default_warehouse_location = fields.Many2one("stock.location",string="Default PIcking")
     default_location_dest = fields.Many2one("stock.location",string="Default Destination")
+
+    default_sequence_id = fields.Many2one("ir.sequence", string="Default Sequence")

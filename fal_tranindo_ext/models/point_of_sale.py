@@ -94,7 +94,10 @@ class PosOrder(models.Model):
                 if self.config_id.pos_internal:
                     picking = self.config_id.default_warehouse_location
                     location = self.config_id.default_location_dest
+                    sequence_code = self.config_id.default_sequence_id.code
 
-                    tranindo_brenn = pickings.copy({'picking_type_id':self.picking_type_id.id,'location_id':picking.id, 
+                    sequence = self.env["ir.sequence"].next_by_code(sequence_code)
+
+                    tranindo_brenn = pickings.copy({'name':sequence, 'picking_type_id':self.picking_type_id.id,'location_id':picking.id, 
                         'location_dest_id': location.id, 'origin':pickings.pos_picking_origin, 'no_po_do':pickings.pos_picking_origin})
                     tranindo_brenn.move_ids_without_package.write({'location_id':location.id,'location_dest_id': pickings.location_id.id})
