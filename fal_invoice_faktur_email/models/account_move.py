@@ -44,13 +44,15 @@ class AccountMove(models.Model):
     def _get_customer_reference(self):
         for record in self:
             # record.customer_reference = ''
-            for line in record.invoice_line_ids:
-                for test in line.sale_line_ids:
-                    for result in test.order_id:
-                        if result.client_order_ref:
-                            record.customer_reference = result.client_order_ref
-                        else:
-                            record.customer_reference = ''
+            record.customer_reference = ''
+            if record.invoice_line_ids:
+                for line in record.invoice_line_ids:
+                    if line.sale_line_ids:
+                        for test in line.sale_line_ids:
+                            if test.order_id:
+                                for result in test.order_id:
+                                    if result.client_order_ref:
+                                        record.customer_reference = result.client_order_ref
                             
     def action_invoice_sent(self):
         """ Open a window to compose an email, with the edi invoice template
