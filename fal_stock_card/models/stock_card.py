@@ -158,7 +158,7 @@ class stock_card(models.Model):
 
                 data = {
                     "stock_card_id": sc.id,
-                    "move_id": sm.id,
+                    "move_id": sm.move_id.id,
                     "picking_id": sm.picking_id.id,
                     "date": sm.date,
                     "qty_start": qty_start,
