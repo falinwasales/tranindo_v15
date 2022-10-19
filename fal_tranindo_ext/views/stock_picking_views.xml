@@ -8,18 +8,19 @@
                 <xpath expr="//field[@name='move_type']" position="before">
                     <field name="diff_trans_del" invisible='1'/>
                     <field name="do_ref" attrs="{'invisible': [('diff_trans_del', '!=', True)]}"/>
-                    <field name="no_po_do" attrs="{'invisible': [('diff_trans_del', '=', True)]}"/>
+                    <field name="no_po_do" attrs="{'invisible': ['|',('diff_trans_del', '=', True),('pos_order_id', '!=', True)]}"/>
+                    <field name="pos_po_do" attrs="{'invisible': [('pos_order_id', '=', True)]}"/>
                 </xpath>
 
-                <xpath expr="//field[@name='origin']" position="after">
+                <xpath expr="//field[@name='origin']" position="replace">
+                    <field name="origin" attrs="{'invisible': [('pos_order_id', '!=', True)]}"/>
+                    <field name="pos_picking_origin"/>
+                    <field name="pos_account_move_id"/>
+                    <field name="pos_order_id"/>
                     <field name="is_print_kit"/>
                     <field name="contact_phone_show"/>
                     <field name="sticker_delivery"/>
                 </xpath>
-
-                <!-- <xpath expr="//button[@name='action_assign']" position="after">
-                    <button name="get_operation_detail" attrs="{'invisible': [('show_check_availability', '=', False)]}" string="Generate Detail" type="object" class="oe_highlight" groups="base.group_user"/>
-                </xpath> -->
 
                 <xpath expr="//field[@name='move_line_ids_without_package']" position="inside">
                     <tree editable="bottom" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id">

@@ -72,7 +72,7 @@
                                                     <span style="font-size: 12px;" t-field="invoice.tt_tax_get"/>
                                                 </t>
                                                 <t t-else="">
-                                                    <span style="font-size: 12px;" t-field="invoice.amount_residual"/>
+                                                    <span style="font-size: 12px;" t-field="invoice.l10n_id_tax_number"/>
                                                 </t>
                                             </td>
                                             <td class="text-right" style="padding-top: 0; padding-bottom: 0;">

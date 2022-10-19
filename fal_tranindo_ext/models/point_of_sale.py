@@ -86,14 +86,18 @@ class PosOrder(models.Model):
                 else:
                     destination_id = picking_type.default_location_dest_id.id
 
+                account_move_name = self.account_move if self.account_move else ''
+
                 pickings = self.env['stock.picking']._create_picking_from_pos_order_lines(destination_id, self.lines, picking_type, self.partner_id)
-                pickings.write({'pos_session_id': self.session_id.id, 'pos_order_id': self.id, 'origin': self.name})
+                pickings.write({'pos_session_id': self.session_id.id, 'pos_order_id': self.id, 'origin': self.name, 'pos_account_move_id': account_move_name})
 
                 if self.config_id.pos_internal:
                     picking = self.config_id.default_warehouse_location
                     location = self.config_id.default_location_dest
+                    sequence_code = self.config_id.default_sequence_id.code
 
-                    # origin_dupli = '%s (%s)' %(pickings.origin)
+                    sequence = self.env["ir.sequence"].next_by_code(sequence_code)
 
-                    tranindo_brenn = pickings.copy({'picking_type_id':self.picking_type_id.id,'location_id':location.id, 'location_dest_id': picking.id, 'no_po_do':pickings.origin})
+                    tranindo_brenn = pickings.copy({'name':sequence, 'picking_type_id':self.picking_type_id.id,'location_id':picking.id, 
+                        'location_dest_id': location.id, 'origin':pickings.pos_picking_origin, 'no_po_do':pickings.pos_picking_origin})
                     tranindo_brenn.move_ids_without_package.write({'location_id':location.id,'location_dest_id': pickings.location_id.id})
