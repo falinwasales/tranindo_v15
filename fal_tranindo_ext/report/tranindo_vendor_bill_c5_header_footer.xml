@@ -69,33 +69,14 @@
                             </span>
                         </div>
                         <div class="w-75">
-                            <span style="margin-left: 30px;">
-                                : <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row w-100">
-                        <div class="w-25">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                <b>No. Rek</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                : <span t-field="doc.partner_bank_id" class="o_bold"/>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row w-100">
-                        <div class="w-25">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                <b>Email</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                : <span t-field="doc.partner_id.email" class="o_bold"/>
-                            </span>
+                            <div class="row" style="margin-left: 30px;">
+                                <span>
+                                    : 
+                                    <div>
+                                        <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
+                                    </div>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -126,22 +107,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="row w-100">
-                        <div class="w-25">
-                            <span style="font-size:14px; margin-left: 20px;">
-                                <b>Tanggal</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="margin-left: 20px;">
-                                : <span t-esc="doc.invoice_date.strftime('%d %b %Y')" class="o_bold"/>
-                            </span>
-                        </div>
-                    </div>
                 </div>
             </div>
             <!--  -->
-            <hr style="background-color: black; margin-top: 0px;"/>
+            <!-- <hr style="background-color: black; margin-top: 0px;"/> -->
         </div>
         <!--  -->
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
