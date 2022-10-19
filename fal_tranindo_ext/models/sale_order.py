@@ -1,5 +1,5 @@
 from odoo import fields, models, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -72,6 +72,12 @@ class SaleOrder(models.Model):
     #     for rec in self:
     #         rec.picking_ids.write({"diff_trans_del": True})
     #     return res
+
+    @api.constrains('order_line')
+    def _constraints_qty_on_hand(self):
+        for record in self.order_line:
+            if record.product_qty_available< 1:
+                raise ValidationError(_('The product lack of quantity on hand'))
 
     @api.model
     def create(self, vals):

@@ -89,7 +89,7 @@
                                             </th>
                                             <th class="border-top-0 border-bottom border-dark text-left">
                                                 <span style="font-size: 15px;">
-                                                    Diskon
+                                                    Disc.%
                                                 </span>
                                             </th>
                                             <th class="border-top-0 border-bottom border-dark text-left">
@@ -132,6 +132,38 @@
 
                                 <div class="pt-1"/>
 
+                                <div class="row border-top" style="width: 40%; margin-left: 60%;">
+                                    <div class="" style="width:50%;">
+                                        <div style="margin-left: 15px;" >
+                                            <span style="font-size: 16px; font-weight: bold;">
+                                                Untaxed Amount
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="" style="width:50%;">
+                                        <div style="text-align: right;">
+                                            <span style="font-size: 16px;">
+                                                <span t-field="doc.amount_untaxed"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="width: 40%; margin-left: 60%;">
+                                    <div class="" style="width:50%;">
+                                        <div style="margin-left: 15px;" >
+                                            <span style="font-size: 16px; font-weight: bold;">
+                                                Taxes
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="" style="width:50%;">
+                                        <div style="text-align: right;">
+                                            <span style="font-size: 16px;">
+                                                <span t-field="doc.amount_tax"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row border-top" style="width: 40%; margin-left: 60%;">
                                     <div class="" style="width:50%;">
                                         <div style="margin-left: 15px;" >

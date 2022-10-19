@@ -38,14 +38,19 @@
             <div class="row">
                 <div class="w-50">
                     <div class="row">
-                        <div class="w-25">
+                        <div class="" style="width: 40%;">
                             <span style="font-size: 14px;margin-left: 35px;">
-                                Diterima Oleh
+                                <t t-if="doc.payment_voucher_bool">
+                                    Dibayarkan Kepada
+                                </t>
+                                <t t-else="">
+                                    Diterima Dari
+                                </t>    
                             </span>
                         </div>
-                        <div class="w-75">
+                        <div style="width: 60%;">
                             <span style="margin-left: 40px; font-size: 14px;">
-                                : <span t-field="doc.company_id.name"></span>
+                                : <span t-field="doc.partner_id.name"></span>
                             </span>
                         </div>
                     </div>
