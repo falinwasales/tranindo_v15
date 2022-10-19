@@ -31,3 +31,8 @@ class AccountPaymentMethod(models.Model):
         res['provin'] = {'mode': 'multi', 'domain': [('type', '=', 'bank')]}
         res['provout'] = {'mode': 'multi', 'domain': [('type', '=', 'bank')]}
         return res
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    bank_provision_id =fields.Many2one('fal.bank.provision', string="Bank Provision")
