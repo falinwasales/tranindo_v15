@@ -73,11 +73,11 @@ class SaleOrder(models.Model):
     #         rec.picking_ids.write({"diff_trans_del": True})
     #     return res
 
-    @api.constrains('order_line')
-    def _constraints_qty_on_hand(self):
-        for record in self.order_line:
-            if record.product_qty_available< 1:
-                raise ValidationError(_('The product lack of quantity on hand'))
+    # @api.onchange('order_line')
+    # def _constraints_qty_on_hand(self):
+    #     for record in self.order_line:
+    #         if record.product_qty_available< 1:
+    #             raise ValidationError(_('The product lack of quantity on hand'))
 
     @api.model
     def create(self, vals):
