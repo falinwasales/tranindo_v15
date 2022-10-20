@@ -10,6 +10,7 @@ class BankProvision(models.Model):
     _inherit = ['mail.thread']
     _description = 'Bank Provision'
 
+    x_studio_company = fields.Many2one('res.company', string="Company")
     name = fields.Char(string='No. Bank Provision')
     partner_id = fields.Many2one('res.partner', string="Customer")
     date_payment = fields.Date('Payment Date')
