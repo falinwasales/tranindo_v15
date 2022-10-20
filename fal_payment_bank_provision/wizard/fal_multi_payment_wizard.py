@@ -68,7 +68,7 @@ class AccountPaymentRegister(models.TransientModel):
                         'invoice_ids': inv_list,
                         'note': payment.ref,
                         'due_date': self.due_date,
-                        'jurnal_dest_id': payment.journal_id.id,
+                        'jurnal_dest_id': payment.jurnal_dest_id.id,
                         'currency_id': payment.currency_id.id
                     }
                     self.env['fal.bank.provision'].create(data)

@@ -88,16 +88,19 @@ class PosOrder(models.Model):
 
                 account_move_name = self.account_move if self.account_move else ''
 
+                name_name = '%s' % (self.name) if not account_move_name else '%s (%s)' % (self.name, account_move_name.name)
+
                 pickings = self.env['stock.picking']._create_picking_from_pos_order_lines(destination_id, self.lines, picking_type, self.partner_id)
-                pickings.write({'pos_session_id': self.session_id.id, 'pos_order_id': self.id, 'origin': self.name, 'pos_account_move_id': account_move_name})
+                pickings.write({'pos_session_id': self.session_id.id, 'pos_order_id': self.id, 'pos_picking_origin': name_name, 'pos_po_do':name_name, 
+                'pos_account_move_id': account_move_name})
 
-                if self.config_id.pos_internal:
-                    picking = self.config_id.default_warehouse_location
-                    location = self.config_id.default_location_dest
-                    sequence_code = self.config_id.default_sequence_id.code
+                # if self.config_id.pos_internal:
+                #     picking = self.config_id.default_warehouse_location
+                #     location = self.config_id.default_location_dest
+                #     sequence_code = self.config_id.default_sequence_id.code
 
-                    sequence = self.env["ir.sequence"].next_by_code(sequence_code)
+                #     sequence = self.env["ir.sequence"].next_by_code(sequence_code)
 
-                    tranindo_brenn = pickings.copy({'name':sequence, 'picking_type_id':self.picking_type_id.id,'location_id':picking.id, 
-                        'location_dest_id': location.id, 'origin':pickings.pos_picking_origin, 'no_po_do':pickings.pos_picking_origin})
-                    tranindo_brenn.move_ids_without_package.write({'location_id':location.id,'location_dest_id': pickings.location_id.id})
+                #     tranindo_brenn = pickings.copy({'name':sequence, 'picking_type_id':self.picking_type_id.id,'location_id':picking.id, 
+                #         'location_dest_id': location.id, 'origin':pickings.pos_picking_origin, 'no_po_do':pickings.pos_picking_origin})
+                #     tranindo_brenn.move_ids_without_package.write({'location_id':location.id,'location_dest_id': pickings.location_id.id})
