@@ -20,14 +20,8 @@ class StockPicking(models.Model):
     diff_trans_del = fields.Boolean(string="Bool", compute="_get_value")
     contact_phone_show = fields.Boolean(string="Partner Phone")
     pos_account_move_id = fields.Many2one('account.move', string="PoS Move", related="pos_order_id.account_move")
-    pos_picking_origin = fields.Char(string="Source Document", compute="_get_origin")
-    pos_po_do = fields.Char(string="Customer Reference", related="pos_picking_origin")
-
-    def _get_origin(self):
-        for record in self:
-            record.pos_picking_origin = ""
-            if record.pos_account_move_id:
-                record.pos_picking_origin = '%s (%s)' % (record.pos_order_id.name, record.pos_account_move_id.name)
+    pos_picking_origin = fields.Char(string="Source Document")
+    pos_po_do = fields.Char(string="Customer Reference")
 
     def _get_value(self):
         for record in self:

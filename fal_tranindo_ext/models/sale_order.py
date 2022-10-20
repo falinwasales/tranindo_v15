@@ -67,18 +67,6 @@ class SaleOrder(models.Model):
 
     fal_stock_picking_id = fields.Many2one("stock.picking", compute='_fal_get_stock_picking', string="Delivery")
 
-    # def action_confirm(self):
-    #     res = super(SaleOrder, self).action_confirm()
-    #     for rec in self:
-    #         rec.picking_ids.write({"diff_trans_del": True})
-    #     return res
-
-    @api.constrains('order_line')
-    def _constraints_qty_on_hand(self):
-        for record in self.order_line:
-            if record.product_qty_available< 1:
-                raise ValidationError(_('The product lack of quantity on hand'))
-
     @api.model
     def create(self, vals):
         if vals.get('client_order_ref') and vals.get('company_id'):

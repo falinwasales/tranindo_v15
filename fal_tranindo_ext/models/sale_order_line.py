@@ -42,3 +42,14 @@ class SaleOrderLine(models.Model):
                 record.disc_round = math.ceil(record.discount * 100)/100
             else:
                 record.disc_round = round(record.discount,2)
+
+    @api.onchange('product_id')
+    def _warning_onchange_product_qty_on_hand(self):
+        for record in self:
+            if record.product_id:
+                if record.product_qty_available <= 0:
+                    warning_mess = {
+                        'title': _('Warning.'),
+                        'message': _('The product [%s] have 0 Qty on Hand.' % (record.product_id.name))
+                    }
+                    return {'warning': warning_mess}
