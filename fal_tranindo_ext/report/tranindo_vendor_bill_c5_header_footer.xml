@@ -62,23 +62,6 @@
                             </span>
                         </div>
                     </div>
-                    <div class="row w-100">
-                        <div class="w-25">
-                            <span style="font-size:14px; margin-left: 30px;">
-                                <b>Pembayaran</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <div class="row" style="margin-left: 30px;">
-                                <span>
-                                    : 
-                                    <div>
-                                        <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!--  -->
                 <div class="w-50">
@@ -92,18 +75,6 @@
                             <span style="margin-left: 20px;">
                                 : 
                                 <!-- <span style="font-size:14px;" t-field="doc.name" class="o_bold"/> -->
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row w-100">
-                        <div class="w-25">
-                            <span style="font-size:14px; margin-left: 20px;">
-                                <b>No. Bill</b>
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="margin-left: 20px;">
-                                : <span style="font-size:14px;" t-field="doc.name" class="o_bold"/>
                             </span>
                         </div>
                     </div>
