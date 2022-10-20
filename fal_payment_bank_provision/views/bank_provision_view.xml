@@ -118,7 +118,7 @@
                </search>
             </field>
         </record>
-<!--         <record id="fal_view_account_payment_form" model="ir.ui.view">
+        <record id="fal_view_account_payment_form" model="ir.ui.view">
             <field name="name">fal.view.account.payment.form</field>
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_form"/>
@@ -131,7 +131,7 @@
                     <field name="is_provision" invisible="1"/>
                 </xpath>
             </field>
-        </record> -->
+        </record>
 
         <menuitem parent="account.menu_finance_entries_management" name="Bank Provision" id="menu_payment_provision_cust" action="view_bank_provision_action" sequence="37"/>
         
