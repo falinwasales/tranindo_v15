@@ -71,8 +71,8 @@ class BankProvision(models.Model):
             name = "Provision - " + str(line.name)
             self_currency = line.currency_id.id
             amount = line.amount
-            db_acc = line.jurnal_dest_id.company_id.account_journal_payment_credit_account_id.id
-            cr_acc = line.payment_id.journal_id.company_id.account_journal_payment_debit_account_id.id
+            db_acc = line.jurnal_dest_id.default_account_id.id
+            cr_acc = line.payment_id.journal_id.default_account_id.id
 
             company_currency = line.payment_id.company_id.currency_id
 
