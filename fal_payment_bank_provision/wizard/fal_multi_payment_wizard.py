@@ -43,45 +43,51 @@ class AccountPaymentRegister(models.TransientModel):
     def _create_payments(self):
         res = super(AccountPaymentRegister, self)._create_payments()
         inv_list = []
+        prov = []
+        inv_list_ids = list()
+        provision_in = self.env.ref(
+            'fal_payment_bank_provision.account_payment_method_bankprov_in')
+        prov.append(provision_in.id)
+        provision_out = self.env.ref(
+            'fal_payment_bank_provision.account_payment_method_bankprov_out')
+        prov.append(provision_out.id)
         for payment in res:
             if payment.reconciled_invoice_ids:
-                inv_list.append((6, 0, payment.reconciled_invoice_ids.ids))
-            else:
-                inv_list = False
-            prov = []
-            provision_in = self.env.ref(
-                'fal_payment_bank_provision.account_payment_method_bankprov_in')
-            prov.append(provision_in.id)
-            provision_out = self.env.ref(
-                'fal_payment_bank_provision.account_payment_method_bankprov_out')
-            prov.append(provision_out.id)
+                inv_list_ids += payment.reconciled_invoice_ids.ids
+        if inv_list_ids:
+            inv_list.append((6,0, inv_list_ids))
+        print('____________________________________')
+        print(inv_list)
+        print(inv_list_ids)
+        # print(EROR)
+            # for line in self.payment_wizard_line_ids:
+        if any(payment.payment_method_id.id in prov for payment in res):
+            data = {
+                'name': payment.fal_bank_provision_id,
+                'state': 'draft',
+                'partner_id': payment.partner_id.id,
+                'payment_id': payment.id,
+                'date_payment': payment.date,
+                'amount': payment.amount,
+                'invoice_ids': inv_list,
+                'note': payment.ref,
+                'due_date': self.due_date,
+                'jurnal_dest_id': self.jurnal_dest_id.id,
+                'currency_id': payment.currency_id.id
+            }
+            self.env['fal.bank.provision'].create(data)
 
-            for line in self.payment_wizard_line_ids:
-                if payment.payment_method_id.id in prov:
-                    data = {
-                        'name': line.fal_bank_provision_id,
-                        'state': 'draft',
-                        'partner_id': payment.partner_id.id,
-                        'payment_id': payment.id,
-                        'date_payment': payment.date,
-                        'amount': payment.amount,
-                        'invoice_ids': inv_list,
-                        'note': payment.ref,
-                        'due_date': self.due_date,
-                        'jurnal_dest_id': self.jurnal_dest_id.id,
-                        'currency_id': payment.currency_id.id
-                    }
-                    self.env['fal.bank.provision'].create(data)
-
-        if self.fal_split_multi_payment:
-            for line in self.payment_wizard_line_ids:
-                if line.is_provision:
-                    if not line.fal_bank_provision_id:
-                        raise UserError('Please set No. Bank Provision')
+        # if self.fal_split_multi_payment:
+        #     for line in self.payment_wizard_line_ids:
+        #         if line.is_provision:
+        #             if not line.fal_bank_provision_id:
+        #                 raise UserError('Please set No. Bank Provision')
         return res
 
     @api.onchange('payment_method_line_id')
-    def _onchange_payment_method_line_id(self):
+    def _onchange_payment_met
+    
+    hod_line_id(self):
         if self.payment_method_line_id:
             prov = []
             provision_in = self.env.ref(
