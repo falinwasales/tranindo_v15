@@ -85,9 +85,7 @@ class AccountPaymentRegister(models.TransientModel):
         return res
 
     @api.onchange('payment_method_line_id')
-    def _onchange_payment_met
-    
-    hod_line_id(self):
+    def _onchange_payment_method_line_id(self):
         if self.payment_method_line_id:
             prov = []
             provision_in = self.env.ref(
