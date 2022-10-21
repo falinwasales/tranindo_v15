@@ -68,13 +68,18 @@ class BankProvision(models.Model):
         line_list = []
         datenow = self.date_reconciled or fields.Date.context_today(self)
         for line in self:
+            amount = 0
             name = "Provision - " + str(line.name)
             self_currency = line.currency_id.id
-            amount = line.amount
+            # amount = line.amount
             db_acc = line.jurnal_dest_id.default_account_id.id
             cr_acc = line.payment_id.journal_id.default_account_id.id
 
             company_currency = line.payment_id.company_id.currency_id
+
+            for record in line.invoice_ids:
+                if record:
+                    amount += record.amount_total_signed
 
             # Manage currency.
             if line.currency_id == company_currency:
