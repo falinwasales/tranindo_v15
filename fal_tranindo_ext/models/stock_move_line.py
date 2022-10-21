@@ -15,11 +15,14 @@ class StockMove(models.Model):
     def _get_bom_product(self):
         for record in self:
             test = self.env['product.product'].search([('name','=',record.name)])
-            record.product_move_bom = record.product_id.id if record.product_id else record.product_id.id
-            for line in test:
-                print(line)
-                if line:
-                    record.product_move_bom = line.id
+            # record.product_move_bom = record.product_id.id if record.product_id else record.product_id.id
+            if test:
+                for line in test:
+                    print(line)
+                    if line:
+                        record.product_move_bom = line.id
+            else:
+                record.product_move_bom = record.product_id.id
 
     @api.depends('location_id')
     def _get_qty_location(self):
