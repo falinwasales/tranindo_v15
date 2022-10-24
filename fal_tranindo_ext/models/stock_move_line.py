@@ -10,16 +10,23 @@ class StockMove(models.Model):
 
     move_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location")
     product_move_bom = fields.Many2one('product.product', string="Product BoM", compute="_get_bom_product")
+    product_move_bom_internal = fields.Many2one('product.product',string="Product BoM")
+
+    @api.onchange('product_id')
+    def _onchange_product_id_get_bom(self):
+        for record in self:
+            product = record.product_id.with_context(lang=self._get_lang())
+            if product:
+                record.product_move_bom_internal = product.id
 
     @api.depends('product_id')
     def _get_bom_product(self):
         for record in self:
-            test = self.env['product.product'].search([('name','=',record.name)])
-            record.product_move_bom = record.product_id.id if record.product_id else record.product_id.id
-            for line in test:
-                print(line)
-                if line:
-                    record.product_move_bom = line.id
+            record.product_move_bom = False
+            if record.sale_line_id:
+                for sale_id in record.sale_line_id:
+                    record.product_move_bom = sale_id.product_id
+
 
     @api.depends('location_id')
     def _get_qty_location(self):
