@@ -9,8 +9,8 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     move_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location")
-    product_move_bom = fields.Many2one('product.product', string="Product BoM", compute="_get_bom_product")
-    product_move_bom_internal = fields.Many2one('product.product',string="Product BoM")
+    product_move_bom = fields.Many2one('product.product', string="Sale BoM", compute="_get_bom_product")
+    product_move_bom_internal = fields.Many2one('product.product',string="Internal BoM")
 
     @api.onchange('product_id')
     def _onchange_product_id_get_bom(self):
@@ -21,11 +21,23 @@ class StockMove(models.Model):
 
     @api.depends('product_id')
     def _get_bom_product(self):
-        for record in self:
-            record.product_move_bom = False
-            if record.sale_line_id:
-                for sale_id in record.sale_line_id:
-                    record.product_move_bom = sale_id.product_id
+        for line in self:
+            bom_name = line.name
+            remove_string = ']'
+            
+            if remove_string in line.name:
+                bom_name = bom_name.split('] ')[1]
+
+            print('***********')
+            print(bom_name)
+            # else:
+            #     bom_name = line.name
+            
+            product_search = self.env['product.product'].search([('name','=',bom_name)])
+
+            line.product_move_bom = product_search.id if product_search else line.product_id.id
+
+
 
 
     @api.depends('location_id')

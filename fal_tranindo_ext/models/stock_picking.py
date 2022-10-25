@@ -33,10 +33,7 @@ class StockPicking(models.Model):
     def _get_product_bom_report(self):
         data = []
         for record in self.move_ids_without_package:
-            if self.sale_id:
-                data.append([record, record.product_id, record.product_move_bom])
-            else:
-                data.append([record, record.product_id, record.product_move_bom_internal])
+            data.append([record, record.product_id, record.product_move_bom])
         
         res = {}
         for table, sale_product, bom in data:
