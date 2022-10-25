@@ -8,9 +8,10 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    no_po_do = fields.Char(string="Customer Reference")
+    no_po_do = fields.Char(string="Customer Reference", help="Reference from Sale.")
+    do_ref = fields.Char(string="Customer Reference", help="Reference from Internal.", related="sale_id.client_order_ref")
+    pos_po_do = fields.Char(string="Customer Reference", help="Reference from PoS.")
 
-    do_ref = fields.Char(string="Customer Reference", related="sale_id.client_order_ref")
     # no_purchase_ref = fields.Char(string="Customer Reference")
     sticker_delivery = fields.Integer(string="No. of Box")
     is_print_kit = fields.Boolean(string="Is Print Kit Only")
@@ -22,7 +23,21 @@ class StockPicking(models.Model):
     contact_phone_show = fields.Boolean(string="Partner Phone")
     pos_account_move_id = fields.Many2one('account.move', string="PoS Move", related="pos_order_id.account_move")
     pos_picking_origin = fields.Char(string="Source Document")
-    pos_po_do = fields.Char(string="Customer Reference")
+
+    pos_created_bool = fields.Boolean(string="PoS Bool", compute="_get_pos_bool")
+    sale_created_bool = fields.Boolean(string="Sale Bool", compute="_get_sale_bool")
+
+    def _get_sale_bool(self):
+        for record in self:
+            record.sale_created_bool = False
+            if record.sale_id:
+                record.sale_created_bool = True
+
+    def _get_pos_bool(self):
+        for record in self:
+            record.pos_created_bool = False
+            if record.pos_order_id:
+                record.pos_created_bool = True
 
     def _get_value(self):
         for record in self:

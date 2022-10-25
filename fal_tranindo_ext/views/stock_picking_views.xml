@@ -6,17 +6,19 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='move_type']" position="before">
-                    <field name="diff_trans_del" invisible='1'/>
-                    <field name="do_ref" attrs="{'invisible': [('diff_trans_del', '!=', True)]}"/>
-                    <field name="no_po_do" attrs="{'invisible': ['|',('diff_trans_del', '=', True),('pos_order_id', '!=', True)]}"/>
-                    <field name="pos_po_do" attrs="{'invisible': [('pos_order_id', '=', True)]}"/>
+                    <field name="no_po_do" attrs="{'invisible': ['|',('pos_created_bool', '=', True),('sale_created_bool', '=', True)]}"/>
+                    <field name="do_ref" attrs="{'invisible': [('sale_created_bool', '!=', True)]}"/>
+                    <field name="pos_po_do" attrs="{'invisible': [('pos_created_bool', '!=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='origin']" position="replace">
-                    <field name="origin" attrs="{'invisible': [('pos_order_id', '!=', True)]}"/>
-                    <field name="pos_picking_origin"/>
-                    <field name="pos_account_move_id"/>
-                    <field name="pos_order_id"/>
+                    <field name="origin" attrs="{'invisible': [('pos_created_bool','=',True)]}"/>
+                    <field name="diff_trans_del" invisible='1'/>
+                    <field name="pos_picking_origin" attrs="{'invisible': [('pos_created_bool', '=', True)]}"/>
+                    <field name="pos_account_move_id" invisible="1"/>
+                    <field name="pos_created_bool" invisible="1"/>
+                    <field name="sale_created_bool" invisible="1"/>
+                    <field name="pos_order_id" invisible="1"/>
                     <field name="sj_detail_product" attrs="{'invisible': [('is_print_kit', '=', True)]}"/>
                     <field name="is_print_kit" attrs="{'invisible': [('sj_detail_product', '=', True)]}"/>
                     <field name="contact_phone_show"/>
