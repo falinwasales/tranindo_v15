@@ -27,6 +27,15 @@ class StockPicking(models.Model):
     pos_created_bool = fields.Boolean(string="PoS Bool", compute="_get_pos_bool")
     sale_created_bool = fields.Boolean(string="Sale Bool", compute="_get_sale_bool")
 
+    delivery_note = fields.Text(string="Notes")
+    note = fields.Html('Notes', compute="_get_note_from_pos", store=True)
+
+    @api.depends('pos_order_id.note')
+    def _get_note_from_pos(self):
+        for record in self:
+            if record.pos_order_id:
+                record.note = record.pos_order_id.note
+
     def _get_sale_bool(self):
         for record in self:
             record.sale_created_bool = False
