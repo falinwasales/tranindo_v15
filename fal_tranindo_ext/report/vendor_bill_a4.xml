@@ -52,6 +52,18 @@
                                     <div class="row w-100">
                                         <div class="w-25">
                                             <span style="font-size:14px; margin-left: 20px;">
+                                                <b>No. Bill</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="margin-left: 20px;">
+                                                : <span t-field="doc.name" class="o_bold"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 20px;">
                                                 <b>Tanggal</b>
                                             </span>
                                         </div>
