@@ -18,7 +18,7 @@
                                     <div class="row w-100">
                                         <div style="width: 65px;">
                                             <span style="font-size:14px; margin-left: 30px;">
-                                                <b>No. PO</b>
+                                                <b>No. Rek</b>
                                             </span>
                                         </div>
                                         <div>
@@ -30,6 +30,25 @@
                                             <div style="margin-left: 0px;">
                                                 <span style="font-size:14px; word-break: break-word;">
                                                     <span t-field="doc.partner_bank_id" class="o_bold"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div style="width: 65px;">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>Pembayaran</b>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 83px;">
+                                                <b>:</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-50">
+                                            <div style="margin-left: 0px;">
+                                                <span style="font-size:14px; word-break: break-word;">
+                                                    <span t-field="doc.payment_reference" class="o_bold"/>
                                                 </span>
                                             </div>
                                         </div>
@@ -157,6 +176,21 @@
                                         </div>
                                         <div style="margin-left: 20px;" class="text-right">
                                             <span t-field="doc.amount_total"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <div style="margin-left: 15px; width: 30%;">
+                                            <span style="font-size: 12px;">
+                                                NOTE :
+                                            </span>
+                                        </div>
+                                        <div style="margin-left: 15px; width: 40%;">
+                                            <span style="margin-left: 5px; font-size: 12px;">
+                                                <span t-raw="doc.narration"/>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
