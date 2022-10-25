@@ -17,7 +17,8 @@
                     <field name="pos_picking_origin"/>
                     <field name="pos_account_move_id"/>
                     <field name="pos_order_id"/>
-                    <field name="is_print_kit"/>
+                    <field name="sj_detail_product" attrs="{'invisible': [('is_print_kit', '=', True)]}"/>
+                    <field name="is_print_kit" attrs="{'invisible': [('sj_detail_product', '=', True)]}"/>
                     <field name="contact_phone_show"/>
                     <field name="sticker_delivery"/>
                 </xpath>

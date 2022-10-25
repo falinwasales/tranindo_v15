@@ -16,6 +16,7 @@ class StockPicking(models.Model):
     is_print_kit = fields.Boolean(string="Is Print Kit Only")
 
     sj_binary = fields.Binary(string="SJ Binary")
+    sj_detail_product = fields.Boolean(string="Print detail Operation")
 
     diff_trans_del = fields.Boolean(string="Bool", compute="_get_value")
     contact_phone_show = fields.Boolean(string="Partner Phone")
