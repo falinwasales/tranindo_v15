@@ -53,7 +53,7 @@
                                     <t t-set="total_sub" t-value="0.0" t-options="{'widget': 'float', 'precision': 2}"/>
                                     <tbody>
                                         <t t-set="i" t-value="0"/>
-                                        <tr t-foreach="doc.tt_account_ids" t-as="invoice">
+                                        <tr t-foreach="doc.tt_account_ids.sorted(key=lambda x: x.invoice_date_due, reverse=True)" t-as="invoice">
                                             <t t-set="i" t-value="i+1"/>
                                             <td class="text-left" style="font-size: 12px; padding-bottom: 0;">
                                                 <span t-esc="i"/>
