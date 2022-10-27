@@ -148,16 +148,39 @@
                             <div class="content-group mt16" attrs="{'invisible' : [('pos_internal', '=', False)]}">
                                 <div>
                                     <label for="limited_products_amount" string="Default Warehouse" class="col-lg-5 o_light_label"/>
-                                    <field name="default_warehouse_location" class="oe_inline" required="1"/>
+                                    <field name="default_warehouse_location" class="oe_inline" attrs="{'invisible' : [('pos_internal', '=', True)]}"/>
                                 </div>
                                 <div>
                                     <label for="limited_products_amount" string="Default Destination" class="col-lg-5 o_light_label"/>
-                                    <field name="default_location_dest" class="oe_inline" required="1"/>
+                                    <field name="default_location_dest" class="oe_inline" attrs="{'invisible' : [('pos_internal', '=', True)]}"/>
                                 </div>
 
                                 <div>
                                     <label for="limited_products_amount" string="Default Sequence" class="col-lg-5 o_light_label"/>
-                                    <field name="default_sequence_id" domain="[('use_date_range','=',True)]" class="oe_inline" required="1"/>
+                                    <field name="default_sequence_id" domain="[('use_date_range','=',True)]" class="oe_inline" attrs="{'invisible' : [('pos_internal', '=', True)]}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//form[1]/sheet[1]/div[12]" position="replace">
+                <div class="row mt16 o_settings_container" id="accounting_section">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Journal Entries</span>
+                            <div class="text-muted">
+                                Configuration for journal entries of PoS orders
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16" title="Whenever you close a session, one entry is generated in the following accounting journal for all the orders not invoiced. Invoices are recorded in accounting separately.">
+                                    <label string="Sales Journal" for="journal_id" class="col-lg-3 o_light_label" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="journal_id" required="1" domain="[('company_id', '=', company_id), ('type', 'in', ('general', 'sale'))]" context="{'default_company_id': company_id, 'default_type': 'general'}"/>
+                                </div>
+                                <div class="row mt16" title="Whenever you close a session, one entry is generated in the following accounting journal for all the orders not invoiced. Invoices are recorded in accounting separately.">
+                                    <label string="Vendor Sequences" for="default_sequence_vendor" class="col-lg-3 o_light_label" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="default_sequence_vendor" required="1" />
                                 </div>
                             </div>
                         </div>
