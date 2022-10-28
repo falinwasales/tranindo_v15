@@ -30,62 +30,63 @@ class StockPicking(models.Model):
     delivery_note = fields.Text(string="Notes")
     note = fields.Html('Notes', compute="_get_note_from_pos", store=True)
 
-    @api.model
-    def _create_picking_from_pos_order_lines(self, location_dest_id, lines, picking_type, partner=False):
-        _logger.warning('_____________________________________')
-        _logger.warning('__________________BIKIN PICKING___________________')
-        """We'll create some picking based on order_lines"""
+    # @api.model
+    # def _create_picking_from_pos_order_lines(self, location_dest_id, lines, picking_type, partner=False):
+    #     _logger.warning('_____________________________________')
+    #     _logger.warning('__________________BIKIN PICKING___________________')
+    #     """We'll create some picking based on order_lines"""
 
-        pickings = self.env['stock.picking']
-        stockable_lines = lines.filtered(lambda l: l.product_id.type in ['product', 'consu'] and not float_is_zero(l.qty, precision_rounding=l.product_id.uom_id.rounding))
-        if not stockable_lines:
-            return pickings
-        positive_lines = stockable_lines.filtered(lambda l: l.qty > 0)
-        negative_lines = stockable_lines - positive_lines
+    #     pickings = self.env['stock.picking']
+    #     stockable_lines = lines.filtered(lambda l: l.product_id.type in ['product', 'consu'] and not float_is_zero(l.qty, precision_rounding=l.product_id.uom_id.rounding))
+    #     if not stockable_lines:
+    #         return pickings
+    #     positive_lines = stockable_lines.filtered(lambda l: l.qty > 0)
+    #     negative_lines = stockable_lines - positive_lines
 
-        if positive_lines:
-            location_id = picking_type.default_location_src_id.id
-            positive_picking = self.env['stock.picking'].create(
-                self._prepare_picking_vals(partner, picking_type, location_id, location_dest_id)
-            )
+    #     if positive_lines:
+    #         location_id = picking_type.default_location_src_id.id
+    #         positive_picking = self.env['stock.picking'].create(
+    #             self._prepare_picking_vals(partner, picking_type, location_id, location_dest_id)
+    #         )
 
-            _logger.warning('_____________________________________')
-            _logger.warning('__________________Check positive PICKING___________________')
-            _logger.warning(positive_picking)
-            _logger.warning(positive_picking.state)
-            positive_picking._create_move_from_pos_order_lines(positive_lines)
-            #             try:
-            # #                 with self.env.cr.savepoint():
-            # #                     positive_picking._action_done()
-            #             except (UserError, ValidationError):
-            #                 pass
+    #         _logger.warning('_____________________________________')
+    #         _logger.warning('__________________Check positive PICKING___________________')
+    #         _logger.warning(positive_picking)
+    #         _logger.warning(positive_picking.state)
+    #         positive_picking._create_move_from_pos_order_lines(positive_lines)
+    #         #             try:
+    #         # #                 with self.env.cr.savepoint():
+    #         # #                     positive_picking._action_done()
+    #         #             except (UserError, ValidationError):
+    #         #                 pass
 
-            pickings |= positive_picking
-        if negative_lines:
-            if picking_type.return_picking_type_id:
-                return_picking_type = picking_type.return_picking_type_id
-                return_location_id = return_picking_type.default_location_dest_id.id
-            else:
-                return_picking_type = picking_type
-                return_location_id = picking_type.default_location_src_id.id
+    #         pickings |= positive_picking
+    #     if negative_lines:
+    #         if picking_type.return_picking_type_id:
+    #             return_picking_type = picking_type.return_picking_type_id
+    #             return_location_id = return_picking_type.default_location_dest_id.id
+    #         else:
+    #             return_picking_type = picking_type
+    #             return_location_id = picking_type.default_location_src_id.id
 
-            negative_picking = self.env['stock.picking'].create(
-                self._prepare_picking_vals(partner, return_picking_type, location_dest_id, return_location_id)
-            )
-            negative_picking._create_move_from_pos_order_lines(negative_lines)
-            #             try:
-            #                 with self.env.cr.savepoint():
-            # #                     negative_picking._action_done()
-            #             except (UserError, ValidationError):
-            #                 pass
-            pickings |= negative_picking
-        _logger.warning('_____________________________________')
-        _logger.warning('__________________Check positive PICKING___________________')
-        _logger.warning(pickings)
-        for pick_cuk in pickings:
-            _logger.warning(pick_cuk.state)
-            #         _logger.warning(BABILAGI)
-        return pickings
+    #         negative_picking = self.env['stock.picking'].create(
+    #             self._prepare_picking_vals(partner, return_picking_type, location_dest_id, return_location_id)
+    #         )
+    #         negative_picking._create_move_from_pos_order_lines(negative_lines)
+    #         #             try:
+    #         #                 with self.env.cr.savepoint():
+    #         # #                     negative_picking._action_done()
+    #         #             except (UserError, ValidationError):
+    #         #                 pass
+    #         pickings |= negative_picking
+    #     _logger.warning('_____________________________________')
+    #     _logger.warning('__________________Check positive PICKING___________________')
+    #     _logger.warning(pickings)
+    #     for pick_cuk in pickings:
+    #         _logger.warning(pick_cuk.state)
+    #         #         _logger.warning(BABILAGI)
+    #     return pickings
+    
 
     @api.depends('pos_order_id.note')
     def _get_note_from_pos(self):
