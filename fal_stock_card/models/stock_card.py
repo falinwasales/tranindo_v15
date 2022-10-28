@@ -1,5 +1,6 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
+import re
 
 
 class stock_card(models.Model):
@@ -144,7 +145,8 @@ class stock_card(models.Model):
 
                 name = sm.move_id.name if sm.move_id.name != prod.display_name else ""
                 partner_name = sm.move_id.partner_id.name if sm.move_id.partner_id else ""
-                notes = sm.picking_id.note or ""
+                clean = re.compile('<.*?>')
+                notes = re.sub(clean, '', sm.picking_id.note) if sm.picking_id.note else ""
                 po_no = sm.move_id.group_id.name if sm.move_id.group_id else ""
                 origin = sm.origin or ""
                 finish_product = ""
