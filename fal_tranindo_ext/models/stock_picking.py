@@ -86,6 +86,7 @@ class StockPicking(models.Model):
     #         _logger.warning(pick_cuk.state)
     #         #         _logger.warning(BABILAGI)
     #     return pickings
+    
 
     @api.depends('pos_order_id.note')
     def _get_note_from_pos(self):
