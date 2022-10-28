@@ -22,20 +22,23 @@ class StockMove(models.Model):
     @api.depends('product_id')
     def _get_bom_product(self):
         for line in self:
-            bom_name = line.name
-            remove_string = ']'
-            
-            if remove_string in line.name:
-                bom_name = bom_name.split('] ')[1]
+            if line.product_id:
+                bom_name = line.name
+                remove_string = ']'
+                
+                if remove_string in line.name:
+                    bom_name = bom_name.split('] ')[1]
 
-            print('***********')
-            print(bom_name)
-            # else:
-            #     bom_name = line.name
-            
-            product_search = self.env['product.product'].search([('name','=',bom_name)])
+                print('***********')
+                print(bom_name)
+                # else:
+                #     bom_name = line.name
+                
+                product_search = self.env['product.product'].search([('name','=',bom_name)])
 
-            line.product_move_bom = product_search.id if product_search else line.product_id.id
+                line.product_move_bom = product_search.id if product_search else line.product_id.id
+            else:
+                line.product_move_bom = False
 
 
 
