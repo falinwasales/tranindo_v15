@@ -16,7 +16,7 @@
                             <div class="row">
                                 <div class="w-50">
                                     <div class="row w-100">
-                                        <div style="width: 65px;">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>No. Rek</b>
                                             </span>
@@ -29,13 +29,13 @@
                                         <div class="w-50">
                                             <div style="margin-left: 0px;">
                                                 <span style="font-size:14px; word-break: break-word;">
-                                                    <span t-field="doc.partner_bank_id" class="o_bold"/>
+                                                    <span style="margin-left: 5px;" t-field="doc.partner_bank_id" class="o_bold"/>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row w-100">
-                                        <div style="width: 65px;">
+                                    <div class="row">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>Pembayaran</b>
                                             </span>
@@ -45,24 +45,27 @@
                                                 <b>:</b>
                                             </span>
                                         </div>
-                                        <div class="">
-                                            <div style="margin-left: 0px; width: 83%;">
-                                                <span style="font-size:14px;">
-                                                    <span style="word-break: break-word;" t-field="doc.payment_reference" class="o_bold"/>
-                                                </span>
-                                            </div>
+                                        <div style="width: 90%;">
+                                            <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
                                         </div>
                                     </div>
                                     <div class="row w-100">
-                                        <div class="w-25">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>Email</b>
                                             </span>
                                         </div>
-                                        <div class="w-75">
-                                            <span style="font-size:14px; margin-left: 30px;">
-                                                : <span t-field="doc.partner_id.email" class="o_bold"/>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 83px;">
+                                                <b>:</b>
                                             </span>
+                                        </div>
+                                        <div class="">
+                                            <div style="margin-left: 0px;">
+                                                <span style="font-size:14px;">
+                                                    <span style="word-break: break-word;" t-field="doc.partner_id.email" class="o_bold"/>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -182,20 +185,26 @@
                                     </div>
                                 </div>
 
-                                <div>
+                                <div class="">
+                                    Note : <span style="font-size: 14px;" t-raw="doc.narration"/>
+                                </div>
+
+                                <!-- <div>
                                     <div>
-                                        <div style="margin-left: 15px; width: 30%;">
-                                            <span style="font-size: 12px;">
-                                                NOTE :
-                                            </span>
-                                        </div>
-                                        <div style="margin-left: 15px; width: 40%;">
-                                            <span style="margin-left: 5px; font-size: 12px;">
-                                                <span t-raw="doc.narration"/>
-                                            </span>
+                                        <div class="row">
+                                            <div style="margin-left: 15px; width: 8%;">
+                                                <span style="font-size: 12px;">
+                                                    NOTE :
+                                                </span>
+                                            </div>
+                                            <div style="width: 40%;">
+                                                <span style="font-size: 12px;">
+                                                    <span t-raw="doc.narration"/>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div style="margin-top: 45px; margin-left: 60px; page-break-inside: avoid;">
                                     <div class="row">
@@ -204,7 +213,6 @@
                                                 <strong style="font-size: 14px;">
                                                     Mengetahui
                                                 </strong>
-                                                <br/>
                                                 <br/>
                                                 <br/>
                                                 <br/>
@@ -220,9 +228,8 @@
                                             <span>
                                                 <strong style="font-size: 14px;">Menyetujui</strong>
                                                 <br/>
+                                                <br/>
                                                 <span>
-                                                    <br/>
-                                                    <br/>
                                                     <br/>
                                                     <span>
                                                         <hr style="background-color: black; width:70%"/>
@@ -239,7 +246,6 @@
                                                 <br/>
                                                 <br/>
                                                 <br/>
-                                                <br/>
                                                 <span>
                                                     <hr style="background-color: black; width:70%"/>
                                                 </span>
@@ -248,7 +254,6 @@
                                         <div class="col-3">
                                             <span>
                                                 <strong style="font-size: 14px;">Pembukuan</strong>
-                                                <br/>
                                                 <br/>
                                                 <br/>
                                                 <br/>
@@ -285,7 +290,7 @@
         <field name="page_height">139</field>
         <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">20</field>
+        <field name="margin_top">21</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>

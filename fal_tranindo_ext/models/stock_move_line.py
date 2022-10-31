@@ -11,6 +11,7 @@ class StockMove(models.Model):
     move_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location")
     product_move_bom = fields.Many2one('product.product', string="Sale BoM", compute="_get_bom_product")
     product_move_bom_internal = fields.Many2one('product.product',string="Internal BoM")
+    note = fields.Char(string="Note")
 
     @api.onchange('product_id')
     def _onchange_product_id_get_bom(self):
@@ -70,6 +71,8 @@ class StockMove(models.Model):
 
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
+
+    note = fields.Char(string="Note")
 
     line_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location")
     # product_uom_qty = fields.Float(

@@ -42,6 +42,14 @@
         </field>
     </record>
 
+    <record id="action_create_pos_order_comission" model="ir.actions.server">
+        <field name="name">PoS Order Commission</field>
+        <field name="model_id" ref="point_of_sale.model_pos_order"/>
+        <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>
+        <field name="state">code</field>
+        <field name="code">records.create_vendor_bill_pos()</field>
+    </record>
+
     <record id="point_of_sale_view_config_form" model="ir.ui.view">
         <field name="name">point_of_sale_view_config_form</field>
         <field name="model">pos.config</field>
