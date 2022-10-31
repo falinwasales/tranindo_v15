@@ -16,7 +16,7 @@
                             <div class="row">
                                 <div class="w-50">
                                     <div class="row w-100">
-                                        <div style="width: 65px;">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>No. Rek</b>
                                             </span>
@@ -29,13 +29,13 @@
                                         <div class="w-50">
                                             <div style="margin-left: 0px;">
                                                 <span style="font-size:14px; word-break: break-word;">
-                                                    <span t-field="doc.partner_bank_id" class="o_bold"/>
+                                                    <span style="margin-left: 5px;" t-field="doc.partner_bank_id" class="o_bold"/>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row w-100">
-                                        <div style="width: 65px;">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>Pembayaran</b>
                                             </span>
@@ -46,7 +46,7 @@
                                             </span>
                                         </div>
                                         <div class="">
-                                            <div style="margin-left: 0px; width: 83%;">
+                                            <div style="margin-left: 0px; width: 72%;">
                                                 <span style="font-size:14px;">
                                                     <span style="word-break: break-word;" t-field="doc.payment_reference" class="o_bold"/>
                                                 </span>
@@ -54,15 +54,22 @@
                                         </div>
                                     </div>
                                     <div class="row w-100">
-                                        <div class="w-25">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>Email</b>
                                             </span>
                                         </div>
-                                        <div class="w-75">
-                                            <span style="font-size:14px; margin-left: 30px;">
-                                                : <span t-field="doc.partner_id.email" class="o_bold"/>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 83px;">
+                                                <b>:</b>
                                             </span>
+                                        </div>
+                                        <div class="">
+                                            <div style="margin-left: 0px; width: 83%;">
+                                                <span style="font-size:14px;">
+                                                    <span style="word-break: break-word;" t-field="doc.partner_id.email" class="o_bold"/>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -207,7 +214,6 @@
                                                 <br/>
                                                 <br/>
                                                 <br/>
-                                                <br/>
                                                 <span>
                                                     <hr style="background-color: black; width:70%"/>
                                                 </span>
@@ -220,9 +226,8 @@
                                             <span>
                                                 <strong style="font-size: 14px;">Menyetujui</strong>
                                                 <br/>
+                                                <br/>
                                                 <span>
-                                                    <br/>
-                                                    <br/>
                                                     <br/>
                                                     <span>
                                                         <hr style="background-color: black; width:70%"/>
@@ -239,7 +244,6 @@
                                                 <br/>
                                                 <br/>
                                                 <br/>
-                                                <br/>
                                                 <span>
                                                     <hr style="background-color: black; width:70%"/>
                                                 </span>
@@ -248,7 +252,6 @@
                                         <div class="col-3">
                                             <span>
                                                 <strong style="font-size: 14px;">Pembukuan</strong>
-                                                <br/>
                                                 <br/>
                                                 <br/>
                                                 <br/>

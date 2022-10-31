@@ -57,7 +57,7 @@
                             </span>
                         </div>
                         <div class="w-75">
-                            <span style="margin-left: 30px;">
+                            <span style="margin-left: 43px;">
                                 : <span style="font-size:14px;" t-field="doc.partner_id.name" class="o_bold"/>
                             </span>
                         </div>
