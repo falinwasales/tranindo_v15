@@ -45,12 +45,8 @@
                                                 <b>:</b>
                                             </span>
                                         </div>
-                                        <div class="">
-                                            <div style="margin-left: 0px; width: 100%;">
-                                                <span style="font-size:14px;">
-                                                    <span style="word-wrap: normal;" t-field="doc.payment_reference" class="o_bold"/>
-                                                </span>
-                                            </div>
+                                        <div style="width: 90%;">
+                                            <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
                                         </div>
                                     </div>
                                     <div class="row w-100">
