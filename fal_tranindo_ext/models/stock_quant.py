@@ -97,10 +97,10 @@ class StockQuant(models.Model):
         """
         return ['product_id', 'location_id', 'lot_id', 'package_id', 'owner_id', 'note'] + self._get_inventory_fields_write()
 
-    # @api.model
-    # def _get_inventory_fields_write(self):
-    #     """ Returns a list of fields user can edit when he want to edit a quant in `inventory_mode`.
-    #     """
-    #     fields = ['inventory_quantity', 'inventory_quantity_auto_apply', 'inventory_diff_quantity',
-    #               'inventory_date', 'user_id', 'inventory_quantity_set', 'is_outdated', 'note']
-    #     return fields
+    @api.model
+    def _get_inventory_fields_write(self):
+        """ Returns a list of fields user can edit when he want to edit a quant in `inventory_mode`.
+        """
+        fields = ['inventory_quantity', 'inventory_quantity_auto_apply', 'inventory_diff_quantity',
+                  'inventory_date', 'user_id', 'inventory_quantity_set', 'is_outdated', 'note']
+        return fields
