@@ -188,13 +188,13 @@
                                 <div>
                                     <div>
                                         <div class="row">
-                                            <div style="margin-left: 15px; width: 30%;">
+                                            <div style="margin-left: 15px; width: 8%;">
                                                 <span style="font-size: 12px;">
                                                     NOTE :
                                                 </span>
                                             </div>
-                                            <div style="margin-left: 15px; width: 40%;">
-                                                <span style="margin-left: 5px; font-size: 12px;">
+                                            <div style="width: 40%;">
+                                                <span style="font-size: 12px;">
                                                     <span t-raw="doc.narration"/>
                                                 </span>
                                             </div>
