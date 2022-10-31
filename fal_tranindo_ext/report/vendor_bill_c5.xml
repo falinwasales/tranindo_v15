@@ -187,15 +187,17 @@
 
                                 <div>
                                     <div>
-                                        <div style="margin-left: 15px; width: 30%;">
-                                            <span style="font-size: 12px;">
-                                                NOTE :
-                                            </span>
-                                        </div>
-                                        <div style="margin-left: 15px; width: 40%;">
-                                            <span style="margin-left: 5px; font-size: 12px;">
-                                                <span t-raw="doc.narration"/>
-                                            </span>
+                                        <div class="row">
+                                            <div style="margin-left: 15px; width: 30%;">
+                                                <span style="font-size: 12px;">
+                                                    NOTE :
+                                                </span>
+                                            </div>
+                                            <div style="margin-left: 15px; width: 40%;">
+                                                <span style="margin-left: 5px; font-size: 12px;">
+                                                    <span t-raw="doc.narration"/>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +286,7 @@
         <field name="page_height">139</field>
         <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">20</field>
+        <field name="margin_top">21</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
