@@ -185,7 +185,11 @@
                                     </div>
                                 </div>
 
-                                <div>
+                                <div class="">
+                                    Note : <span style="font-size: 14px;" t-raw="doc.narration"/>
+                                </div>
+
+                                <!-- <div>
                                     <div>
                                         <div class="row">
                                             <div style="margin-left: 15px; width: 8%;">
@@ -200,7 +204,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div style="margin-top: 45px; margin-left: 60px; page-break-inside: avoid;">
                                     <div class="row">

@@ -72,6 +72,8 @@ class StockMove(models.Model):
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
+    note = fields.Char(string="Note")
+
     line_product_uom_qty = fields.Float(string="On hand Qty", compute="_get_qty_location")
     # product_uom_qty = fields.Float(
     #     'Reserved', default=0.0, digits='Product Unit of Measure', required=True)
