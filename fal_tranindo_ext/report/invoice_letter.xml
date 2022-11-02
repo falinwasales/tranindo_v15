@@ -307,28 +307,10 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-2">
-                                        <span>
-                                            Memo
-                                        </span>
-                                    </div>
-                                    <div class="col-1" style="margin-left: -50px;">
-                                        <span>
-                                            :
-                                        </span>
-                                    </div>
-                                    <div class="col-9" style="margin-left:-60px;">
-                                        <span>
-                                            <span t-raw="doc.narration"/>
-                                        </span>
-                                    </div>
-                                </div>
                                 
                                 <div class="row" style="margin-top: 0px;">
                                     <div class="col-2">
-                                        <span>
+                                        <span style="font-size: 12px;">
                                             Terbilang
                                         </span>
                                     </div>
@@ -339,7 +321,7 @@
                                     </div>
                                     <div class="col-9" style="margin-left:-60px;">
                                         <span>
-                                            <span style="text-transform: capitalize;" t-esc="env['account.move'].get_amount_to_text(doc.amount_total)"/> <span t-field="doc.currency_id.currency_unit_label"/>
+                                            <span style="font-size: 12px; text-transform: capitalize;" t-esc="env['account.move'].get_amount_to_text(doc.amount_total)"/> <span style="font-size: 12px;" t-field="doc.currency_id.currency_unit_label"/>
                                         </span>
                                     </div>
                                 </div>
@@ -385,10 +367,12 @@
         <field name="binding_type">report</field>
     </record>
 
-    <record id="paperformat_tranindo_invoice_letter_paperformat" model="report.paperformat">
+    <record id="paperformat_tranindo_invoice_letter_paperformat_neo" model="report.paperformat">
         <field name="name">Invoice Letter</field>
         <field name="default" eval="True" />
-        <field name="format">A4</field>
+        <field name="format">custom</field>
+        <field name="page_height">280</field>
+        <field name="page_width">215</field>
         <field name="orientation">Portrait</field>
         <field name="margin_top">24</field>
         <field name="margin_bottom">0</field>
