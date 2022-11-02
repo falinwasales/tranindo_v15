@@ -50,7 +50,10 @@
                         </div>
                         <div style="width: 60%;">
                             <span style="margin-left: 40px; font-size: 14px;">
-                                : <span t-field="doc.partner_id.name"></span>
+                                : 
+                                <tr t-foreach="doc.line_ids[0]" t-as="line">
+                                    <span t-field="line.partner_id.name"/>
+                                </tr>
                             </span>
                         </div>
                     </div>
