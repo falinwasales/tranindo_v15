@@ -367,10 +367,12 @@
         <field name="binding_type">report</field>
     </record>
 
-    <record id="paperformat_tranindo_invoice_letter_paperformat" model="report.paperformat">
+    <record id="paperformat_tranindo_invoice_letter_paperformat_neo" model="report.paperformat">
         <field name="name">Invoice Letter</field>
         <field name="default" eval="True" />
-        <field name="format">A4</field>
+        <field name="format">custom</field>
+        <field name="page_height">280</field>
+        <field name="page_width">215</field>
         <field name="orientation">Portrait</field>
         <field name="margin_top">24</field>
         <field name="margin_bottom">0</field>
