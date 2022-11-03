@@ -28,7 +28,9 @@
                                         </div>
                                         <div style="width: 60%;">
                                             <span style="margin-left: 40px; font-size: 14px;">
-                                                : <span t-field="doc.partner_id.name"/>
+                                                <tr t-foreach="doc.line_ids" t-as="line">
+                                                    : <span t-field="line[0].partner_id.name"/>
+                                                </tr>
                                             </span>
                                         </div>
                                     </div>
