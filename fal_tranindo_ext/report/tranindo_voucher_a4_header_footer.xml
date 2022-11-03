@@ -35,7 +35,7 @@
                 </p>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="w-50">
                     <div class="row">
                         <div class="" style="width: 40%;">
@@ -50,10 +50,7 @@
                         </div>
                         <div style="width: 60%;">
                             <span style="margin-left: 40px; font-size: 14px;">
-                                : 
-                                <tr t-foreach="doc.line_ids[0]" t-as="line">
-                                    <span t-field="line.partner_id.name"/>
-                                </tr>
+                                : <span t-field="o.partner_id.name"/>
                             </span>
                         </div>
                     </div>
@@ -67,7 +64,7 @@
                         </div>
                         <div class="w-75">
                             <span style="margin-left: 40px; font-size: 14px;">
-                                : <span t-field="doc.name"></span>
+                                : <span t-field="docs.name"></span>
                             </span>
                         </div>
                     </div>
@@ -79,12 +76,12 @@
                         </div>
                         <div class="w-75">
                             <span style="margin-left: 40px; font-size: 14px;">
-                                : <span t-field="doc.date"></span>
+                                : <span t-field="docs.date"></span>
                             </span>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!--  -->
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
