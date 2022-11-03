@@ -27,7 +27,9 @@
                                             </span>
                                         </div>
                                         <div style="width: 60%;">
-                                            : <span t-field="doc.line_ids[0].partner_id.name"/>
+                                            <span style="margin-left: 40px; font-size: 14px;">
+                                                : <span t-field="doc.line_ids[0].partner_id.name"/>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
