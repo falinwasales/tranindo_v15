@@ -59,11 +59,12 @@ class AccountPaymentRegister(models.TransientModel):
         print('____________________________________')
         print(inv_list)
         print(inv_list_ids)
-        # print(EROR)
-            # for line in self.payment_wizard_line_ids:
+        print('____________________________________')
+        print(self.fal_bank_provision_id)
+
         if any(payment.payment_method_id.id in prov for payment in res):
             data = {
-                'name': payment.fal_bank_provision_id,
+                'name': self.fal_bank_provision_id,
                 'state': 'draft',
                 'partner_id': payment.partner_id.id,
                 'payment_id': payment.id,
