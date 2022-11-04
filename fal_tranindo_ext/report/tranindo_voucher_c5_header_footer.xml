@@ -19,73 +19,72 @@
 	</template>
 
     <template id="tranindo_external_header_footer_voucher_c5">
-        <div class="header">
-            <!--  -->
-            <div>
-                <p t-field="res_company.name" style="text-align: center;" class="h4 o_bold"/>
-            </div>
-            <div>
-                <p class="h4 o_bold" style="text-align: center; text-transform: uppercase;">
-                    <t t-if="doc.payment_voucher_bool">
-                        PAYMENT VOUCHER
-                    </t> 
-                    <t t-else="">
-                        RECEIVED VOUCHER
-                    </t> 
-                </p>
-            </div>
-
-            <div class="row">
-                <div class="w-50">
-                    <div class="row">
-                        <div class="" style="width: 40%;">
-                            <span style="font-size: 14px;margin-left: 35px;">
-                                <t t-if="doc.payment_voucher_bool">
-                                    Dibayarkan Kepada
-                                </t>
-                                <t t-else="">
-                                    Diterima Dari
-                                </t>    
-                            </span>
-                        </div>
-                        <div style="width: 60%;">
-                            <span style="margin-left: 40px; font-size: 14px;">
-                                : 
-                                <tr t-foreach="doc.line_ids[0]" t-as="line">
-                                    <span t-field="line.partner_id.name"/>
-                                </tr>
-                            </span>
-                        </div>
-                    </div>
+        <t t-foreach="doc" t-as="docs">
+            <div class="header">
+                <!--  -->
+                <div>
+                    <p t-field="res_company.name" style="text-align: center;" class="h4 o_bold"/>
                 </div>
-                <div class="w-50">
-                    <div class="row">
-                        <div class="w-25">
-                            <span style="font-size: 14px; margin-left: 35px;">
-                                No. Voucher
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="margin-left: 40px; font-size: 14px;">
-                                : <span t-field="doc.name"></span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="w-25">
-                            <span style="font-size: 14px; margin-left: 35px;">
-                                Tanggal
-                            </span>
-                        </div>
-                        <div class="w-75">
-                            <span style="margin-left: 40px; font-size: 14px;">
-                                : <span t-field="doc.date"></span>
-                            </span>
-                        </div>
-                    </div>
+                <div>
+                    <p class="h4 o_bold" style="text-align: center; text-transform: uppercase;">
+                        <t t-if="doc.payment_voucher_bool">
+                            PAYMENT VOUCHER
+                        </t> 
+                        <t t-else="">
+                            RECEIVED VOUCHER
+                        </t> 
+                    </p>
                 </div>
+    
+                <!-- <div class="row">
+                    <div class="w-50">
+                        <div class="row">
+                            <div class="" style="width: 40%;">
+                                <span style="font-size: 14px;margin-left: 35px;">
+                                    <t t-if="doc.payment_voucher_bool">
+                                        Dibayarkan Kepada
+                                    </t>
+                                    <t t-else="">
+                                        Diterima Dari
+                                    </t>    
+                                </span>
+                            </div>
+                            <div style="width: 60%;">
+                                <span style="margin-left: 40px; font-size: 14px;">
+                                    : <span t-field="o.partner_id.name"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-50">
+                        <div class="row">
+                            <div class="w-25">
+                                <span style="font-size: 14px; margin-left: 35px;">
+                                    No. Voucher
+                                </span>
+                            </div>
+                            <div class="w-75">
+                                <span style="margin-left: 40px; font-size: 14px;">
+                                    : <span t-field="docs.name"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="w-25">
+                                <span style="font-size: 14px; margin-left: 35px;">
+                                    Tanggal
+                                </span>
+                            </div>
+                            <div class="w-75">
+                                <span style="margin-left: 40px; font-size: 14px;">
+                                    : <span t-field="docs.date"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
-        </div>
+        </t>
         <!--  -->
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
             <div class="pt-0">

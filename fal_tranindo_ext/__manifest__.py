@@ -39,6 +39,8 @@
         'views/report_sale_order_views.xml',
         'views/stock_quant_views.xml',
         'views/stock_move_line_views.xml',
+        # Wizard Form
+        'wizard/stock_cancel_option_views.xml',
         # Report File
         'report/tranindo_report_sj_transfer_header_footer.xml',
         'report/tranindo_report_sj_letter_header_footer.xml',

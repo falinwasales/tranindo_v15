@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="stock_picking_cancel_opt" model="ir.ui.view">
+            <field name="name">stock_picking_cancel_opt</field>
+            <field name="model">stock.cancel.option</field>
+            <field name="arch" type="xml">
+                <form string="Cancel Option">
+                    <group>
+                        <h1>
+                            Are you sure?
+                        </h1>
+                    </group>
+                    <footer>
+                        <button string="Confirm" name="action_cancelled" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
