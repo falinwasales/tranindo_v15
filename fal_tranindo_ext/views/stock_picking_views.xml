@@ -29,6 +29,11 @@
                     <field name="note" string="Note" placeholder="Add an internal note that will be printed on the Picking Operations sheet" readonly="0"/>
                 </xpath>
 
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel_option" attrs="{'invisible': [('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]}" 
+                    string="Cancel" groups="base.group_user" type="object" data-hotkey="z"/>
+                </xpath>
+
                 <xpath expr="//field[@name='move_line_ids_without_package']" position="inside">
                     <tree editable="bottom" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id">
                         <field name="product_id" required="1" context="{'default_detailed_type': 'product'}" attrs="{'readonly': ['|', ('state', '=', 'done'), ('move_id', '!=', False)]}"/>

@@ -30,6 +30,19 @@ class StockPicking(models.Model):
     delivery_note = fields.Text(string="Notes")
     note = fields.Html('Notes', compute="_get_note_from_pos", store=True)
 
+    def action_cancel_option(self):
+        view = self.env.ref('fal_tranindo_ext.stock_picking_cancel_opt')
+        return {
+            'name': ('Cancel Option'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'stock.cancel.option',
+            'views': [(view.id, 'form')],
+            'view_id': view.id,
+            'target': 'new',
+            'context': {'picking_id': self.id},
+        }
+
     # @api.model
     # def _create_picking_from_pos_order_lines(self, location_dest_id, lines, picking_type, partner=False):
     #     _logger.warning('_____________________________________')

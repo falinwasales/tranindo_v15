@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_tanda_terima,access_tanda_terima,model_tanda_terima,base.group_user,1,1,1,1
+stock_cancel_option,stock_cancel_option,model_stock_cancel_option,base.group_user,1,1,1,1
