@@ -13,7 +13,20 @@
                             <!--  -->
                             
                             <!-- TABLE FOR RECORD -->
-                            <div class="row">
+                            <div>
+                                <p class="h4 o_bold" style="text-align: center; text-transform: uppercase;">
+                                    <t t-foreach="doc" t-as="docs">
+                                        <t t-if="docs.payment_voucher_bool">
+                                            PAYMENT VOUCHER
+                                        </t> 
+                                        <t t-else="">
+                                            RECEIVED VOUCHER
+                                        </t>
+                                    </t> 
+                                </p>
+                            </div>
+
+                            <div class="row" style="margin-top: 15px;">
                                 <div class="w-50">
                                     <div class="row">
                                         <div class="" style="width: 40%;">
@@ -231,12 +244,12 @@
         <field name="default" eval="True" />
         <field name="format">A4</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">22</field>
+        <field name="margin_top">12</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">20</field>
+        <field name="header_spacing">10</field>
         <field name="dpi">90</field>
         <field name="report_ids" eval="[(4, ref('action_tranindo_voucher_a4_journal_entries'))]"/>
     </record>
