@@ -20,10 +20,17 @@
                                                 <b>No. SJ</b>
                                             </span>
                                         </div>
-                                        <div class="w-75">
+                                        <div>
                                             <span style="font-size:14px; margin-left: 30px;">
-                                                : <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
+                                                <b>:</b>
                                             </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <div style="margin-left: 3px;">
+                                                <span style="font-size:14px;">
+                                                    <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row w-100">
@@ -277,12 +284,12 @@
         <field name="page_height">139</field>
         <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">36</field>
+        <field name="margin_top">24</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">34</field>
+        <field name="header_spacing">22</field>
         <field name="dpi">90</field>
         <field name="report_ids" eval="[(4, ref('action_tranindo_rpj_c5'))]"/>
     </record>
