@@ -85,7 +85,7 @@
                             </span>
                         </div>
                     </div> -->
-                    <div class="row w-100">
+                    <!-- <div class="row w-100">
                         <div class="w-25">
                             <span style="font-size:14px; margin-left: 30px;">
                                 <b>Tanggal Invoice</b>
@@ -113,7 +113,7 @@
                                 </t>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!--  -->
                 <div class="w-50">
@@ -172,7 +172,7 @@
                             </div>
                         </t>
                     </div>
-                    <div class="row w-100">
+                    <!-- <div class="row w-100">
                         <div style="width: 65px;">
                             <span style="font-size:14px; margin-left: 20px;">
                                 <b>Alamat</b>
@@ -210,8 +210,8 @@
                                 </t>
                             </t>
                         </t>
-                    </div>
-                    <div class="row w-100">
+                    </div> -->
+                    <!-- <div class="row w-100">
                         <div style="width: 65px;">
                             <span style="font-size:14px; margin-left: 20px;">
                                 <b>No. PO</b>
@@ -227,10 +227,10 @@
                                 <span t-esc="doc.ref if doc.ref else ''"/>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <hr style="background-color: black; margin-bottom: 0px; margin-top:0px;"/>
+            <!-- <hr style="background-color: black; margin-bottom: 0px; margin-top:0px;"/> -->
         </div>
         <!--  -->
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
