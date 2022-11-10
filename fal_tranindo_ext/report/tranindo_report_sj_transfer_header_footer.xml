@@ -83,7 +83,7 @@
                             <span style="font-size:14px; margin-left: 10px;">
                                 <t t-if="doc.sale_id.is_final_customer">
                                     <t t-foreach="doc.sale_id" t-as="sale">
-                                        <span t-esc="sale.delivery_street.name if sale.delivery_street.name else ''"/> 
+                                        <span t-esc="sale.delivery_street.parent_id.name if sale.delivery_street.parent_id else sale.delivery_street.name"/> 
                                         <span t-if="doc.contact_phone_show and sale.delivery_street.phone">
                                             - <span t-esc="sale.delivery_street.phone if sale.delivery_street.phone else ''"/>
                                         </span>
@@ -92,14 +92,14 @@
                                 <t t-else="">
                                     <t t-if="doc.sale_id">
                                         <t t-foreach="doc.sale_id" t-as="sale">
-                                            <span t-esc="sale.partner_id.name if sale.partner_id else ''"/> 
+                                            <span t-esc="sale.partner_id.parent_id.name if sale.partner_id.parent_id else sale.partner_id.name"/> 
                                             <span t-if="doc.contact_phone_show and sale.partner_id.phone">
                                                 - <span t-esc="sale.partner_id.phone if sale.partner_id else ''"/>
                                             </span>
                                         </t>
                                     </t>
                                     <t t-else="">
-                                        <span t-esc="doc.partner_id.name if doc.partner_id else ''"/> 
+                                        <span t-esc="doc.partner_id.parent_id.name if doc.partner_id.parent_id else doc.partner_id.name"/> 
                                         <span t-if="doc.contact_phone_show and doc.partner_id.phone">
                                             - <span t-esc="doc.partner_id.phone if doc.partner_id else ''"/>
                                         </span>
