@@ -162,7 +162,7 @@
                                                     <span t-field="order_line['product'].display_name"/>
                                                 </td>
                                                 <td class="text-center" style="font-size: 16px;">
-                                                    <span t-field="order_line['table'].product_uom_qty"/>
+                                                    <span t-field="order_line['table'].bom_qty"/>
                                                 </td>
                                                 <td style="font-size: 16px;">
                                                     <span t-field="order_line['table'].product_uom.display_name"/>
@@ -185,7 +185,7 @@
                                                         </td>
                                                         <td class="text-center" style="font-size: 16px;">
                                                             <t t-if="not table_line1['product'].bom_ids">
-                                                                <span t-field="table_line1['table'].quantity_done"/>
+                                                                <span t-field="table_line1['table'].bom_qty"/>
                                                             </t>
                                                         </td>
                                                         <td style="font-size: 16px;">
@@ -203,7 +203,7 @@
                                                                 </td>
                                                                 <td class="text-center" style="font-size: 16px;">
                                                                     <t t-if="not table_line2.product_id.bom_ids">
-                                                                        <span t-field="table_line1['table'].quantity_done"/>
+                                                                        <span t-field="table_line1['table'].bom_qty"/>
                                                                     </t>
                                                                 </td>
                                                                 <td style="font-size: 16px;"> 
@@ -219,7 +219,7 @@
                                                                         <span style="margin-left:65px;" t-field="table_line3.product_id.display_name"/>
                                                                     </td>
                                                                     <td class="text-center" style="font-size: 16px;">
-                                                                        <span t-field="table_line1['table'].quantity_done"/>
+                                                                        <span t-field="table_line1['table'].bom_qty"/>
                                                                     </td>
                                                                     <td style="font-size: 16px;"> 
                                                                         <span t-field="table_line3.product_uom_id.display_name"/>

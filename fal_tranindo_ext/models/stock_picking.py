@@ -29,6 +29,9 @@ class StockPicking(models.Model):
 
     delivery_note = fields.Text(string="Notes")
     note = fields.Html('Notes', compute="_get_note_from_pos", store=True)
+    stock_bom_id = fields.Many2one('stock.bom', string="Stock Bom")
+
+    stock_bom_product_ids = fields.One2many('stock.bom', "picking_id", string="Invoice List")
 
     def action_cancel_option(self):
         view = self.env.ref('fal_tranindo_ext.stock_picking_cancel_opt')
@@ -43,63 +46,31 @@ class StockPicking(models.Model):
             'context': {'picking_id': self.id},
         }
 
-    # @api.model
-    # def _create_picking_from_pos_order_lines(self, location_dest_id, lines, picking_type, partner=False):
-    #     _logger.warning('_____________________________________')
-    #     _logger.warning('__________________BIKIN PICKING___________________')
-    #     """We'll create some picking based on order_lines"""
+    def action_confirm(self):
+        result = []
+        for line in self.move_ids_without_package:
+            result.append((0, 0, {
+                'product_id': line.product_id.id,
+                'bom_qty': line.product_uom_qty,
+                'bom_product_qty': line.move_product_uom_qty,
+                'product_uom': line.product_uom.id,
+                'picking_id': self.id
+                }))
+        
+        self.stock_bom_product_ids = result
 
-    #     pickings = self.env['stock.picking']
-    #     stockable_lines = lines.filtered(lambda l: l.product_id.type in ['product', 'consu'] and not float_is_zero(l.qty, precision_rounding=l.product_id.uom_id.rounding))
-    #     if not stockable_lines:
-    #         return pickings
-    #     positive_lines = stockable_lines.filtered(lambda l: l.qty > 0)
-    #     negative_lines = stockable_lines - positive_lines
+        self._check_company()
+        self.mapped('package_level_ids').filtered(lambda pl: pl.state == 'draft' and not pl.move_ids)._generate_moves()
+        # call `_action_confirm` on every draft move
+        self.mapped('move_lines')\
+            .filtered(lambda move: move.state == 'draft')\
+            ._action_confirm()
 
-    #     if positive_lines:
-    #         location_id = picking_type.default_location_src_id.id
-    #         positive_picking = self.env['stock.picking'].create(
-    #             self._prepare_picking_vals(partner, picking_type, location_id, location_dest_id)
-    #         )
+        # run scheduler for moves forecasted to not have enough in stock
+        self.mapped('move_lines').filtered(lambda move: move.state not in ('draft', 'cancel', 'done'))._trigger_scheduler()
+        return True
 
-    #         _logger.warning('_____________________________________')
-    #         _logger.warning('__________________Check positive PICKING___________________')
-    #         _logger.warning(positive_picking)
-    #         _logger.warning(positive_picking.state)
-    #         positive_picking._create_move_from_pos_order_lines(positive_lines)
-    #         #             try:
-    #         # #                 with self.env.cr.savepoint():
-    #         # #                     positive_picking._action_done()
-    #         #             except (UserError, ValidationError):
-    #         #                 pass
-
-    #         pickings |= positive_picking
-    #     if negative_lines:
-    #         if picking_type.return_picking_type_id:
-    #             return_picking_type = picking_type.return_picking_type_id
-    #             return_location_id = return_picking_type.default_location_dest_id.id
-    #         else:
-    #             return_picking_type = picking_type
-    #             return_location_id = picking_type.default_location_src_id.id
-
-    #         negative_picking = self.env['stock.picking'].create(
-    #             self._prepare_picking_vals(partner, return_picking_type, location_dest_id, return_location_id)
-    #         )
-    #         negative_picking._create_move_from_pos_order_lines(negative_lines)
-    #         #             try:
-    #         #                 with self.env.cr.savepoint():
-    #         # #                     negative_picking._action_done()
-    #         #             except (UserError, ValidationError):
-    #         #                 pass
-    #         pickings |= negative_picking
-    #     _logger.warning('_____________________________________')
-    #     _logger.warning('__________________Check positive PICKING___________________')
-    #     _logger.warning(pickings)
-    #     for pick_cuk in pickings:
-    #         _logger.warning(pick_cuk.state)
-    #         #         _logger.warning(BABILAGI)
-    #     return pickings
-    
+        
 
     @api.depends('pos_order_id.note')
     def _get_note_from_pos(self):
@@ -128,16 +99,16 @@ class StockPicking(models.Model):
 
     def _get_product_bom_report(self):
         data = []
-        for record in self.move_ids_without_package:
-            data.append([record, record.product_id, record.product_move_bom])
+        for record in self.stock_bom_product_ids:
+            data.append([record, record.product_id])
         
         res = {}
-        for table, sale_product, bom in data:
-            if bom in res:
-                res[bom]['product'] = bom
-                res[bom]['table'] = table
+        for table, sale_product in data:
+            if sale_product in res:
+                res[sale_product]['product'] = sale_product
+                res[sale_product]['table'] = table
             else:
-                res[bom] = {'product': bom, 'table':table,}
+                res[sale_product] = {'product': sale_product, 'table':table,}
 
         data_new = []
         for record in res:

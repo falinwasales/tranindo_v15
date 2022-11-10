@@ -2,6 +2,7 @@ from odoo import fields, models, api
 from odoo import _
 from odoo.exceptions import UserError, ValidationError
 import odoo.addons.decimal_precision as dp
+import pytz
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -18,7 +19,34 @@ class PosOrder(models.Model):
     vendor_bill_id = fields.Many2one("account.move", string="Vendor Bill ID",compute="get_vendor_bill")
 
     vendor_bill_ids = fields.Many2many("account.move", string="Vendor Bill IDs",compute="get_vendor_bill_ids")
-    
+
+    # def _prepare_invoice_vals(self):
+    #     self.ensure_one()
+    #     timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
+    #     get_sequence = self.config_id.invoice_journal_id
+    #     print('000000000000000000000')
+    #     print(self.env["ir.sequence"].next_by_code(get_sequence.ir_sequence_return_id.code))
+    #     vals = {
+    #         'name': self.env["ir.sequence"].next_by_code(get_sequence.ir_sequence_return_id.code),
+    #         'invoice_origin': self.name,
+    #         'journal_id': self.session_id.config_id.invoice_journal_id.id,
+    #         'move_type': 'out_invoice' if self.amount_total >= 0 else 'out_refund',
+    #         'ref': self.env["ir.sequence"].next_by_code(get_sequence.ir_sequence_return_id.code),
+    #         'partner_id': self.partner_id.id,
+    #         'partner_bank_id': self._get_partner_bank_id(),
+    #         # considering partner's sale pricelist's currency
+    #         'currency_id': self.pricelist_id.currency_id.id,
+    #         'invoice_user_id': self.user_id.id,
+    #         'invoice_date': self.date_order.astimezone(timezone).date(),
+    #         'fiscal_position_id': self.fiscal_position_id.id,
+    #         'invoice_line_ids': self._prepare_invoice_lines(),
+    #         'invoice_cash_rounding_id': self.config_id.rounding_method.id
+    #         if self.config_id.cash_rounding and (not self.config_id.only_round_cash_method or any(p.payment_method_id.is_cash_count for p in self.payment_ids))
+    #         else False
+    #     }
+    #     if self.note:
+    #         vals.update({'narration': self.note})
+    #     return vals
 
     def get_vendor_bill(self):
         for record in self:

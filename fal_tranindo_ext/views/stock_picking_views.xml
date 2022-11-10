@@ -29,6 +29,19 @@
                     <field name="note" string="Note" placeholder="Add an internal note that will be printed on the Picking Operations sheet" readonly="0"/>
                 </xpath>
 
+                <xpath expr="//page[@name='operations']" position="after">
+                    <page name="bom_product" string="Kit Info" attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <field name="stock_bom_product_ids" readonly="1">
+                            <tree create="0">
+                                <field name="product_id" readonly="1"/>
+                                <field name="bom_product_qty" readonly="1" invisible="1"/>
+                                <field name="bom_qty" readonly="1"/>
+                                <field name="product_uom" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
                 <xpath expr="//button[@name='action_cancel']" position="replace">
                     <button name="action_cancel_option" attrs="{'invisible': [('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]}" 
                     string="Cancel" groups="base.group_user" type="object" data-hotkey="z"/>

@@ -39,6 +39,7 @@
         'views/report_sale_order_views.xml',
         'views/stock_quant_views.xml',
         'views/stock_move_line_views.xml',
+        'views/account_journal_views.xml',
         # Wizard Form
         'wizard/stock_cancel_option_views.xml',
         # Report File
