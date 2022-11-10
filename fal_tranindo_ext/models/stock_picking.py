@@ -33,6 +33,61 @@ class StockPicking(models.Model):
 
     stock_bom_product_ids = fields.One2many('stock.bom', "picking_id", string="Invoice List")
 
+    def get_bom_kit(self):
+        if self.state not in ('assigned', 'confirmed', 'draft', 'waiting'):
+            result = []
+            for line in self.move_ids_without_package:
+                result.append((0, 0, {
+                    'product_id': line.product_id.id,
+                    'bom_qty': line.product_uom_qty,
+                    'bom_product_qty': line.move_product_uom_qty,
+                    'product_uom': line.product_uom.id,
+                    'picking_id': self.id
+                    }))
+            
+            self.stock_bom_product_ids = result
+        else:
+            data = []
+            for move in self.move_ids_without_package:
+                data.append([move, move.product_move_bom, move.product_uom_qty, move.product_id])
+                
+            res = {}
+            for table, bom_product, qty, prod in data:
+                if bom_product in res:
+                    res[bom_product]['cur'] = move.product_id.name
+                    res[bom_product]['product'] = bom_product
+                    res[bom_product]['table'] = table
+                    if prod in res:
+                        res[bom_product]['qty'] = qty
+                else:
+                    res[bom_product] = {'cur':move.product_id.name, 'product': bom_product, 'table':table, 'qty':qty,}
+            
+            data_new = []
+            for line in res:
+                data_new.append(res[line])
+
+                    
+            data_new2 = []
+            for line2 in data_new:
+                data_new2.append((0,0,{
+                    'product_id': line2['product'].id,
+                    'bom_qty': line2['qty'],
+                    'bom_product_qty': line2['qty'],
+                    'product_uom': line2['table'].product_uom.id,
+                    'picking_id': self.id
+                    }))
+            
+            # print('11111111111111111111111111')
+            # print(data)
+            # print('15151515151515151515151515')
+            # print(res)
+            # print('22222222222222222222222222')
+            # print(data_new)
+            # print('33333333333333333333333333')
+            # print(data_new2)
+
+            self.stock_bom_product_ids = data_new2
+
     def action_cancel_option(self):
         view = self.env.ref('fal_tranindo_ext.stock_picking_cancel_opt')
         return {
@@ -47,18 +102,6 @@ class StockPicking(models.Model):
         }
 
     def action_confirm(self):
-        result = []
-        for line in self.move_ids_without_package:
-            result.append((0, 0, {
-                'product_id': line.product_id.id,
-                'bom_qty': line.product_uom_qty,
-                'bom_product_qty': line.move_product_uom_qty,
-                'product_uom': line.product_uom.id,
-                'picking_id': self.id
-                }))
-        
-        self.stock_bom_product_ids = result
-
         self._check_company()
         self.mapped('package_level_ids').filtered(lambda pl: pl.state == 'draft' and not pl.move_ids)._generate_moves()
         # call `_action_confirm` on every draft move
@@ -138,5 +181,3 @@ class StockPicking(models.Model):
             # # for record in move.move_line_ids:
             #     # record.create(6, 0,[vals])
             # self.move_line_ids_without_package.update(vals)
-            # print("******************")
-            # print(move.id)

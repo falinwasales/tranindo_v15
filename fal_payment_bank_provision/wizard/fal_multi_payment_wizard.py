@@ -56,11 +56,6 @@ class AccountPaymentRegister(models.TransientModel):
                 inv_list_ids += payment.reconciled_invoice_ids.ids
         if inv_list_ids:
             inv_list.append((6,0, inv_list_ids))
-        print('____________________________________')
-        print(inv_list)
-        print(inv_list_ids)
-        print('____________________________________')
-        print(self.fal_bank_provision_id)
 
         if any(payment.payment_method_id.id in prov for payment in res):
             data = {

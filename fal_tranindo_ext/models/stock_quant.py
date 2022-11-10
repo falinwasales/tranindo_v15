@@ -56,11 +56,7 @@ class StockQuant(models.Model):
         """
         if self._is_inventory_mode() and any(f in vals for f in ['inventory_quantity', 'inventory_quantity_auto_apply']):
             allowed_fields = self._get_inventory_fields_create()
-            print('8888888888888')
-            print(allowed_fields)
             if any(field for field in vals.keys() if field not in allowed_fields):
-                print('999999999999999999999')
-                print(vals.keys())
                 raise UserError(_("Quant's creation is restricted, you can't do this operation."))
 
             inventory_quantity = vals.pop('inventory_quantity', False) or vals.pop(

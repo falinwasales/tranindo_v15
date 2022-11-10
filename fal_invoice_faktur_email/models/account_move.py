@@ -148,9 +148,6 @@ class AccountMove(models.Model):
 
             data.append(surat_jalan_id.id)
 
-        print('*********************')
-        print(data)
-
         ctx = dict(
             default_model='account.move',
             default_res_id=self.id,

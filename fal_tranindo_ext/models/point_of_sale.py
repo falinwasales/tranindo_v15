@@ -106,9 +106,6 @@ class PosOrder(models.Model):
             #     tax = 2.5
             default_seq_vendor = self.config_id
             create_seq = self.env["ir.sequence"].next_by_code(default_seq_vendor.default_sequence_vendor.code)
-            print('*************************')
-            print(default_seq_vendor.default_sequence_vendor.code)
-            print(create_seq)
             create = self.env['account.move'].create({
                 "name": create_seq,
                 "partner_id": self.partner_comission.id,

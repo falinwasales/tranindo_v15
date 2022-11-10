@@ -29,11 +29,6 @@ class StockMove(models.Model):
                 
                 if remove_string in line.name:
                     bom_name = bom_name.split('] ')[1]
-
-                print('***********')
-                print(bom_name)
-                # else:
-                #     bom_name = line.name
                 
                 product_search = self.env['product.product'].search([('name','=',bom_name)])
 
