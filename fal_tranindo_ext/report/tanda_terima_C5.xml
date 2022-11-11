@@ -91,7 +91,7 @@
                                             <span style="font-size:15px;">Terbilang : </span>
                                         </div>
                                         <div>
-                                            <span style="margin-left: 15px; font-size:15px;">
+                                            <span style="margin-left: 15px; font-size:13px;">
                                                 # <span style="text-transform: capitalize;" t-esc="env['account.move'].get_amount_to_text(total_sub)"/> #
                                             </span>
                                         </div>
@@ -101,7 +101,7 @@
                                             <span style="visibility: hidden;">Terbilang</span>
                                         </div>
                                         <div style="margin-left: 30px;">
-                                            <span style="font-size:13px;">
+                                            <span style="font-size:15px;">
                                                 <span style="margin-left: 40%;">Total : Rp. <span t-esc="total_sub" t-options="{'widget': 'float', 'precision': 2}"/></span>
                                             </span>
                                         </div>
