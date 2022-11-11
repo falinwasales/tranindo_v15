@@ -18,32 +18,32 @@
                                     <thead>
                                         <tr>
                                             <th class="border-top-0 border-bottom border-dark" style="width: 5%;">
-                                                <span style="font-size: 12px;">
+                                                <span style="font-size: 14px;">
                                                     No.
                                                 </span>
                                             </th>
                                             <th class="border-top-0 border-bottom border-dark o_bold text-center" style="width: 10%;">
-                                                <span style="font-size: 12px;">
+                                                <span style="font-size: 14px;">
                                                     No. Invoice
                                                 </span>
                                             </th>
                                             <th class="border-top-0 border-bottom border-dark text-right" style="width: 13%;">
-                                                <span style="font-size: 12px; margin-right: 20px;">
+                                                <span style="font-size: 14px; margin-right: 20px;">
                                                     Tgl Invoice
                                                 </span>
                                             </th>
                                             <th class="border-top-0 border-bottom border-dark text-center" style="width: 13%;">
-                                                <span style="font-size: 12px;">
+                                                <span style="font-size: 14px;">
                                                     Tgl jatuh Tempo
                                                 </span>
                                             </th>
                                             <th class="border-top-0 border-bottom border-dark text-center" style="width: 15%;">
-                                                <span style="font-size: 12px;">
+                                                <span style="font-size: 14px;">
                                                     No. Faktur Pajak
                                                 </span>
                                             </th>
                                             <th class="border-top-0 border-bottom border-dark text-right" style="width: 15%;">
-                                                <span style="white-space:nowrap; font-size: 12px;">
+                                                <span style="white-space:nowrap; font-size: 14px;">
                                                     Jumlah
                                                 </span>
                                             </th>
@@ -55,28 +55,28 @@
                                         <t t-set="i" t-value="0"/>
                                         <tr t-foreach="doc.tt_account_ids.sorted(key=lambda x: x.invoice_date_due, reverse=True)" t-as="invoice">
                                             <t t-set="i" t-value="i+1"/>
-                                            <td class="text-left" style="font-size: 12px; padding-bottom: 0;">
+                                            <td class="text-left" style="font-size: 14px; padding-bottom: 0;">
                                                 <span t-esc="i"/>
                                             </td>
                                             <td class="text-center" style="padding-top: 0; padding-bottom: 0;">
-                                                <span style="font-size: 12px;" t-field="invoice.name"/>
+                                                <span style="font-size: 14px;" t-field="invoice.name"/>
                                             </td>
                                             <td class="text-right" style="padding-top: 0; padding-bottom: 0;">
-                                                <span style="font-size: 12px; margin-right: 20px;" t-esc="invoice.invoice_date.strftime('%d %b %Y') if invoice.invoice_date else ''"/>
+                                                <span style="font-size: 14px; margin-right: 20px;" t-esc="invoice.invoice_date.strftime('%d %b %Y') if invoice.invoice_date else ''"/>
                                             </td>
                                             <td class="text-center" style="padding-top: 0; padding-bottom: 0;">
-                                                <span style="font-size: 12px;" t-esc="invoice.invoice_date_due.strftime('%d %b %Y') if invoice.invoice_date_due else ''"/>
+                                                <span style="font-size: 14px;" t-esc="invoice.invoice_date_due.strftime('%d %b %Y') if invoice.invoice_date_due else ''"/>
                                             </td>
                                             <td class="text-center" style="padding-top: 0; padding-bottom: 0;"> 
                                                 <t t-if="invoice.replace_faktur">
-                                                    <span style="font-size: 12px;" t-field="invoice.tt_tax_get"/>
+                                                    <span style="font-size: 14px;" t-field="invoice.tt_tax_get"/>
                                                 </t>
                                                 <t t-else="">
-                                                    <span style="font-size: 12px;" t-field="invoice.l10n_id_tax_number"/>
+                                                    <span style="font-size: 14px;" t-field="invoice.l10n_id_tax_number"/>
                                                 </t>
                                             </td>
                                             <td class="text-right" style="padding-top: 0; padding-bottom: 0;">
-                                                <span style="font-size: 12px;" t-field="invoice.amount_residual"/>
+                                                <span style="font-size: 14px;" t-field="invoice.amount_residual"/>
                                                 <t t-set="total_sub" t-value="total_sub + invoice.amount_residual"/>
                                             </td>
                                         </tr>
@@ -88,10 +88,10 @@
                                 <div class="row col-12 border border-dark border-left-0 border-right-0" style="margin-left: 3px; page-break-inside: avoid;">
                                     <div class="col-7 border-right border-dark">
                                         <div>
-                                            <span style="font-size:12px;">Terbilang : </span>
+                                            <span style="font-size:14px;">Terbilang : </span>
                                         </div>
                                         <div>
-                                            <span style="margin-left: 15px; font-size:12px;">
+                                            <span style="margin-left: 15px; font-size:14px;">
                                                 # <span style="text-transform: capitalize;" t-esc="env['account.move'].get_amount_to_text(total_sub)"/> #
                                             </span>
                                         </div>
@@ -101,7 +101,7 @@
                                             <span style="visibility: hidden;">Terbilang</span>
                                         </div>
                                         <div style="margin-left: 30px;">
-                                            <span style="font-size:12px;">
+                                            <span style="font-size:14px;">
                                                 <span style="margin-left: 40%;">Total : Rp. <span t-esc="total_sub" t-options="{'widget': 'float', 'precision': 2}"/></span>
                                             </span>
                                         </div>
@@ -114,7 +114,7 @@
                                     <div class="col-7">
                                         <div class="border border-dark col-12">
                                             <div>
-                                                <span style="font-size:12px;" t-field="doc.company_id.company_keterangan"/>
+                                                <span style="font-size:14px;" t-field="doc.company_id.company_keterangan"/>
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                                 .......,...................................
                                             </span>
                                             <br/>
-                                            <span style="font-size:12px;">
+                                            <span style="font-size:14px;">
                                                 Penerima
                                             </span>
                                             <br/>

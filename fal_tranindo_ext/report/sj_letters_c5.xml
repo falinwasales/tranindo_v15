@@ -360,9 +360,26 @@
                                         <br/>
                                         <br/>
                                         <u>
-                                            <t t-foreach="doc.sale_id.partner_id" t-as="partner">
+                                            <!-- <t t-foreach="doc.partner_id" t-as="partner">
                                                 <span t-field="partner.name" style="font-size: 12px;"/>
-                                            </t>
+                                            </t> -->
+                                            <span style="font-size: 12px;">
+                                                <t t-if="doc.sale_id.is_final_customer">
+                                                    <t t-foreach="doc.sale_id" t-as="sale">
+                                                        <span t-esc="sale.delivery_street.parent_id.name if sale.delivery_street.parent_id else sale.delivery_street.name"/> 
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-if="doc.sale_id">
+                                                        <t t-foreach="doc.sale_id" t-as="sale">
+                                                            <span t-esc="sale.partner_id.parent_id.name if sale.partner_id.parent_id else sale.partner_id.name"/> 
+                                                        </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="doc.partner_id.parent_id.name if doc.partner_id.parent_id else doc.partner_id.name"/> 
+                                                    </t>
+                                                </t>
+                                            </span>
                                         </u>
                                     </span>
                                 </div>
