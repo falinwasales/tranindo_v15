@@ -101,7 +101,7 @@
                                             <span style="visibility: hidden;">Terbilang</span>
                                         </div>
                                         <div style="margin-left: 30px;">
-                                            <span style="font-size:15px;">
+                                            <span style="font-size:13px;">
                                                 <span style="margin-left: 40%;">Total : Rp. <span t-esc="total_sub" t-options="{'widget': 'float', 'precision': 2}"/></span>
                                             </span>
                                         </div>
