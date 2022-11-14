@@ -72,8 +72,6 @@ class AccountInvoice(models.Model):
                 for banned in word:
                     text = record.narration.replace(banned, "")
             
-            print(text)
-            
             record.html_word = text
     
     @api.depends('invoice_line_ids')

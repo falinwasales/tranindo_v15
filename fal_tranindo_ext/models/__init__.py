@@ -1,4 +1,8 @@
+# Sorted By Alphabetical
+
+from . import account_account
 # from . import account_follow_up
+from . import account_journal
 from . import account_move_line
 from . import account_move
 from . import account_payment_register
@@ -14,5 +18,5 @@ from . import sale_order
 from . import stock_move_line
 from . import tanda_terima
 from . import sale_order_line
+from . import stock_bom
 from . import stock_quant
-from . import account_account

@@ -12,8 +12,6 @@ class StockCancelOption(models.TransientModel):
 
     def action_cancelled(self):
         search_transfer = self.env['stock.picking'].browse(self.env.context.get('active_id'))
-        # print('============================')
-        # print(search_transfer)
         search_transfer.mapped('move_lines')._action_cancel()
         search_transfer.write({'is_locked': True})
         return True

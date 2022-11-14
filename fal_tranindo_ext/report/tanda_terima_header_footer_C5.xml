@@ -42,24 +42,24 @@
                 <div class="w-50">
                     <div class="row w-100">
                         <div class="w-25">
-                            <span style="font-size:12px; margin-left: 30px;">
+                            <span style="font-size:15px; margin-left: 30px;">
                                 <b>No. TT</b>
                             </span>
                         </div>
                         <div class="w-75">
-                            <span style="font-size:12px; margin-left: 30px;">
+                            <span style="font-size:15px; margin-left: 30px;">
                                 : <span t-field="doc.name"/>
                             </span>
                         </div>
                     </div>
                     <div class="row w-100">
                         <div class="w-25">
-                            <span style="font-size:12px; margin-left: 30px;">
+                            <span style="font-size:15px; margin-left: 30px;">
                                 <b>Tanggal</b>
                             </span>
                         </div>
                         <div class="w-75">
-                            <span style="font-size:12px; margin-left: 30px;">
+                            <span style="font-size:15px; margin-left: 30px;">
                                 : <span t-esc="doc.tanda_terima_date.strftime('%d %b %Y') if doc.tanda_terima_date else ''"/>
                             </span>
                         </div>
@@ -69,26 +69,26 @@
                 <div class="w-50">
                     <div class="row w-100">
                         <div class="w-25">
-                            <span style="font-size:12px; margin-left: 30px;">
+                            <span style="font-size:15px; margin-left: 30px;">
                                 <b>Kepada Yth</b>
                             </span>
                         </div>
                         <div class="w-75">
-                            <span style="font-size:12px; margin-left: 30px;">
+                            <span style="font-size:15px; margin-left: 30px;">
                                 :
                             </span>
                         </div>
                     </div>
                     <div class="row w-100">
                         <div class="w-100">
-                            <span style="font-size:12px; margin-left: 30px;">
+                            <span style="font-size:15px; margin-left: 30px;">
                                 <span class="o_bold" t-field="doc.customer_id.name"/>
                             </span>
                         </div>
                     </div>
                     <div class="row w-100">
                         <div class="" style="margin-left: 30px;">
-                            <span style="font-size:12px;">
+                            <span style="font-size:15px;">
                                 <span class="o_bold" t-esc="doc.customer_street if doc.customer_street else ''"/>
                             </span>
                         </div>
