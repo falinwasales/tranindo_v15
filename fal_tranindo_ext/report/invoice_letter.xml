@@ -16,27 +16,41 @@
                             <div class="row">
                                 <div class="w-50">
                                     <div class="row w-100">
-                                        <div class="w-25">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>No. SJ</b>
                                             </span>
                                         </div>
-                                        <div class="w-75">
-                                            <span style="font-size:14px; margin-left: 30px;">
-                                                : <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 75px;">
+                                                <b>:</b>
                                             </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <div style="margin-left: 0px;">
+                                                <span style="font-size:14px; word-break: break-word;">
+                                                    <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row w-100">
-                                        <div class="w-25">
+                                        <div style="width: 80px;">
                                             <span style="font-size:14px; margin-left: 30px;">
                                                 <b>Tanggal</b>
                                             </span>
                                         </div>
-                                        <div class="w-75">
-                                            <span style="font-size:14px; margin-left: 30px;">
-                                                : <span t-esc="doc.invoice_date.strftime('%d/%m/%Y')"/>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 75px;">
+                                                <b>:</b>
                                             </span>
+                                        </div>
+                                        <div class="w-50">
+                                            <div style="margin-left: 0px;">
+                                                <span style="font-size:14px; word-break: break-word;">
+                                                    <span t-esc="doc.invoice_date.strftime('%d/%m/%Y')"/>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row w-100">
