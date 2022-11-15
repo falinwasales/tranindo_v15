@@ -46,7 +46,7 @@ class SaleOrder(models.Model):
         for record in self:
             data = []
             name = ""
-            for ids in record.picking_ids.filtered(lambda x: x.state == "done"):
+            for ids in record.picking_ids.filtered(lambda x: not x.state == "cancel"):
                 data.append(ids.name)
                 if len(ids) > 1:
                     name = "%s," % (data)

@@ -29,7 +29,7 @@
                                         <div class="w-50">
                                             <div style="margin-left: 0px;">
                                                 <span style="font-size:14px; word-break: break-word;">
-                                                    <span style="margin-left: 5px;" t-field="doc.partner_bank_id" class="o_bold"/>
+                                                    <span style="" t-field="doc.partner_bank_id" class="o_bold"/> - <span style="" t-field="doc.partner_bank_id.acc_holder_name" class="o_bold"/>
                                                 </span>
                                             </div>
                                         </div>

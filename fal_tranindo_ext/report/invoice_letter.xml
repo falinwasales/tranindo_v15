@@ -15,18 +15,6 @@
                             <!-- TABLE FOR RECORD -->
                             <div class="row">
                                 <div class="w-50">
-                                    <!-- <div class="row w-100">
-                                        <div class="w-25">
-                                            <span style="font-size:14px; margin-left: 30px;">
-                                                <b>No. Invoice</b>
-                                            </span>
-                                        </div>
-                                        <div class="w-75">
-                                            <span style="font-size:14px; margin-left: 30px;">
-                                                : <span t-field="doc.name"/>
-                                            </span>
-                                        </div>
-                                    </div> -->
                                     <div class="row w-100">
                                         <div class="w-25">
                                             <span style="font-size:14px; margin-left: 30px;">
@@ -71,61 +59,6 @@
                                 </div>
                                 <!--  -->
                                 <div class="w-50">
-                                    <!-- <div class="row w-100">
-                                        <div style="width: 65px;">
-                                            <span style="font-size:14px; margin-left: 20px;">
-                                                <b>Nama</b>
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <span style="font-size:14px; margin-left: 20px;">
-                                                <b>:</b>
-                                            </span>
-                                        </div>
-                                        <t t-if="doc.fal_stock_picking_id.sale_id">
-                                            <t t-foreach="doc.fal_stock_picking_id.sale_id" t-as="sale">
-                                                <t t-if='doc.is_delivery_address'>
-                                                    <div class="w-75">
-                                                        <span style="font-size:14px; margin-left: 10px;">
-                                                            <span t-esc="doc.partner_id.name if doc.partner_id else ''"/>
-                                                        </span>
-                                                    </div>
-                                                </t>
-                                                <t t-else="">
-                                                    <t t-if="sale.is_final_customer">
-                                                        <div class="w-75">
-                                                            <span style="font-size:14px; margin-left: 10px;">
-                                                                <span t-esc="sale.invoice_street.name if sale.invoice_street else ''"/>
-                                                            </span>
-                                                        </div>
-                                                    </t>
-                                                    <t t-else="">
-                                                        <div class="w-75">
-                                                            <span style="font-size:14px; margin-left: 10px;">
-                                                                <span t-field="doc.partner_id.name"/>
-                                                            </span>
-                                                        </div>
-                                                    </t>
-                                                </t>
-                                            </t>
-                                        </t>
-                                        <t t-else="">
-                                            <div class="w-75">
-                                                <t t-if='doc.is_delivery_address'>
-                                                    <div class="w-75">
-                                                        <span style="font-size:14px; margin-left: 10px;">
-                                                            <span t-esc="doc.partner_id.name if doc.partner_id else ''"/>
-                                                        </span>
-                                                    </div>
-                                                </t>
-                                                <t t-else="">
-                                                    <span style="font-size:14px; margin-left: 10px;">
-                                                        <span t-field="doc.partner_id.name"/>
-                                                    </span>
-                                                </t>
-                                            </div>
-                                        </t>
-                                    </div> -->
                                     <div class="row w-100">
                                         <div style="width: 65px;">
                                             <span style="font-size:14px; margin-left: 20px;">
