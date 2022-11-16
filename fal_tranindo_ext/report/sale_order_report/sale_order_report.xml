@@ -112,7 +112,7 @@
                                                 <img t-if="order.product_id.image_1920" class="img img-responsive"  t-attf-src="data:image/*;base64,{{order.product_id.image_1920}}" height="80"/>
                                             </td>
                                             <td class="text-left" style="">
-                                                <span style="font-size: 15px;" t-field="order.product_id.name"/>
+                                                <span style="font-size: 15px;" t-field="order.name"/>
                                             </td>
                                             <td class="text-left" style="">
                                                 <span style="font-size: 15px;" t-field="order.product_uom_qty"/>
