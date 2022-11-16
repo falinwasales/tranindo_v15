@@ -55,7 +55,7 @@
         <field name="model">pos.config</field>
         <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//form[1]/sheet[1]/div[12]" position="replace">
+            <!-- <xpath expr="//form[1]/sheet[1]/div[12]" position="replace">
                 <div class="row mt16 o_settings_container" id="accounting_section">
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_right_pane">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-            </xpath>
+            </xpath> -->
 
             <xpath expr="//form[1]/sheet[1]/div[11]" position="replace">
                 <div class="row mt16 o_settings_container" id="inventory_location">
@@ -191,6 +191,16 @@
                                     <field name="default_sequence_vendor" required="1" />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label string="Picture" for="image_pos" class="col-lg-3 o_light_label" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="image_pos"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Additional Note" for="report_text" class="col-lg-3 o_light_label" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="report_text"/>
                         </div>
                     </div>
                 </div>
