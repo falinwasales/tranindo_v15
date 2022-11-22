@@ -32,6 +32,7 @@
                         <field name="is_delivery_address" attrs="{'invisible': ['|',('move_type', 'not in', ('out_invoice')),('sale_final_bool','=',True)]}"/>
                         <field name="pos_comission_id" readonly="1" attrs="{'invisible': [('move_type', 'not in', ('in_invoice'))]}"/>
                         <field name="tt_nomor_id"/>
+                        <field name="payment_memo"/>
                         <field name="tt_date" readonly="1"/>
                         <field name="credit_note" attrs="{'invisible': [('move_type', 'not in', ('out_refund'))]}"/>
                         <field name="tt_tax_get" invisible="1"/>
@@ -45,25 +46,6 @@
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_out_invoice_tree"/>
             <field name="arch" type="xml">
-                <!-- <data>
-                    <field name="state" position="before">
-                        <field name="fal_paid_date"/>
-                        <field name="fal_payment_method"/>
-                    </field>
-
-                    <field name="invoice_partner_display_name" position="after">
-                        <field name="invoice_salesperson"/>
-                        <field name="ref"/>
-                    </field>
-
-                    <field name="amount_residual_signed" position="attributes">
-                        <attribute name="invisible">0</attribute>
-                    </field>
-
-                    <field name="activity_ids" position="attributes">
-                        <attribute name="invisible">1</attribute>
-                    </field>
-                </data> -->
                 <xpath expr="//tree" position="replace">
                     <tree string="Invoices"
                     js_class="account_tree"
