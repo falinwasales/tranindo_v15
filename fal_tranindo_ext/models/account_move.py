@@ -51,9 +51,9 @@ class AccountInvoice(models.Model):
     def _get_memo_from_payment(self):
         for record in self:
             record.payment_memo = ''
-            search_payment = self.env['account.payment'].search([("ref","ilike",record.name)])
+            search_payment = self.env['account.payment'].search([("ref","ilike",record.name)],limit=1)
             if search_payment:
-                record.payment_memo = '%s(%s)' % (search_payment[-1].journal_id.name, search_payment[-1].ref)
+                record.payment_memo = '%s(%s)' % (search_payment.journal_id.name, search_payment.ref)
 
 
     def _get_tax_value(self):
