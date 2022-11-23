@@ -45,7 +45,7 @@
                                                 <b>:</b>
                                             </span>
                                         </div>
-                                        <div style="width: 90%;">
+                                        <div style="width: 62%;" class="">
                                             <span style="font-size:14px;" t-field="doc.payment_reference" class="o_bold"/>
                                         </div>
                                     </div>
@@ -189,24 +189,7 @@
                                     Note : <span style="font-size: 14px;" t-raw="doc.narration"/>
                                 </div>
 
-                                <!-- <div>
-                                    <div>
-                                        <div class="row">
-                                            <div style="margin-left: 15px; width: 8%;">
-                                                <span style="font-size: 12px;">
-                                                    NOTE :
-                                                </span>
-                                            </div>
-                                            <div style="width: 40%;">
-                                                <span style="font-size: 12px;">
-                                                    <span t-raw="doc.narration"/>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-
-                                <div style="margin-top: 45px; margin-left: 60px; page-break-inside: avoid;">
+                                <div style="margin-top: 25px; margin-left: 60px; page-break-inside: avoid;" class="">
                                     <div class="row">
                                         <div class="col-3">
                                             <span>
@@ -219,26 +202,26 @@
                                                 <span>
                                                     <hr style="background-color: black; width:70%"/>
                                                 </span>
-                                                <span>
+                                                <!-- <span>
                                                     <u/>
-                                                </span>
+                                                </span> -->
                                             </span>
                                         </div>
                                         <div class="col-3">
                                             <span>
-                                                <strong style="font-size: 14px;">Menyetujui</strong>
+                                                <strong style="font-size: 14px;">
+                                                    Menyetujui
+                                                </strong>
+                                                <br/>
                                                 <br/>
                                                 <br/>
                                                 <span>
-                                                    <br/>
-                                                    <span>
-                                                        <hr style="background-color: black; width:70%"/>
-                                                    </span>
+                                                    <hr style="background-color: black; width:70%"/>
                                                 </span>
+                                                <!-- <span>
+                                                    <u/>
+                                                </span> -->
                                             </span>
-                                            <br/>
-                                            <br/>
-                                            <br/>
                                         </div>
                                         <div class="col-3">
                                             <span>
