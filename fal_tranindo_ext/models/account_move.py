@@ -3,8 +3,9 @@ import datetime
 from dateutil.relativedelta import relativedelta, MO, SU
 from odoo.exceptions import UserError, ValidationError
 from num2words import num2words
-from odoo.tools import float_round
+from odoo.tools import float_round, date_utils
 import math
+import json
 
 FK_HEAD_LIST = ['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK', 'TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP', 'NAMA', 'ALAMAT_LENGKAP', 'JUMLAH_DPP', 'JUMLAH_PPN', 'JUMLAH_PPNBM', 'ID_KETERANGAN_TAMBAHAN', 'FG_UANG_MUKA', 'UANG_MUKA_DPP', 'UANG_MUKA_PPN', 'UANG_MUKA_PPNBM', 'REFERENSI', 'KODE_DOKUMEN_PENDUKUNG']
 
@@ -45,6 +46,16 @@ class AccountInvoice(models.Model):
 
     pos_comission_id = fields.Many2one("pos.order", string="PoS ID")
 
+    payment_memo = fields.Char(string="Payment Memo", compute="_get_memo_from_payment")
+
+    def _get_memo_from_payment(self):
+        for record in self:
+            record.payment_memo = ''
+            search_payment = self.env['account.payment'].search([("ref","ilike",record.name)],limit=1)
+            if search_payment:
+                record.payment_memo = '%s(%s)' % (search_payment.journal_id.name, search_payment.ref)
+
+
     def _get_tax_value(self):
         for record in self:
             record.tt_tax_get = ""
@@ -55,8 +66,6 @@ class AccountInvoice(models.Model):
             else:
                 record.tt_tax_get = ""
 
-            
-    
     def get_amount_to_text(self, total_amount):
         return num2words(total_amount, lang="id")
 
