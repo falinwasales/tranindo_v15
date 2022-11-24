@@ -46,14 +46,14 @@ class AccountInvoice(models.Model):
 
     pos_comission_id = fields.Many2one("pos.order", string="PoS ID")
 
-    payment_memo = fields.Char(string="Payment Memo", compute="_get_memo_from_payment")
+    payment_memo = fields.Char(string="Payment Memo")
 
-    def _get_memo_from_payment(self):
-        for record in self:
-            record.payment_memo = ''
-            search_payment = self.env['account.payment'].search([("ref","ilike",record.name)],limit=1)
-            if search_payment:
-                record.payment_memo = '%s(%s)' % (search_payment.journal_id.name, search_payment.ref)
+    # def _get_memo_from_payment(self):
+    #     for record in self:
+    #         record.payment_memo = ''
+    #         search_payment = self.env['account.payment'].search([("ref","ilike",record.name)],limit=1)
+    #         if search_payment:
+    #             record.payment_memo = '%s(%s)' % (search_payment.journal_id.name, search_payment.ref)
 
 
     def _get_tax_value(self):
