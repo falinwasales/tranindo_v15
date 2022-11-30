@@ -13,36 +13,69 @@
                             <!--  -->
                             
                             <!-- TABLE FOR RECORD -->
+                            <div class="row">
+                                <div class="w-50">
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:15px; margin-left: 30px;">
+                                                <b>Tanggal</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:15px; margin-left: 30px;">
+                                                : <span t-esc="doc.tanda_terima_date.strftime('%d %b %Y') if doc.tanda_terima_date else ''"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-50">
+                                    <div class="row w-100">
+                                        <div class="w-100">
+                                            <span style="font-size:15px; margin-left: 30px;">
+                                                <span class="o_bold" t-field="doc.customer_id.name"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div class="" style="margin-left: 30px;">
+                                            <span style="font-size:15px;">
+                                                <span class="o_bold" t-esc="doc.customer_street if doc.customer_street else ''"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div style="margin-top:0px;">
                                 <table class="table o_report_block_table table-sm">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0 border-bottom border-dark" style="width: 5%;">
+                                            <th class="border-top border-bottom border-dark" style="width: 5%;">
                                                 <span style="font-size: 15px;">
                                                     No.
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark o_bold text-center" style="width: 10%;">
+                                            <th class="border-top border-bottom border-dark o_bold text-center" style="width: 10%;">
                                                 <span style="font-size: 15px;">
                                                     No. Invoice
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-right" style="width: 13%;">
+                                            <th class="border-top border-bottom border-dark text-right" style="width: 13%;">
                                                 <span style="font-size: 15px; margin-right: 20px;">
                                                     Tgl Invoice
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-center" style="width: 13%;">
+                                            <th class="border-top border-bottom border-dark text-center" style="width: 13%;">
                                                 <span style="font-size: 15px;">
                                                     Tgl jatuh Tempo
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-center" style="width: 15%;">
+                                            <th class="border-top border-bottom border-dark text-center" style="width: 15%;">
                                                 <span style="font-size: 15px;">
                                                     No. Faktur Pajak
                                                 </span>
                                             </th>
-                                            <th class="border-top-0 border-bottom border-dark text-right" style="width: 15%;">
+                                            <th class="border-top border-bottom border-dark text-right" style="width: 15%;">
                                                 <span style="white-space:nowrap; font-size: 15px;">
                                                     Jumlah
                                                 </span>
@@ -169,12 +202,12 @@
         <field name="default" eval="True" />
         <field name="format">A4</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">38</field>
+        <field name="margin_top">22</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">36</field>
+        <field name="header_spacing">20</field>
         <field name="dpi">90</field>
         <field name="report_ids" eval="[(4, ref('action_tanda_terima_model_A4'))]"/>
     </record>
