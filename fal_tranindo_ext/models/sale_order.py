@@ -10,7 +10,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     do_container = fields.Char(string="DO Number", compute="_get_picking_ids_refereces")
-    invoice_container = fields.Char(string="Invoice Number", compute="_get_invoice_ids_refereces")
+    invoice_container = fields.Char(string="Invoice Number", compute="_get_invoice_ids_refereces", store=True)
     sale_boolean = fields.Boolean(string="Sales Boolean", compute="_get_bool_value")
     market = fields.Char(string="market", related="partner_id.partner_market")
     wilayah = fields.Char(string="Wilayah", related="partner_id.partner_wilayah")
@@ -54,18 +54,11 @@ class SaleOrder(models.Model):
                     name = "%s" % (data)
             record.do_container = name[1:-1].replace("'", "")
 
-    @api.depends("invoice_ids")
+    @api.depends("invoice_ids.name")
     def _get_invoice_ids_refereces(self):
         for record in self:
-            data = []
-            name = ""
-            for ids in record.invoice_ids.filtered(lambda x: x.state == "posted"):
-                data.append(ids.name)
-                if len(ids) > 1:
-                    name = "%s," % (data)
-                else:
-                    name = "%s" % (data)
-            record.invoice_container = name
+            if record.invoice_ids:
+                record.invoice_container = record.invoice_ids[0].name if record.invoice_ids[0].state == 'posted' else False
 
     @api.depends('picking_ids')
     def _fal_get_stock_picking(self):
