@@ -57,7 +57,7 @@
                                                         </div>
                                                         <div class="w-75" style="margin-left:3px;">
                                                             <span>
-                                                                <span t-field="doc.no_po_do" class="o_bold"/>
+                                                                <span t-esc="doc.pos_account_move_id.name if doc.pos_account_move_id else doc.pos_po_do" class="o_bold"/>
                                                             </span>
                                                         </div>
                                                     </div>
