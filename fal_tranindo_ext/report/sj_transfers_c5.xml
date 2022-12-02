@@ -57,7 +57,12 @@
                                                         </div>
                                                         <div class="w-75" style="margin-left:3px;">
                                                             <span>
-                                                                <span t-field="doc.no_po_do" class="o_bold"/>
+                                                                <t t-if="doc.pos_account_move_id">
+                                                                    <span t-esc="doc.pos_account_move_id.name" class="o_bold"/> (<span t-esc="doc.origin" class="o_bold"/>)
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <span t-esc="doc.origin" class="o_bold"/>
+                                                                </t>
                                                             </span>
                                                         </div>
                                                     </div>
