@@ -15,7 +15,7 @@
                     <field name="origin" attrs="{'invisible': [('pos_created_bool','=',True)]}"/>
                     <field name="diff_trans_del" invisible='1'/>
                     <field name="pos_picking_origin" attrs="{'invisible': [('pos_created_bool', '=', True)]}"/>
-                    <field name="pos_account_move_id" invisible="1"/>
+                    <field name="pos_account_move_id"/>
                     <field name="pos_created_bool" invisible="1"/>
                     <field name="sale_created_bool" invisible="1"/>
                     <field name="pos_order_id" invisible="1"/>

@@ -135,7 +135,7 @@ class PosOrder(models.Model):
 
                 pickings = self.env['stock.picking']._create_picking_from_pos_order_lines(destination_id, self.lines, picking_type, self.partner_id)
                 pickings.write({'pos_session_id': self.session_id.id, 'pos_order_id': self.id, 'pos_picking_origin': name_name, 'pos_po_do':name_name, 
-                'pos_account_move_id': account_move_name})
+                'origin': name_name, 'pos_account_move_id': account_move_name})
 
                 # if self.config_id.pos_internal:
                 #     picking = self.config_id.default_warehouse_location
