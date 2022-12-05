@@ -8,12 +8,13 @@
                 <div class="">
                     <t t-if="o.pos_order_ids">
                         <t t-foreach="o.pos_order_ids" t-as="pos">
-                            <img t-if="pos[0].session_id.config_id.image_pos" t-attf-src="data:image/*;base64,{{pos[0].session_id.config_id.image_pos}}" style="margin-right: 10px; margin-top:0px;"/>
+                            <img t-if="pos[0].session_id.config_id.image_pos" t-attf-src="data:image/*;base64,{{pos[0].session_id.config_id.image_pos}}" 
+                            style="margin-right: 10px; margin-top:0px; width: auto; height: 400px;"/>
                         </t>
                     </t>
                 </div>
-
-                <h2>
+                
+                <h2 style="margin-top: 10px;">
                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
                     <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
                     <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
