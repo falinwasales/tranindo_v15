@@ -167,6 +167,70 @@
                                                 </td>
                                             </td>
                                         </tr>
+                                        <t t-if="doc.amount_tax != 0.0">
+                                            <tr>
+                                                <th class="border-bottom-0 border-top-0 border-black">
+                                                    <!-- <span style="font-size: 14px;">
+                                                        No.
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-black o_bold text-center">
+                                                    <!-- <span style="font-size: 14px;">
+                                                        Keterangan
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-black text-right">
+                                                    <!-- <span style="font-size: 14px; margin-right: 30px;">
+                                                        Jumlah
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-black">
+                                                    <!-- <span style="font-size: 14px;">
+                                                        Unit
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top border-dark text-right" style="font-size: 13px;" colspan="3">
+                                                    <span class="h7 o_bold">
+                                                        Subtotal : 
+                                                    </span>
+                                                </th>
+                                                <th class="border-bottom-0 border-top border-dark text-right" style="font-size: 13px;" colspan="3">
+                                                    <span style="margin-left: 40px;" t-field="doc.amount_untaxed"/>
+                                                </th>
+                                            </tr>
+                                        </t>
+                                        <t t-if="doc.amount_tax != 0.0">
+                                            <tr>
+                                                <th class="border-bottom-0 border-top-0 border-black">
+                                                    <!-- <span style="font-size: 14px;">
+                                                        No.
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-black o_bold text-center">
+                                                    <!-- <span style="font-size: 14px;">
+                                                        Keterangan
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-black text-right">
+                                                    <!-- <span style="font-size: 14px; margin-right: 30px;">
+                                                        Jumlah
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-black">
+                                                    <!-- <span style="font-size: 14px;">
+                                                        Unit
+                                                    </span> -->
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-dark text-right" style="font-size: 13px;" colspan="3">
+                                                    <span class="h7 o_bold">
+                                                        Taxes : 
+                                                    </span>
+                                                </th>
+                                                <th class="border-bottom-0 border-top-0 border-dark text-right" style="font-size: 13px;" colspan="3">
+                                                    <span style="margin-left: 40px;" t-field="doc.amount_tax"/>
+                                                </th>
+                                            </tr>
+                                        </t>
                                         <tr>
                                             <th class="border-bottom-0 border-top-0 border-black">
                                                 <!-- <span style="font-size: 14px;">
@@ -188,12 +252,12 @@
                                                     Unit
                                                 </span> -->
                                             </th>
-                                            <th class="border-bottom-0 border-top border-dark text-right" colspan="3">
+                                            <th class="border-bottom-0 border-top border-dark text-right" style="font-size: 13px;" colspan="3">
                                                 <span class="h7 o_bold">
                                                     Total : 
                                                 </span>
                                             </th>
-                                            <th class="border-bottom-0 border-top border-dark text-right" colspan="3">
+                                            <th class="border-bottom-0 border-top border-dark text-right" style="font-size: 13px;" colspan="3">
                                                 <span style="margin-left: 40px;" t-field="doc.amount_total"/>
                                             </th>
                                         </tr>
