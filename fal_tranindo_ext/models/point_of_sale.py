@@ -100,20 +100,20 @@ class PosOrder(models.Model):
         })
         return action
 
-    # def create_vendor_bill_pos(self):
-    #         # tax = 3
-    #         # if record.partner_id.vat:
-    #         #     tax = 2.5
-    #         default_seq_vendor = self.config_id
-    #         create_seq = self.env["ir.sequence"].next_by_code(default_seq_vendor.default_sequence_vendor.code)
-    #         create = self.env['account.move'].create({
-    #             "name": create_seq,
-    #             "partner_id": self.partner_comission.id,
-    #             "invoice_line_ids": [(0,0,{"product_id":3695, "name":"komisi","price_unit": self.subtotal_tax*(self.pos_comission/100), "quantity":1,"product_uom_id":1}),(0,0,{"product_id":4251, "name":"Pajak","price_unit": -((self.subtotal_tax*(self.pos_comission/100))*0.03), "quantity":1,"product_uom_id":1})],
-    #             "move_type": "in_invoice",
-    #             "pos_comission_id": self.id,
-    #         })
-    #         return create
+    def create_vendor_bill_pos(self):
+            # tax = 3
+            # if record.partner_id.vat:
+            #     tax = 2.5
+            default_seq_vendor = self.config_id
+            create_seq = self.env["ir.sequence"].next_by_code(default_seq_vendor.default_sequence_vendor.code)
+            create = self.env['account.move'].create({
+                "name": create_seq,
+                "partner_id": self.partner_comission.id,
+                "invoice_line_ids": [(0,0,{"product_id":3695, "name":"komisi","price_unit": self.subtotal_tax*(self.pos_comission/100), "quantity":1,"product_uom_id":1}),(0,0,{"product_id":4251, "name":"Pajak","price_unit": -((self.subtotal_tax*(self.pos_comission/100))*0.03), "quantity":1,"product_uom_id":1})],
+                "move_type": "in_invoice",
+                "pos_comission_id": self.id,
+            })
+            return create
 
     def _create_order_picking(self):
         self.ensure_one()
