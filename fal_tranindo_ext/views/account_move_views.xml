@@ -23,6 +23,10 @@
                         <field name="invoice_salesperson"/>
                     </field>
 
+                    <xpath expr="//field[@name='journal_id']" position="attributes">
+                        <attribute name="domain">[('type', 'in', ['cash','general','bank'])]</attribute>
+                    </xpath>
+
                     <xpath expr="//tree/field[@name='discount']" position="after">
                         <field name="disc_round" invisible="1"/>
                     </xpath>
