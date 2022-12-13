@@ -1,0 +1,12 @@
+<odoo>
+    <record id="custom_views_res_users" model="ir.ui.view">
+        <field name="name">fal_tranindo_ext.custom_views_res_users</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="pos_user" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
