@@ -29,7 +29,14 @@
                                         <div class="w-75">
                                             <div style="margin-left: 0px;">
                                                 <span style="font-size:14px; word-break: break-word;">
-                                                    <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
+                                                    <t t-if="doc.pos_order_ids">
+                                                        <t t-foreach="doc.pos_order_ids" t-as="pos">
+                                                            <span style="font-size:14px;" t-field="pos[0].picking_ids[0].name"/>
+                                                        </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
+                                                    </t>
                                                 </span>
                                             </div>
                                         </div>
