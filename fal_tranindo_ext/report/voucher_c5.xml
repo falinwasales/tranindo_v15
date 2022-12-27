@@ -128,7 +128,7 @@
                                 </table>
 
                                 <div class="row">
-                                    <div class="w-100">
+                                    <div class="" style="width: 100%;">
                                         <span style="margin-left: 79%;">
                                             TOTAL : Rp. <span t-esc="total_kredit" t-options='{"widget": "float", "precision": 2}'/>
                                         </span>
