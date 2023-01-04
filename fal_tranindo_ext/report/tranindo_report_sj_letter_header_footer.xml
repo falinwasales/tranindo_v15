@@ -22,18 +22,18 @@
         <div class='header' t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style" style="margin-bottom:0px;"> 
             <div class="row">
                 <div class="col-2 border border-white">
-                    <img t-if="res_company.logo"  t-attf-src="data:image/*;base64,{{res_company.logo}}" style="width:140px;"/>
+                    <img t-if="doc.company_id.logo"  t-attf-src="data:image/*;base64,{{doc.company_id.logo}}" style="width:140px;"/>
                 </div>
                 <!--  -->
                 <div class="col-5">
                     <span/>
-                    <span t-field="res_company.name" class="o_bold"/>
+                    <span t-field="doc.company_id.name" class="o_bold"/>
                     <br/>
-                    <span class="small o_bold"><span t-field="res_company.street" class="o_bold"/></span>
+                    <span class="small o_bold"><span t-field="doc.company_id.street" class="o_bold"/></span>
                     <br/>
                     <span class="small o_bold">
-                        Phone : <span t-field="o.company_id.phone" class="o_bold"/>
-                        Fax : <span t-field="o.company_id.fax" class="o_bold"/>
+                        Phone : <span t-field="doc.company_id.phone" class="o_bold"/>
+                        Fax : <span t-field="doc.company_id.fax" class="o_bold"/>
                     </span>
                 </div>
                 <!--  -->
