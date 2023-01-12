@@ -4,7 +4,6 @@ from odoo import api, fields, models
 class SaleReport(models.Model):
     _inherit = "sale.report"
 
-    qty_done = fields.Float(string="Qty Done", readonly=True)
     invoice_status_so = fields.Selection([
         ('upselling', 'Upselling Opportunity'),
         ('invoiced', 'Fully Invoiced'),
@@ -57,9 +56,6 @@ class SaleReport(models.Model):
             s.invoice_status as invoice_status_so,
             l.qty_invoiced as qty_invoiced2
         """
-
-            # l.total_delivered as all_total_delivered
-        # CASE WHEN s.invoice_status='invoiced' THEN sum(l.qty_invoiced) ELSE 0 END as qty_invoiced2
 
         for field in fields.values():
             select_ += field
