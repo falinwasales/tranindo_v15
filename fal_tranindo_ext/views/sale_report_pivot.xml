@@ -8,8 +8,8 @@
                 <field name="date" interval="month" type="row"/>
                 <field name="price_subtotal" type="measure"/>
                 <field name="qty_done" type="measure"/>
-                <field name="total_invoiced2" type="measure"/>
-                <field name="all_total_delivered" type="measure"/>
+                <!-- <field name="total_invoiced2" type="measure"/> -->
+                <!-- <field name="total_delivered" type="measure"/> -->
                 <!-- <filter name="invoice_status_so" string="Invoice Status"/> -->
             </pivot>
         </field>

@@ -12,8 +12,6 @@ class SaleReport(models.Model):
         ('no', 'Nothing to Invoice')
         ], string='Invoice Status', readonly=True)
     qty_invoiced2 = fields.Float(string="Qty Invoiced(Invoice)", readonly=True)
-    total_invoiced2 = fields.Float(string="Total Invoiced", readonly=True)
-    all_total_delivered = fields.Float(string="Total Delivered", readonly=True)
 
     def _select_sale(self, fields=None):
         if not fields:
@@ -57,11 +55,10 @@ class SaleReport(models.Model):
             CASE WHEN l.product_id IS NOT NULL THEN sum((l.price_unit * l.product_uom_qty * l.discount / 100.0 / CASE COALESCE(s.currency_rate, 0) WHEN 0 THEN 1.0 ELSE s.currency_rate END))ELSE 0 END as discount_amount,
             s.id as order_id,
             s.invoice_status as invoice_status_so,
-            l.qty_invoiced as qty_invoiced2,
-            sum(l.qty_invoiced) as total_invoiced2,
-            l.total_delivered as all_total_delivered
+            l.qty_invoiced as qty_invoiced2
         """
 
+            # l.total_delivered as all_total_delivered
         # CASE WHEN s.invoice_status='invoiced' THEN sum(l.qty_invoiced) ELSE 0 END as qty_invoiced2
 
         for field in fields.values():
@@ -93,7 +90,6 @@ class SaleReport(models.Model):
             l.discount,
             s.id,
             s.invoice_status,
-            l.qty_invoiced,
-            l.total_delivered %s
+            l.qty_invoiced %s
         """ % (groupby)
         return groupby_
