@@ -10,6 +10,22 @@ class SaleOrderLine(models.Model):
 
     disc_round = fields.Float(string="Disc Round", compute="_round_discount")
     product_qty_available = fields.Float(string="Qty Available", compute="_get_product_uom_warehouse")
+    total_delivered = fields.Float(string="Total", compute="_get_total_done")
+
+    def _get_total_done(self):
+        for record in self:
+            # record.total_delivered = 0
+            # # for order in record.order_id.picking_ids:
+            # #     for operation in order.
+            # if record.order_id:
+            #     picking_line = self.env['stock.move.line'].search([('picking_id.id', '=', record.order_id.id)])
+            #     print('*****************')
+            #     print(picking_line)
+            #     record.total_delivered = 0
+            for picking in record.order_id.picking_ids:
+                for move_line in picking.move_line_ids_without_package.filtered(lambda x: x.product_id == record.product_id):
+                    record.total_delivered += move_line.qty_done
+                
 
     @api.depends('warehouse_id')
     def _get_product_uom_warehouse(self):

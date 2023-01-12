@@ -41,6 +41,7 @@
         'views/stock_move_line_views.xml',
         'views/account_journal_views.xml',
         'views/res_users_views.xml',
+        'views/sale_report_pivot.xml',
         # Wizard Form
         'wizard/stock_cancel_option_views.xml',
         # Report File

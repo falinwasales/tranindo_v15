@@ -60,6 +60,7 @@
 
                 <xpath expr="//tree/field[@name='product_uom_qty']" position="after">
                     <field name="product_qty_available"/>
+                    <field name="total_delivered"/>
                 </xpath>
             </field>
         </record>
@@ -168,17 +169,5 @@
             action="action_orders_quotations"
             parent="sale.sale_order_menu"
             sequence="1"/>
-
-        <!-- <record id="view_quotation_tree_domain_inherit_tranindo_ext_form" model="ir.ui.view">
-            <field name="name">sale.view_quotation_tree_domain_inherit_tranindo_ext_form</field>
-            <field name="model">sale.order.tree</field>
-            <field name="inherit_id" ref="sale.view_order_tree"/>
-            <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
-                    <attribute name="domain">[("sale_boolean","=",True)]</attribute>
-                </xpath>
-            </field>
-        </record> -->
-
     </data>
 </odoo>

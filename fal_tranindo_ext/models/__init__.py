@@ -16,6 +16,7 @@ from . import res_partner
 from . import res_users
 from . import stock_picking
 from . import sale_order
+from . import sale_report
 from . import stock_move_line
 from . import tanda_terima
 from . import sale_order_line
