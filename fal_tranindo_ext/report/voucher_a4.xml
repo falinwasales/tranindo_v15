@@ -109,7 +109,7 @@
                                             </td>
                                             <td class="border border-dark" style="width: 250px;">
                                                 <span style="font-size: 14px;">
-                                                    <span t-field="line.name"/>
+                                                    <span t-field="line.name"/> <span t-field="doc.ref"/>
                                                 </span>
                                             </td>
                                             <td class="border border-dark" style="width: 150px;">
