@@ -50,6 +50,15 @@ class BankProvision(models.Model):
     count_day = fields.Integer(
         string="Count Day")
 
+    pure_amount = fields.Monetary(string="Pure")
+    keep_open = fields.Boolean(string="Keep Open")
+
+    # def _get_total_signed(self):
+    #     self.total_lines = 0
+    #     for record in self.invoice_ids:
+    #         self.total_lines += record.amount_total_signed
+
+
     def _computeCountDate(self):
         for data in self:
             datenow = fields.Date.context_today(self)
@@ -92,29 +101,55 @@ class BankProvision(models.Model):
                 amount_currency = amount
                 amount = line.currency_id._convert(amount, company_currency, line.payment_id.company_id, datenow)
 
-            move_line_1 = {
-                'name': name,
-                'account_id': db_acc or False,
-                'debit': 0.0 if line.payment_id.partner_type == 'supplier' else amount,
-                'credit': amount if line.payment_id.partner_type == 'supplier' else 0.0,
-                'journal_id': line.jurnal_dest_id.id,
-                'currency_id': self_currency,
-                'amount_currency': -1 * amount_currency if line.payment_id.partner_type == 'supplier' else amount_currency,
-                'product_uom_id': 1
-            }
-            line_list.append((0, 0, move_line_1))
+            if not line.keep_open:
+                move_line_1 = {
+                    'name': name,
+                    'account_id': db_acc or False,
+                    'debit': 0.0 if line.payment_id.partner_type == 'supplier' else amount,
+                    'credit': amount if line.payment_id.partner_type == 'supplier' else 0.0,
+                    'journal_id': line.jurnal_dest_id.id,
+                    'currency_id': self_currency,
+                    'amount_currency': -1 * amount_currency if line.payment_id.partner_type == 'supplier' else amount_currency,
+                    'product_uom_id': 1
+                }
+                line_list.append((0, 0, move_line_1))
 
-            move_line_2 = {
-                'name': name,
-                'account_id': cr_acc or False,
-                'debit': amount if line.payment_id.partner_type == 'supplier' else 0.0,
-                'credit': 0.0 if line.payment_id.partner_type == 'supplier' else amount,
-                'journal_id': line.jurnal_dest_id.id,
-                'currency_id': self_currency,
-                'amount_currency': amount_currency if line.payment_id.partner_type == 'supplier' else -1 * amount_currency,
-                'product_uom_id': 1
-            }
-            line_list.append((0, 0, move_line_2))
+                move_line_2 = {
+                    'name': name,
+                    'account_id': cr_acc or False,
+                    'debit': amount if line.payment_id.partner_type == 'supplier' else 0.0,
+                    'credit': 0.0 if line.payment_id.partner_type == 'supplier' else amount,
+                    'journal_id': line.jurnal_dest_id.id,
+                    'currency_id': self_currency,
+                    'amount_currency': amount_currency if line.payment_id.partner_type == 'supplier' else -1 * amount_currency,
+                    'product_uom_id': 1
+                }
+
+                line_list.append((0, 0, move_line_2))
+            else:
+                move_line_1 = {
+                    'name': name,
+                    'account_id': db_acc or False,
+                    'debit': line.pure_amount,
+                    'credit': 0.0,
+                    'journal_id': line.jurnal_dest_id.id,
+                    'currency_id': self_currency,
+                    'amount_currency': line.pure_amount,
+                    'product_uom_id': 1
+                }
+                line_list.append((0, 0, move_line_1))
+
+                move_line_2 = {
+                    'name': name,
+                    'account_id': cr_acc or False,
+                    'debit': 0.0,
+                    'credit': line.pure_amount,
+                    'journal_id': line.jurnal_dest_id.id,
+                    'currency_id': self_currency,
+                    'amount_currency': line.pure_amount,
+                    'product_uom_id': 1
+                }
+                line_list.append((0, 0, move_line_2))
 
         move_vals = {
             'ref': name,

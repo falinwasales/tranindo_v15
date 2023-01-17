@@ -69,7 +69,9 @@ class AccountPaymentRegister(models.TransientModel):
                 'note': payment.ref,
                 'due_date': self.due_date,
                 'jurnal_dest_id': self.jurnal_dest_id.id,
-                'currency_id': payment.currency_id.id
+                'currency_id': payment.currency_id.id,
+                'keep_open': True,
+                'pure_amount': self.amount,
             }
             self.env['fal.bank.provision'].create(data)
 
