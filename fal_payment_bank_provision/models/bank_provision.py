@@ -110,7 +110,8 @@ class BankProvision(models.Model):
                     'journal_id': line.jurnal_dest_id.id,
                     'currency_id': self_currency,
                     'amount_currency': -1 * amount_currency if line.payment_id.partner_type == 'supplier' else amount_currency,
-                    'product_uom_id': 1
+                    'product_uom_id': 1,
+                    'partner_id': self.partner_id.id,
                 }
                 line_list.append((0, 0, move_line_1))
 
@@ -122,7 +123,8 @@ class BankProvision(models.Model):
                     'journal_id': line.jurnal_dest_id.id,
                     'currency_id': self_currency,
                     'amount_currency': amount_currency if line.payment_id.partner_type == 'supplier' else -1 * amount_currency,
-                    'product_uom_id': 1
+                    'product_uom_id': 1,
+                    'partner_id': self.partner_id.id,
                 }
 
                 line_list.append((0, 0, move_line_2))
@@ -135,7 +137,8 @@ class BankProvision(models.Model):
                     'journal_id': line.jurnal_dest_id.id,
                     'currency_id': self_currency,
                     'amount_currency': line.pure_amount,
-                    'product_uom_id': 1
+                    'product_uom_id': 1,
+                    'partner_id': self.partner_id.id,
                 }
                 line_list.append((0, 0, move_line_1))
 
@@ -147,7 +150,8 @@ class BankProvision(models.Model):
                     'journal_id': line.jurnal_dest_id.id,
                     'currency_id': self_currency,
                     'amount_currency': line.pure_amount,
-                    'product_uom_id': 1
+                    'product_uom_id': 1,
+                    'partner_id': self.partner_id.id,
                 }
                 line_list.append((0, 0, move_line_2))
 
