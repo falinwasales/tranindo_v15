@@ -48,6 +48,15 @@ class AccountInvoice(models.Model):
 
     payment_memo = fields.Char(string="Payment Memo")
 
+    category_first_line = fields.Many2one('product.category', string="Product Categoryx", store=True)
+
+    def get_first_line_category(self):
+        for record in self:
+            record.category_first_line = False
+            if record.move_type == 'out_invoice' and record.invoice_line_ids:
+                for line in record.invoice_line_ids:
+                    record.category_first_line = line[0].product_id.categ_id.id
+
     # def _get_memo_from_payment(self):
     #     for record in self:
     #         record.payment_memo = ''
