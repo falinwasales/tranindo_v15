@@ -48,7 +48,7 @@ class AccountInvoice(models.Model):
 
     payment_memo = fields.Char(string="Payment Memo")
 
-    category_first_line = fields.Many2one('product.category', string="Product Categoryx", store=True, compute="get_first_line_category")
+    category_first_line = fields.Many2one('product.category', string="Product Category", store=True, compute="get_first_line_category")
 
     def get_first_line_category(self):
         for record in self:
