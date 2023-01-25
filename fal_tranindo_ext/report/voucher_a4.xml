@@ -109,7 +109,12 @@
                                             </td>
                                             <td class="border border-dark" style="width: 250px;">
                                                 <span style="font-size: 14px;">
-                                                    <span t-field="line.name"/> <span t-field="doc.ref"/>
+                                                    <t t-if="doc.payment_voucher_bool">
+                                                        <span t-field="line.name"/> 
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-field="doc.ref"/>
+                                                    </t>
                                                 </span>
                                             </td>
                                             <td class="border border-dark" style="width: 150px;">
