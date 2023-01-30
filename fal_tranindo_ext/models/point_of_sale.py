@@ -20,6 +20,21 @@ class PosOrder(models.Model):
 
     vendor_bill_ids = fields.Many2many("account.move", string="Vendor Bill IDs",compute="get_vendor_bill_ids")
 
+    invoice_status = fields.Selection([
+        ('draft', 'Draft'),
+        ('posted', 'Posted'),
+        ('cancel', 'Cancel')
+        ], string='Invoice Status', readonly=True, related="account_move.state")
+
+    invoice_payment_state = fields.Selection(selection=[
+        ('not_paid', 'Not Paid'),
+        ('in_payment', 'In Payment'),
+        ('paid', 'paid'),
+        ('partial', 'Partially Paid'),
+        ('reversed', 'Reversed'),
+        ('invoicing_legacy', 'Invoicing App Legacy')
+    ], string='Payment Status', readonly=True, related="account_move.payment_state")
+
     # def _prepare_invoice_vals(self):
     #     self.ensure_one()
     #     timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
