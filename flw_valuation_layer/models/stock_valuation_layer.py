@@ -21,9 +21,8 @@ class StockValuationLayer(models.Model):
 
     def turn_invoiced_bool(self):
         for record in self:
-            record.x_invoiced_layer = False
             if record.stock_move_id.account_move_ids:
-                record.x_invoiced_layer = True
+                record.update({'x_invoiced_layer': True})
 
     # x_account_move_ids = fields.
 

@@ -9,4 +9,11 @@
             </xpath>
         </field>
     </record>
+
+    <!-- <record id="custom_action_valuation_layer" model="ir.actions.server">
+        <field name="name">Custom Export from Partner</field>
+        <field name="binding_model_id" ref="stock_account.stock_valuation_layer_form"/>
+        <field name="state">code</field>
+        <field name="code">model.turn_invoiced_bool()</field>
+    </record> -->
 </odoo>
