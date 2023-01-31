@@ -1,0 +1,12 @@
+<odoo>
+    <record id="stock_valuation_layer_views_custom" model="ir.ui.view">
+        <field name="name">flw_valuation_layer.stock_valuation_layer_views_custom</field>
+        <field name="model">stock.valuation.layer</field>
+        <field name="inherit_id" ref="stock_account.stock_valuation_layer_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stock_move_id']" position="after">
+                <field name="x_invoiced_layer" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

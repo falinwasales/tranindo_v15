@@ -1,0 +1,12 @@
+<odoo>
+    <record id="server_action_update_invoice_boolean_stock_valuation" model="ir.actions.server">
+        <field name="name">Update Boolean for invoice in Valuation</field>
+        <field name="model_id" ref="stock_account.model_stock_valuation_layer"/>
+        <field name="state">code</field>
+        <field name="code">
+            <!-- for self in records:
+        if self.stock_move_id.account_move_ids:
+        self.x_invoiced_layer = True -->
+        </field>
+    </record>
+</odoo>
