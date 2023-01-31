@@ -12,7 +12,7 @@ class StockValuationLayer(models.Model):
 
     x_invoiced_layer = fields.Boolean(string="Invoiced", compute="get_bool_result")
 
-    # @api.depends('stock_move_id')
+    @api.depends('stock_move_id')
     def get_bool_result(self):
         for record in self:
             record.x_invoiced_layer = False
