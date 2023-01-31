@@ -10,7 +10,7 @@ import json
 class StockValuationLayer(models.Model):
     _inherit = "stock.valuation.layer"
 
-    x_invoiced_layer = fields.Boolean(string="Invoiced", store="True")
+    x_invoiced_layer = fields.Boolean(string="Invoiced", store=True)
 
     @api.depends('stock_move_id')
     def get_bool_result(self):
