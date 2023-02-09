@@ -16,8 +16,8 @@
         # 'report',
     ],
     'data': [
-        'views/purchase_order_line.xml',
         'security/ir_server_action.xml',
+        'views/product_template_views.xml'
     ],
     'css': [],
     'js': [],

@@ -10,8 +10,8 @@ _logger = logging.getLogger(__name__)
 class PurchaseReport(models.Model):
     _inherit = "purchase.report"
 
-    cost_average = fields.Float(string="Cost Average", store=True)
-    standard_price = fields.Float(string="Product Cost", store=True)
+    # cost_average = fields.Float(string="Cost Average", store=True)
+    standard_price = fields.Float(string="Total Product Cost", store=True)
 
     def _select(self):
         select_str = """
@@ -50,7 +50,7 @@ class PurchaseReport(models.Model):
                          then sum(l.product_qty / line_uom.factor * product_uom.factor) - sum(l.qty_invoiced / line_uom.factor * product_uom.factor)
                          else sum(l.qty_received / line_uom.factor * product_uom.factor) - sum(l.qty_invoiced / line_uom.factor * product_uom.factor)
                     end as qty_to_be_billed,
-                    l.standard_price as standard_price
+                    t.product_cost as standard_price
         """ % self.env['res.currency']._select_companies_rates()
         return select_str
 
@@ -105,7 +105,7 @@ class PurchaseReport(models.Model):
                 analytic_account.id,
                 po.id,
                 currency_table.rate,
-                l.standard_price
+                t.product_cost
         """
         return group_by_str
 

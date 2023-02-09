@@ -1,12 +1,11 @@
 <odoo>
-    <record id="server_action_update_purchase_order_line_product" model="ir.actions.server">
-        <field name="name">Update Purchase Order Line Product</field>
-        <field name="model_id" ref="purchase.model_purchase_order"/>
+    <record id="server_action_update_product_template" model="ir.actions.server">
+        <field name="name">Update product Cost</field>
+        <field name="model_id" ref="product.model_product_template"/>
         <field name="state">code</field>
-        <field name="code">for purchase in records:
-                for line in purchase.order_line:
-                    if line.product_id:
-                        line.update({'product_id': line.product_id.id})
+        <field name="code">
+            for product in records:
+                product.update({'product_cost': product.standard_price})
         </field>
     </record>
 </odoo>
