@@ -52,7 +52,7 @@
                 <xpath expr="//field[@name='move_line_ids_without_package']" position="inside">
                     <tree editable="bottom" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id">
                         <field name="product_id" required="1" context="{'default_detailed_type': 'product'}" attrs="{'readonly': ['|', ('state', '=', 'done'), ('move_id', '!=', False)]}"/>
-                        <field name="line_product_uom_qty" optional="show"/>
+                        <field name="line_product_uom_qty" optional="show" string="Available Quantity"/>
                         <field name="description_bom_line" optional="show" attrs="{'column_invisible': [('parent.has_kits', '=', False)]}"/>
                         <field name="company_id" invisible="1"/>
                         <field name="move_id" invisible="1"/>

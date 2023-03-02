@@ -80,7 +80,7 @@ class StockMoveLine(models.Model):
             ware = record.location_id
             quant = self.env['stock.quant'].search([('product_id','=',record.product_id.id),('location_id','=',ware.id)])
             if quant:
-                qty = quant.quantity
+                qty = quant.available_quantity
                 record.line_product_uom_qty = qty
             else:
                 record.line_product_uom_qty = 0
