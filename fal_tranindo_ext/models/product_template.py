@@ -15,7 +15,7 @@ class product_product(models.Model):
     product_po_line_field = fields.Many2many('purchase.order.line', 'purchase_product', string='Purchase Order Line')
 
     def _get_current_compnay(self):
-        return self.env.company
+        return self.env.user.company_id.id
 
     company_id = fields.Many2one(
         'res.company', 'Company', index=1, default=_get_current_compnay)

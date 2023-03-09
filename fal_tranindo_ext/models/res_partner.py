@@ -11,6 +11,6 @@ class ResPartner(models.Model):
     partner_wilayah = fields.Char(string="Wilayah")
 
     def _get_current_compnay(self):
-        return self.env.company
+        return self.env.user.company_id.id
 
     company_id = fields.Many2one('res.company', 'Company', index=True, default=_get_current_compnay)
