@@ -1,0 +1,12 @@
+<odoo>
+    <record model="ir.ui.view" id="flw_sale_custom_views">
+        <field name="name">flw_sale.flw_sale_custom_views</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="stock_account.stock_valuation_layer_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="sale_date"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

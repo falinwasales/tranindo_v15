@@ -14,6 +14,12 @@ class product_product(models.Model):
 
     product_po_line_field = fields.Many2many('purchase.order.line', 'purchase_product', string='Purchase Order Line')
 
+    def _get_current_compnay(self):
+        return self.env.company
+
+    company_id = fields.Many2one(
+        'res.company', 'Company', index=1, default=_get_current_compnay)
+
     @api.constrains('name')
     def _check_name(self):
         if self.name:
