@@ -50,7 +50,7 @@
                 <!--  -->
             </div>
 
-            <hr style="background-color: black; margin-bottom: 0px; margin-top: 1px;"/>
+            <hr style="background-color: black; border-top: 1px solid black; margin-bottom: 0px; margin-top: 1px;"/>
             <div class="row">
                 <div class="w-50">
                     <div class="row w-100">
