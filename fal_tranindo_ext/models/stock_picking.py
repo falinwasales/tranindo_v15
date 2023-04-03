@@ -181,3 +181,23 @@ class StockPicking(models.Model):
             # # for record in move.move_line_ids:
             #     # record.create(6, 0,[vals])
             # self.move_line_ids_without_package.update(vals)
+
+    @api.onchange('location_dest_id')
+    def constraints_destination_location(self):
+        for record in self:
+            destination_location = record.location_dest_id
+
+            if record.move_line_ids_without_package:
+                for line in record.move_line_ids_without_package:
+                    if destination_location != line.location_dest_id:
+                        raise UserError(_("The Destination location cannot be different from Detailed Operations."))
+                    
+    @api.onchange('location_id')
+    def constraints_destination_location(self):
+        for record in self:
+            destination_location = record.location_id
+
+            if record.move_line_ids_without_package:
+                for line in record.move_line_ids_without_package:
+                    if destination_location != line.location_id:
+                        raise UserError(_("The Frorm location cannot be different from Detailed Operations."))
