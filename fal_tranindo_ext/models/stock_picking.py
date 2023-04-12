@@ -106,20 +106,20 @@ class StockPicking(models.Model):
             'context': {'picking_id': self.id},
         }
 
-    def action_confirm(self):
-        if self.is_bom_kit:
-            self._check_company()
-            self.mapped('package_level_ids').filtered(lambda pl: pl.state == 'draft' and not pl.move_ids)._generate_moves()
-            # call `_action_confirm` on every draft move
-            self.mapped('move_lines')\
-                .filtered(lambda move: move.state == 'draft')\
-                ._action_confirm()
+    # def action_confirm(self):
+    #     if self.is_bom_kit:
+    #         self._check_company()
+    #         self.mapped('package_level_ids').filtered(lambda pl: pl.state == 'draft' and not pl.move_ids)._generate_moves()
+    #         # call `_action_confirm` on every draft move
+    #         self.mapped('move_lines')\
+    #             .filtered(lambda move: move.state == 'draft')\
+    #             ._action_confirm()
 
-            # run scheduler for moves forecasted to not have enough in stock
-            self.mapped('move_lines').filtered(lambda move: move.state not in ('draft', 'cancel', 'done'))._trigger_scheduler()
-            return True
-        else:
-            raise UserError(_("You must click BoM Kit Button first."))
+    #         # run scheduler for moves forecasted to not have enough in stock
+    #         self.mapped('move_lines').filtered(lambda move: move.state not in ('draft', 'cancel', 'done'))._trigger_scheduler()
+    #         return True
+    #     else:
+    #         raise UserError(_("You must click BoM Kit Button first."))
 
         
 
