@@ -8,6 +8,8 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    is_bom_kit = fields.Boolean(string="Is BoM Kit")
+
     no_po_do = fields.Char(string="Customer Reference", help="Reference from Sale.")
     do_ref = fields.Char(string="Customer Reference", help="Reference from Internal.", related="sale_id.client_order_ref")
     pos_po_do = fields.Char(string="Customer Reference", help="Reference from PoS.")
@@ -87,6 +89,9 @@ class StockPicking(models.Model):
             # print(data_new2)
 
             self.stock_bom_product_ids = data_new2
+            self.update({
+                'is_bom_kit' : True,
+            })
 
     def action_cancel_option(self):
         view = self.env.ref('fal_tranindo_ext.stock_picking_cancel_opt')
@@ -102,16 +107,19 @@ class StockPicking(models.Model):
         }
 
     def action_confirm(self):
-        self._check_company()
-        self.mapped('package_level_ids').filtered(lambda pl: pl.state == 'draft' and not pl.move_ids)._generate_moves()
-        # call `_action_confirm` on every draft move
-        self.mapped('move_lines')\
-            .filtered(lambda move: move.state == 'draft')\
-            ._action_confirm()
+        if self.is_bom_kit:
+            self._check_company()
+            self.mapped('package_level_ids').filtered(lambda pl: pl.state == 'draft' and not pl.move_ids)._generate_moves()
+            # call `_action_confirm` on every draft move
+            self.mapped('move_lines')\
+                .filtered(lambda move: move.state == 'draft')\
+                ._action_confirm()
 
-        # run scheduler for moves forecasted to not have enough in stock
-        self.mapped('move_lines').filtered(lambda move: move.state not in ('draft', 'cancel', 'done'))._trigger_scheduler()
-        return True
+            # run scheduler for moves forecasted to not have enough in stock
+            self.mapped('move_lines').filtered(lambda move: move.state not in ('draft', 'cancel', 'done'))._trigger_scheduler()
+            return True
+        else:
+            raise UserError(_("You must click BoM Kit Button first."))
 
         
 
@@ -181,3 +189,23 @@ class StockPicking(models.Model):
             # # for record in move.move_line_ids:
             #     # record.create(6, 0,[vals])
             # self.move_line_ids_without_package.update(vals)
+
+    @api.onchange('location_dest_id')
+    def constraints_destination_location(self):
+        for record in self:
+            destination_location = record.location_dest_id
+
+            if record.move_line_ids_without_package:
+                for line in record.move_line_ids_without_package:
+                    if destination_location != line.location_dest_id:
+                        raise UserError(_("The Destination location cannot be different from Detailed Operations."))
+                    
+    @api.onchange('location_id')
+    def constraints_destination_location(self):
+        for record in self:
+            destination_location = record.location_id
+
+            if record.move_line_ids_without_package:
+                for line in record.move_line_ids_without_package:
+                    if destination_location != line.location_id:
+                        raise UserError(_("The Frorm location cannot be different from Detailed Operations."))
