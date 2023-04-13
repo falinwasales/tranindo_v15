@@ -47,7 +47,7 @@
                 </xpath>
 
                 <xpath expr="//button[@name='action_cancel']" position="replace">
-                    <button name="get_bom_kit" string="Bom Kit" groups="base.group_user" type="object" data-hotkey="z"/>
+                    <button name="get_bom_kit" string="Bom Kit" groups="base.group_user" type="object" data-hotkey="z" invisible="1"/>
 
                     <button name="action_cancel_option" attrs="{'invisible': [('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]}" 
                     string="Cancel" groups="base.group_user" type="object" data-hotkey="z"/>
