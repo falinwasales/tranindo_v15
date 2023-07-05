@@ -28,7 +28,7 @@ class AccountMove(models.Model):
 
     customer_reference = fields.Char(string='Customer Reference', compute='_get_customer_reference')
 
-    invoice_payment_state = fields.Char(string="Paymetn State")
+    invoice_payment_state = fields.Char(string="Payment State")
 
     
     agreement_file = fields.Many2many(
@@ -176,12 +176,38 @@ class AccountMove(models.Model):
             'context': ctx,
         }
 
+    # @api.constrains('faktur_file_name', 'po_file_name', 'surat_jalan_file_upload_name')
+    # def _check_type_faktur_file_name(self):
+    #     for record in self:
+    #         #list = ['.docx','.epub','.xlsx','.mp4','.mp3','.xls''.zip','.rar','.txt','.mkv']
+    #         list = ['.png','.jpeg','.jpg','.csv']
+            
+    #         if record.state == 'posted':
+    #             if record.move_type == 'out_invoice' and not any(record.po_file_name.endswith(s) for s in list):
+    #                 raise ValidationError(_('One of your file is not *.jpg or Image(*.png,*.jpeg,*.jpg) type, please change your filetype!!!'))
+
+
     @api.constrains('faktur_file_name', 'po_file_name', 'surat_jalan_file_upload_name')
     def _check_type_faktur_file_name(self):
         for record in self:
             list = ['.docx','.epub','.xlsx','.mp4','.mp3','.xls''.zip','.rar','.txt','.mkv']
+            # list = ['.png','.jpeg','.jpg']
             
             if record.state == 'posted':
-                if record.move_type == 'out_invoice' and any(record.po_file_name.endswith(s) for s in list):
-                # if any(record.faktur_file_name.endswith(s) for s in list):
+
+                if record.move_type == 'out_invoice' and record.po_file_name in list:
                     raise ValidationError(_('One of your file is not *.jpg or Image(*.png,*.jpeg,*.jpg) type, please change your filetype!!!'))
+
+
+
+    # @api.constrains('faktur_file_name', 'po_file_name', 'surat_jalan_file_upload_name')
+    # def _check_type_faktur_file_name(self):
+    #     for record in self:
+    #         allowed_extensions = ['.png', '.jpeg', '.jpg']
+            
+    #         if record.state == 'posted' and record.move_type == 'out_invoice':
+    #             # if isinstance(record.po_file_name, str):
+    #             #     raise ValidationError(_('File name should be a string!'))
+                
+    #             if not any(record.po_file_name.endswith(s) in allowed_extensions):
+    #                 raise ValidationError(_('One of your files is not a *.jpg or Image (*.png, *.jpeg, *.jpg) type. Please change the file type!'))
