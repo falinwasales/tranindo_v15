@@ -86,6 +86,9 @@ class AccountMove(models.Model):
         data.append(values_ir.id)
         
         if self.faktur_file_name:
+            
+            # pdf
+            
             if self.faktur_file_name.endswith('.pdf'):
                 faktur = {
                         'name': 'Faktur File.pdf',
@@ -94,7 +97,10 @@ class AccountMove(models.Model):
                         # 'store_fname': data_record,
                         'res_model': 'account.move',
                     }
-            else:
+            
+            # jpg
+            
+            elif self.faktur_file_name.endswith('.jpg'):
                 faktur = {
                         'name': 'Faktur File.jpg',
                         'type': 'binary',
@@ -102,6 +108,84 @@ class AccountMove(models.Model):
                         # 'store_fname': data_record,
                         'res_model': 'account.move',
                     }
+            
+            # csv
+
+            elif self.faktur_file_name.endswith('.csv'):
+                faktur = {
+                        'name': 'Faktur File.csv',
+                        'type': 'binary',
+                        'datas': self.faktur_file,
+                        # 'store_fname': data_record,
+                        'res_model': 'account.move',
+                    }
+            
+            # zip
+
+            elif self.faktur_file_name.endswith('.zip'):
+                faktur = {
+                        'name': 'Faktur File.zip',
+                        'type': 'binary',
+                        'datas': self.faktur_file,
+                        # 'store_fname': data_record,
+                        'res_model': 'account.move',
+                    }
+            
+            # doc
+
+            elif self.faktur_file_name.endswith('.doc'):
+                faktur = {
+                        'name': 'Faktur File.doc',
+                        'type': 'binary',
+                        'datas': self.faktur_file,
+                        # 'store_fname': data_record,
+                        'res_model': 'account.move',
+                    }
+            
+            # docx
+
+            elif self.faktur_file_name.endswith('.docx'):
+                faktur = {
+                        'name': 'Faktur File.docx',
+                        'type': 'binary',
+                        'datas': self.faktur_file,
+                        # 'store_fname': data_record,
+                        'res_model': 'account.move',
+                    }
+            
+            # xls
+
+            elif self.faktur_file_name.endswith('.xls'):
+                faktur = {
+                        'name': 'Faktur File.xls',
+                        'type': 'binary',
+                        'datas': self.faktur_file,
+                        # 'store_fname': data_record,
+                        'res_model': 'account.move',
+                    }
+            
+            # xlsx
+
+            elif self.faktur_file_name.endswith('.xlsx'):
+                faktur = {
+                        'name': 'Faktur File.xlsx',
+                        'type': 'binary',
+                        'datas': self.faktur_file,
+                        # 'store_fname': data_record,
+                        'res_model': 'account.move',
+                    }
+
+            # rar
+
+            elif self.faktur_file_name.endswith('.rar'):
+                faktur = {
+                        'name': 'Faktur File.rar',
+                        'type': 'binary',
+                        'datas': self.faktur_file,
+                        # 'store_fname': data_record,
+                        'res_model': 'account.move',
+                    }
+
             faktur_id = self.env['ir.attachment'].create(faktur)
 
             data.append(faktur_id.id)
