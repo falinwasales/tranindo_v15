@@ -138,32 +138,8 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <!-- Body Carusin -->
-                                    <tbody class="sale_tbody border-top-0">
-                                        <t t-set="i" t-value="0"/>
-
-                                        <t t-foreach="doc.move_line_ids_without_package" t-as="move_line">
-                                            <tr>
-
-                                            <t t-set="i" t-value="i+1"/>
-                                            <td style="font-size: 16px;">
-                                                <span t-esc="i"/>
-                                            </td>
-
-                                                <td name="td_product_id"><span t-field="move_line.product_id.display_name"/> </td>
-
-                                                <td name="td_qty_done"><span t-field="move_line.qty_done"/> </td>
-
-                                                <td name="td_product_uom"> <span t-field="move_line.product_uom_id.display_name"/> </td>
-                                          
-                                            </tr>
-                                        </t>
-                                    </tbody>
-                                    <!-- End -->
-
-                                </table>
                                 <!-- TBODY -->
-                                <!-- <t t-if="doc.sj_detail_product">
+                                <t t-if="doc.sj_detail_product">
                                     <tbody>
                                         <t t-set="i" t-value="0"/>
                                         <tr t-foreach="doc.move_line_ids_without_package" t-as="move_line">
@@ -267,7 +243,7 @@
                                         </tbody>
                                     </t>
                                 </t>
-                            </table> -->
+                            </table>
                             <!--  -->
                             <div class="row" style="position:absolute;top:500px">
                             </div>

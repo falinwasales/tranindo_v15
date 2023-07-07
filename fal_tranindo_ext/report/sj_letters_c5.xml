@@ -115,11 +115,6 @@
                             </div>
 
                             <!-- <div class="pt-4"/> -->
-
-
-                            <!-- HEAD -->
-
-
                             <table class="table o_report_block_table table-sm">
                                 <thead>
                                     <tr>
@@ -144,43 +139,7 @@
                                     </tr>
                                 </thead>
                                 <!-- TBODY -->
-
-<!-- -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- -->
-
-
-
-                            
-
-
-
-                                    <!-- Body Carusin -->
-                                    <tbody class="sale_tbody border-top-0">
-                                        <t t-set="i" t-value="0"/>
-
-                                        <t t-foreach="doc.move_line_ids_without_package" t-as="move_line">
-                                            <tr>
-
-                                            <t t-set="i" t-value="i+1"/>
-                                            <td style="font-size: 16px;">
-                                                <span t-esc="i"/>
-                                            </td>
-
-                                                <td name="td_product_id"><span t-field="move_line.product_id.display_name"/> </td>
-
-                                                <td name="td_qty_done"><span t-field="move_line.qty_done"/> </td>
-
-                                                <td name="td_product_uom"> <span t-field="move_line.product_uom_id.display_name"/> </td>
-                                          
-                                            </tr>
-                                        </t>
-                                    </tbody>
-                                    <!-- End -->
-
-                                </table>
-<!-- -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- -->
-                            <!-- Body Letter c5 hikaka -->
-
-                               <!--  <t t-if="doc.sj_detail_product">
+                                <t t-if="doc.sj_detail_product">
                                     <tbody>
                                         <t t-set="i" t-value="0"/>
                                         <tr t-foreach="doc.move_line_ids_without_package" t-as="move_line">
@@ -244,10 +203,8 @@
                                                                 <span t-esc="table_line1['table'].product_uom.display_name"/>
                                                             </t>
                                                         </td>
-                                                    </tr> -->
-                                                    <!-- 000000000000000000000000000000000000000000000000000000 -->
-
-                                                    <!-- <t t-if="table_line1['product'].bom_ids">
+                                                    </tr>
+                                                    <t t-if="table_line1['product'].bom_ids">
                                                         <t t-foreach="table_line1['product'].bom_ids[0].bom_line_ids" t-as="table_line2">
                                                             <tr>
                                                                 <td/>
@@ -280,14 +237,13 @@
                                                                 </tr>
                                                             </t>            
                                                         </t>
-                                                    </t> -->
-                                                    <!-- 000000000000000000000000000000000000000000000000000000 -->
-                                               <!--  </t>
+                                                    </t>
+                                                </t>
                                             </t>
                                         </tbody>
                                     </t>
                                 </t>
-                            </table> -->
+                            </table>
                             <!--  -->
                             <div class="row" style="position:absolute;top:500px">
                             </div>
