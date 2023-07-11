@@ -18,7 +18,7 @@ class StockPicking(models.Model):
     sticker_delivery = fields.Integer(string="No. of Box")
     is_print_kit = fields.Boolean(string="Is Print Kit Only")
 
-    sj_binary = fields.Binary(string="SJ Binary")
+    sj_binary = fields.Binary(string="Surat Jalan")
     sj_detail_product = fields.Boolean(string="Print detail Operation")
 
     diff_trans_del = fields.Boolean(string="Bool", compute="_get_value")
@@ -34,7 +34,9 @@ class StockPicking(models.Model):
     stock_bom_id = fields.Many2one('stock.bom', string="Stock Bom")
 
     stock_bom_product_ids = fields.One2many('stock.bom', "picking_id", string="Invoice List")
+    # stock_picking_ids = fields.One2many('stock.picking', 'account_move_id', string='Stock Pickings')
 
+        
     def get_bom_kit(self):
         if self.state not in ('assigned', 'confirmed', 'draft', 'waiting'):
             result = []

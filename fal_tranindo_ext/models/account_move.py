@@ -49,7 +49,12 @@ class AccountInvoice(models.Model):
     payment_memo = fields.Char(string="Payment Memo")
 
     category_first_line = fields.Many2one('product.category', string="Product Category")
-    
+    surat_jalan_ids = fields.One2many(
+        comodel_name='list.sj',
+        inverse_name='fal_stock_picking_id',
+        string='Surat Jalan'
+    )
+
     # def get_first_line_category(self):
     #     for record in self:
     #         record.category_first_line = False
@@ -268,4 +273,29 @@ class AccountInvoice(models.Model):
                 output_head += _csv_row(of_values_list, delimiter)
 
         return output_head
+
+class ListSJ(models.Model):
+    _name = 'list.sj'
+
+    fal_stock_picking_id = fields.Many2one(
+        "account.move",
+        string="No id",
+        compute='_compute_fal_stock_picking_id',
+        store=True
+    )
+    pack_id = fields.Many2one(string='Pack', related='fal_stock_picking_id.fal_stock_picking_id')
+
+    @api.depends('fal_stock_picking_id')
+    def _compute_fal_stock_picking_id(self):
+        for record in self:
+            record.fal_stock_picking_id = record.env['account.move'].search([('fal_stock_picking_id', '!=', False)], limit=1).fal_stock_picking_id.id
+
+    no_tf = fields.Char(
+        string='No Transfer',related='fal_stock_picking_id.fal_stock_picking_id.name'
+    )
+    doc = fields.Binary(
+        string='Dokumen', related='fal_stock_picking_id.fal_stock_picking_id.sj_binary',
+        store=True
+        
+    )
 

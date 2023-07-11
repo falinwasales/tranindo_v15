@@ -49,8 +49,7 @@
                 <xpath expr="//button[@name='action_cancel']" position="replace">
                     <button name="get_bom_kit" string="Bom Kit" groups="base.group_user" type="object" data-hotkey="z" invisible="1"/>
 
-                    <button name="action_cancel_option" attrs="{'invisible': [('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]}" 
-                    string="Cancel" groups="base.group_user" type="object" data-hotkey="z"/>
+                    <button name="action_cancel_option" attrs="{'invisible': [('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]}" string="Cancel" groups="base.group_user" type="object" data-hotkey="z"/>
                 </xpath>
 
                 <xpath expr="//field[@name='move_line_ids_without_package']" position="inside">
@@ -84,6 +83,14 @@
                     <field name="product_move_bom" readonly="1" optional="show"/>
                     <field name="product_move_bom_internal" invisible="1"/>
                 </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='note']" position="after">
+                    <page name="sj" string="Surat Jalan">
+                        <label for="sj_binary" string="Surat Jalan"/>
+                        <field name="sj_binary" widget="binary"/>
+                    </page>
+                </xpath>
+
             </field>
         </record>
     </data>
