@@ -298,4 +298,5 @@ class ListSJ(models.Model):
         store=True
         
     )
+    name_doc = fields.Char(string='name doc', related='fal_stock_picking_id.fal_stock_picking_id.nama_dokumen')
 

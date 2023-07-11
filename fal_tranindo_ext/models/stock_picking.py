@@ -17,8 +17,9 @@ class StockPicking(models.Model):
     # no_purchase_ref = fields.Char(string="Customer Reference")
     sticker_delivery = fields.Integer(string="No. of Box")
     is_print_kit = fields.Boolean(string="Is Print Kit Only")
+    nama_dokumen = fields.Char(string="Nama Dokumen")
 
-    sj_binary = fields.Binary(string="Surat Jalan")
+    sj_binary = fields.Binary(string="Surat Jalan", attachment=True)
     sj_detail_product = fields.Boolean(string="Print detail Operation")
 
     diff_trans_del = fields.Boolean(string="Bool", compute="_get_value")
@@ -35,7 +36,17 @@ class StockPicking(models.Model):
 
     stock_bom_product_ids = fields.One2many('stock.bom', "picking_id", string="Invoice List")
     # stock_picking_ids = fields.One2many('stock.picking', 'account_move_id', string='Stock Pickings')
+    @api.model
+    def create(self, vals):
+        # Jika ada file yang diunggah
+        if vals.get('sj_binary'):
+            # Ambil nama file dari attachment
+            attachment = self.env['ir.attachment'].browse(vals['sj_binary'])
+            nama_dokumen = attachment.name
+            # Simpan nama dokumen
+            vals['nama_dokumen'] = nama_dokumen
 
+        return super(StockPicking, self).create(vals)
         
     def get_bom_kit(self):
         if self.state not in ('assigned', 'confirmed', 'draft', 'waiting'):

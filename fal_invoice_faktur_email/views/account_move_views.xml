@@ -15,15 +15,20 @@
                     <field name="po_file_name" invisible="1"/>
                 </page>
                 <page string="Surat Jalan">
-                                    <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
-                    <field name="surat_jalan_file_upload_name" invisible="1"/>
+                                    <!-- <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
+                    <field name="surat_jalan_file_upload_name" invisible="1"/> -->
                 <tree string="Surat Jalan Tree" editable="bottom">
-                    <field name="surat_jalan_ids" widget="one2many_list">
+                    <field name="surat_jalan_ids" 
+                    readonly="1"
+                     widget="one2many_list">
                         <tree>
                             <field name="fal_stock_picking_id" invisible="1"/>
                             <field name="pack_id" invisible="1"/>
                             <field name="no_tf"/>
-                            <field name="doc" widget="binary"/>
+                            <field name="doc" widget="binary" filename="name_doc"/>
+                            <field name="name_doc" 
+                            invisible="1"
+                            />
                         </tree>
                     </field>
                 </tree>
