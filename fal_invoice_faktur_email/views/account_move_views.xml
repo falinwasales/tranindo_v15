@@ -15,24 +15,50 @@
                     <field name="po_file_name" invisible="1"/>
                 </page>
                 <page string="Surat Jalan">
-                                    <!-- <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="oe_title">
+                                                <label for="no_trf" string="No Transfer"/>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="oe_title">
+                                                <label for="sj_binary" string="Dokumen"/>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <field name="no_trf"/>
+                                        </td>
+                                        <td>
+                                            <field name="sj_binary" filename="name_doc"/>
+                                            <field name="name_doc" invisible="1"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </page>
+
+                <!-- <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
                     <field name="surat_jalan_file_upload_name" invisible="1"/> -->
-                <tree string="Surat Jalan Tree" editable="bottom">
-                    <field name="surat_jalan_ids" 
-                    readonly="1"
-                     widget="one2many_list">
+                <!-- <tree string="Surat Jalan Tree" editable="bottom">
+                    <field name="surat_jalan_ids" readonly="0" widget="one2many_list">
                         <tree>
                             <field name="fal_stock_picking_id" invisible="1"/>
                             <field name="pack_id" invisible="1"/>
                             <field name="no_tf"/>
                             <field name="doc" widget="binary" filename="name_doc"/>
-                            <field name="name_doc" 
-                            invisible="1"
-                            />
+                            <field name="name_doc" invisible="1" />
                         </tree>
                     </field>
-                </tree>
-                </page>
+                </tree> -->
                 <!-- <page string="Surat Jalan" attrs="{'invisible': ['|',('move_type', 'not in', ('out_invoice')),('state', '=', 'draft')]}">
                     <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
                     <field name="surat_jalan_file_upload_name" invisible="1"/>

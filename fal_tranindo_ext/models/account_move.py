@@ -21,7 +21,10 @@ class AccountInvoice(models.Model):
     _inherit = "account.move"
 
     replace_faktur = fields.Char(string="Replace Tax")
+    no_trf = fields.Char(related='fal_stock_picking_id.name')
+    name_doc = fields.Char( related='fal_stock_picking_id.nama_dokumen')
 
+    sj_binary = fields.Binary(related='fal_stock_picking_id.sj_binary')
     fal_stock_picking_id = fields.Many2one("stock.picking", string="Delivery", compute='_fal_get_stock_picking')
     date_invoice = fields.Date(string='Date Invoices')
     payment_voucher_bool = fields.Boolean(string="Payment Voucher")
@@ -288,15 +291,15 @@ class ListSJ(models.Model):
     @api.depends('fal_stock_picking_id')
     def _compute_fal_stock_picking_id(self):
         for record in self:
-            record.fal_stock_picking_id = record.env['account.move'].search([('fal_stock_picking_id', '!=', False)], limit=1).fal_stock_picking_id.id
+            record.fal_stock_picking_id = record.env['account.move'].search([('fal_stock_picking_id', '!=', False)], limit=1)
 
     no_tf = fields.Char(
-        string='No Transfer',related='fal_stock_picking_id.fal_stock_picking_id.name'
+        string='No Transfer', related='fal_stock_picking_id.fal_stock_picking_id.name'
     )
     doc = fields.Binary(
         string='Dokumen', related='fal_stock_picking_id.fal_stock_picking_id.sj_binary',
         store=True
-        
     )
     name_doc = fields.Char(string='name doc', related='fal_stock_picking_id.fal_stock_picking_id.nama_dokumen')
+
 
