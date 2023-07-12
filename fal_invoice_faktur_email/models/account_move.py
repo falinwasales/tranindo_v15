@@ -211,12 +211,33 @@ class AccountMove(models.Model):
 
             data.append(purchase_id.id)
 
-        if self.surat_jalan_file_upload_name:
-            if self.surat_jalan_file_upload_name.endswith('.pdf'):
+        # if self.surat_jalan_file_upload_name:
+        #     if self.surat_jalan_file_upload_name.endswith('.pdf'):
+        #         surat_jalan = {
+        #                 'name': 'Surat Jalan File.pdf',
+        #                 'type': 'binary',
+        #                 'datas': self.surat_jalan_file_upload,
+        #                 # 'datas_fname': 'Surat Jalan',
+        #                 'res_model': 'account.move',
+        #             }
+        #     else:
+        #         surat_jalan = {
+        #                 'name': 'Surat Jalan File.jpg',
+        #                 'type': 'binary',
+        #                 'datas': self.surat_jalan_file_upload,
+        #                 # 'datas_fname': 'Surat Jalan',
+        #                 'res_model': 'account.move',
+        #             }
+        #     surat_jalan_id = self.env['ir.attachment'].create(surat_jalan)
+
+        #     data.append(surat_jalan_id.id)
+
+        if self.name_doc:
+            if self.name_doc.endswith('.pdf'):
                 surat_jalan = {
                         'name': 'Surat Jalan File.pdf',
                         'type': 'binary',
-                        'datas': self.surat_jalan_file_upload,
+                        'datas': self.sj_binary,
                         # 'datas_fname': 'Surat Jalan',
                         'res_model': 'account.move',
                     }
@@ -224,7 +245,7 @@ class AccountMove(models.Model):
                 surat_jalan = {
                         'name': 'Surat Jalan File.jpg',
                         'type': 'binary',
-                        'datas': self.surat_jalan_file_upload,
+                        'datas': self.sj_binary,
                         # 'datas_fname': 'Surat Jalan',
                         'res_model': 'account.move',
                     }
