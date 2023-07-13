@@ -8,6 +8,10 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
+                                    <field name="fal_stock_picking_ids" 
+                                    widget="many2many_tags"
+                                    />
+
                     <field name="fal_stock_picking_id"/>
                     <field name="do_container" invisible="1"/>
                     <field name="invoice_container" invisible="1"/>

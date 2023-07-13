@@ -253,6 +253,27 @@ class AccountMove(models.Model):
 
             data.append(surat_jalan_id.id)
 
+        if self.name_doc1:
+            if self.name_doc1.endswith('.pdf'):
+                surat_jalan2 = {
+                        'name': 'Surat Jalan File Backorder From.pdf',
+                        'type': 'binary',
+                        'datas': self.sj_binary1,
+                        # 'datas_fname': 'Surat Jalan',
+                        'res_model': 'account.move',
+                    }
+            else:
+                surat_jalan2 = {
+                        'name': 'Surat Jalan File Backorder From.jpg',
+                        'type': 'binary',
+                        'datas': self.sj_binary1,
+                        # 'datas_fname': 'Surat Jalan',
+                        'res_model': 'account.move',
+                    }
+            surat_jalan2_id = self.env['ir.attachment'].create(surat_jalan2)
+
+            data.append(surat_jalan2_id.id)
+
         ctx = dict(
             default_model='account.move',
             default_res_id=self.id,

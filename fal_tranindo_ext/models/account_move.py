@@ -23,9 +23,18 @@ class AccountInvoice(models.Model):
     replace_faktur = fields.Char(string="Replace Tax")
     no_trf = fields.Char(related='fal_stock_picking_id.name')
     name_doc = fields.Char( related='fal_stock_picking_id.nama_dokumen')
-
+    sales_id = fields.Many2one(string='SO', related='fal_stock_picking_id.sale_order')
+    backorder_id = fields.Many2one(string='Backorder Of', related='fal_stock_picking_id.backorder_id')
     sj_binary = fields.Binary(related='fal_stock_picking_id.sj_binary')
     fal_stock_picking_id = fields.Many2one("stock.picking", string="Delivery", compute='_fal_get_stock_picking')
+
+    #nilai dari backorder fromnya 
+    no_trf1 = fields.Char(related='backorder_id.name')
+    name_doc1 = fields.Char( related='backorder_id.nama_dokumen')
+    sj_binary1= fields.Binary(related='backorder_id.sj_binary')
+
+
+
     date_invoice = fields.Date(string='Date Invoices')
     payment_voucher_bool = fields.Boolean(string="Payment Voucher")
     is_delivery_address = fields.Boolean(string="Delivery Address", help="Apabila dichecklist, maka akan mengambil delivery address di account.move")
@@ -55,9 +64,30 @@ class AccountInvoice(models.Model):
     surat_jalan_ids = fields.One2many(
         comodel_name='list.sj',
         inverse_name='fal_stock_picking_id',
-        string='Surat Jalan'
-    )
+        string='Surat Jalan', 
+        # compute='_compute_surat_jalan_ids1',
 
+    )
+    fal_stock_picking_ids = fields.Many2many("stock.picking", string="Deliveries",compute='_fal_get_stock_pickings')
+
+    @api.depends('invoice_line_ids')
+    def _fal_get_stock_pickings(self):
+        for invoice in self:
+            sale_order_ids = invoice.invoice_line_ids.mapped('sale_line_ids').mapped('order_id')
+            if sale_order_ids:
+                invoice.fal_stock_picking_ids = sale_order_ids.mapped('fal_stock_picking_ids')
+            else:
+                invoice.fal_stock_picking_ids = False
+    @api.depends('sales_id')
+    def _compute_surat_jalan_ids(self):
+        for invoice in self:
+            if invoice.sales_id:
+                invoice.surat_jalan_ids = self.env['list.sj'].search([
+                    ('sales_id', '=', invoice.sales_id.id),
+                ('fal_stock_picking_id', '=', invoice.id)
+                ])
+            else:
+                invoice.surat_jalan_ids = False
     # def get_first_line_category(self):
     #     for record in self:
     #         record.category_first_line = False
@@ -283,15 +313,12 @@ class ListSJ(models.Model):
     fal_stock_picking_id = fields.Many2one(
         "account.move",
         string="No id",
-        compute='_compute_fal_stock_picking_id',
+        # compute='_compute_fal_stock_picking_id',
         store=True
     )
-    pack_id = fields.Many2one(string='Pack', related='fal_stock_picking_id.fal_stock_picking_id')
+    sales_id = fields.Many2one(string='Pack', related='fal_stock_picking_id.fal_stock_picking_id.sale_order')
+    pack_id = fields.Many2one(string='SO', related='fal_stock_picking_id.fal_stock_picking_id')
 
-    @api.depends('fal_stock_picking_id')
-    def _compute_fal_stock_picking_id(self):
-        for record in self:
-            record.fal_stock_picking_id = record.env['account.move'].search([('fal_stock_picking_id', '!=', False)], limit=1)
 
     no_tf = fields.Char(
         string='No Transfer', related='fal_stock_picking_id.fal_stock_picking_id.name'

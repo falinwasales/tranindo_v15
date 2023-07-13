@@ -37,6 +37,22 @@ class StockPicking(models.Model):
     stock_bom_id = fields.Many2one('stock.bom', string="Stock Bom")
 
     stock_bom_product_ids = fields.One2many('stock.bom', "picking_id", string="Invoice List")
+    sale_order = fields.Many2one(
+        'sale.order',
+        string='Sale Order',
+        compute='_compute_sale_order',
+        store=True,
+        readonly=True
+    )
+
+    @api.depends('origin')
+    def _compute_sale_order(self):
+        for picking in self:
+            if picking.origin:
+                sale_order = self.env['sale.order'].search([('name', '=', picking.origin)], limit=1)
+                picking.sale_order = sale_order
+            else:
+                picking.sale_order = False
     # stock_picking_ids = fields.One2many('stock.picking', 'account_move_id', string='Stock Pickings')
     # @api.onchange('sj_binary')
     # def _onchange_sj_binary(self):

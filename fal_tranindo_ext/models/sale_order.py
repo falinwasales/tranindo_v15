@@ -67,6 +67,13 @@ class SaleOrder(models.Model):
 
     fal_stock_picking_id = fields.Many2one("stock.picking", compute='_fal_get_stock_picking', string="Delivery")
 
+    @api.depends('picking_ids')
+    def _fal_get_stock_pickings(self):
+        for sale_order in self:
+            sale_order.fal_stock_picking_ids = sale_order.picking_ids.ids or False
+
+    fal_stock_picking_ids = fields.Many2many("stock.picking", compute='_fal_get_stock_pickings', string="Deliveries")
+
     @api.model
     def create(self, vals):
         if vals.get('client_order_ref') and vals.get('company_id'):
