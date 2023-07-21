@@ -90,7 +90,7 @@
                         <label for="sj_binary" string="Surat Jalan"/>
                         <!-- Bidang binary untuk mengunggah dokumen -->
                         <field name="sj_binary" widget="binary" string="Surat Jalan" filename="nama_dokumen" 
-                        required="1"
+                        required="0"
                         />
                         <!-- Bidang teks untuk menyimpan nama dokumen -->
                         <field name="nama_dokumen" 
