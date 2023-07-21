@@ -1,0 +1,11 @@
+<odoo>
+    <template id="custom_report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='signature']" position="after">
+            <!-- Menambahkan field "note" di bawah bagian signature -->
+            <div class="mt32 ml64 mr4" name="custom_note">
+                <strong>Note:</strong>
+                <p t-field="o.note"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

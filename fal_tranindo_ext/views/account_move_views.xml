@@ -19,8 +19,13 @@
                     </field>
 
                     <field name="payment_reference" position="after">
+                        <field name="fal_stock_picking_ids" 
+                        widget="many2many_tags"
+                        />
                         <field name="fal_stock_picking_id"/>
+                        <field name="backorder_id"/>
                         <field name="invoice_salesperson"/>
+                        <field name="sales_id"/>
                     </field>
 
                     <xpath expr="//field[@name='journal_id']" position="attributes">
