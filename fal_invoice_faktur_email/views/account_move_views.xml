@@ -14,10 +14,78 @@
                     <field name="po_file" filename="po_file_name" widget="binary" attrs="{'required': ['&amp;',('move_type','in',('out_invoice')),('state', '=', 'draft')]}"/>
                     <field name="po_file_name" invisible="1"/>
                 </page>
-                <page string="Surat Jalan" attrs="{'invisible': ['|',('move_type', 'not in', ('out_invoice')),('state', '=', 'draft')]}">
+                <page string="Surat Jalan">
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="oe_title">
+                                            <label for="no_trf" string="No Transfer"/>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="oe_title">
+                                            <label for="sj_binary" string="Dokumen"/>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <field name="no_trf"/>
+                                    </td>
+                                    <td>
+                                        <field name="sj_binary" filename="name_doc"/>
+                                        <field name="name_doc" invisible="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="no_trf1"/>
+                                    </td>
+                                    <td>
+                                        <field name="sj_binary1" filename="name_doc1"/>
+                                        <field name="name_doc1" invisible="1"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- <tree string="Surat Jalan Tree" editable="bottom">
+                        <field name="surat_jalan_ids" invisible="1" readonly="0" widget="one2many_list">
+                            <tree>
+                                <field name="fal_stock_picking_id" invisible="1"/>
+                                <field name="pack_id" invisible="1"/>
+                                <field name="sales_id"/>
+                                <field name="no_tf"/>
+                                <field name="doc" widget="binary" filename="name_doc"/>
+                                <field name="name_doc" invisible="1" />
+
+                            </tree>
+                        </field>
+                    </tree> -->
+                </page>
+
+                <!-- <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
+                    <field name="surat_jalan_file_upload_name" invisible="1"/> -->
+                <!-- <tree string="Surat Jalan Tree" editable="bottom">
+                    <field name="surat_jalan_ids" readonly="0" widget="one2many_list">
+                        <tree>
+                            <field name="fal_stock_picking_id" invisible="1"/>
+                            <field name="pack_id" invisible="1"/>
+                            <field name="no_tf"/>
+                            <field name="doc" widget="binary" filename="name_doc"/>
+                            <field name="name_doc" invisible="1" />
+                        </tree>
+                    </field>
+                </tree> -->
+                <!-- <page string="Surat Jalan" attrs="{'invisible': ['|',('move_type', 'not in', ('out_invoice')),('state', '=', 'draft')]}">
                     <field name="surat_jalan_file_upload" filename="surat_jalan_file_upload_name" widget="binary"/>
                     <field name="surat_jalan_file_upload_name" invisible="1"/>
-                </page>
+                </page> -->
                 <page string="Invoice" invisible='1'>
                     <field name="invoice_file" filename="invoice_file_name" widget="binary"/>
                     <field name="invoice_file_name" invisible="1"/>
