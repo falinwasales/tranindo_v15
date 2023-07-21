@@ -89,7 +89,7 @@
                 </xpath>
 
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='note']" position="after">
-                    <page name="sj" string="Surat Jalan" attrs="{'invisible': [('type_ops', '!=', 'incoming')]}">
+                    <page name="sj" string="Surat Jalan" attrs="{'invisible': [('type_ops', '!=', 'outgoing')]}">
                         <label for="sj_binary" string="Surat Jalan"/>
                         <!-- Bidang binary untuk mengunggah dokumen -->
                         <field name="sj_binary" widget="binary" string="Surat Jalan" filename="nama_dokumen" 
