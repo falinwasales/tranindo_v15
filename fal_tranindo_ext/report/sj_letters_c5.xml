@@ -139,22 +139,22 @@
                                     </tr>
                                 </thead>
                                 <!-- TBODY -->
-                                <t t-if="doc.sj_detail_product">
+                                <t t-if="doc.is_print_kit">
                                     <tbody>
                                         <t t-set="i" t-value="0"/>
-                                        <tr t-foreach="doc.move_line_ids_without_package" t-as="move_line">
+                                        <tr t-foreach="doc.sale_id.order_line" t-as="order_line">
                                             <t t-set="i" t-value="i+1"/>
-                                            <td style="font-size: 16px;">
+                                            <td style="font-size: 14px;">
                                                 <span t-esc="i"/>
                                             </td>
-                                            <td style="font-size: 16px;">
-                                                <span t-field="move_line.display_name"/>
+                                            <td style="font-size: 14px;">
+                                                <span t-field="order_line.product_id.display_name"/>
                                             </td>
-                                            <td class="text-center" style="font-size: 16px;">
-                                                <span t-esc="int(move_line.qty_done)"/>
+                                            <td class="text-center" style="font-size: 14px;">
+                                                <span t-field="order_line.product_uom_qty"/>
                                             </td>
-                                            <td style="font-size: 16px;">
-                                                <span t-field="move_line.product_uom_id.display_name"/>
+                                            <td style="font-size: 14px;">
+                                                <span t-field="order_line.product_uom.display_name"/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -180,67 +180,86 @@
                                             </tr>
                                         </tbody>
                                     </t>
-                                    <t t-else="">
-                                        <tbody>
-                                            <t>
-                                                <t t-set="a" t-value="0"/>
-                                                <t t-foreach="doc._get_product_bom_report()" t-as="table_line1">
-                                                    <tr>
-                                                        <t t-set="a" t-value="a+1"/>           
-                                                        <td style="font-size: 16px;">
-                                                            <span t-esc="a"/>
-                                                        </td>
-                                                        <td style="font-size: 16px;">
-                                                            <span t-esc="table_line1['product'].display_name"/>
-                                                        </td>
-                                                        <td class="text-center" style="font-size: 16px;">
-                                                            <t t-if="not table_line1['product'].bom_ids">
-                                                                <span t-esc="int(table_line1['table'].bom_qty)"/>
-                                                            </t>
-                                                        </td>
-                                                        <td style="font-size: 16px;">
-                                                            <t t-if="not table_line1['product'].bom_ids">
-                                                                <span t-esc="table_line1['table'].product_uom.display_name"/>
-                                                            </t>
-                                                        </td>
-                                                    </tr>
-                                                    <t t-if="table_line1['product'].bom_ids">
-                                                        <t t-foreach="table_line1['product'].bom_ids[0].bom_line_ids" t-as="table_line2">
-                                                            <tr>
+                                <t t-else="">
+                                    <tbody>
+                                        <t t-if="not doc.sale_id or doc.backorder_id or doc.backorder_ids">
+                                            <t t-set="i" t-value="0"/>
+                                            <tr t-foreach="doc.move_ids_without_package" t-as="table_line">
+                                                <t t-set="i" t-value="i+1"/>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-esc="i"/>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-field="table_line.product_id.display_name"/>
+                                                    </td>
+                                                    <td class="text-center" style="font-size: 14px;">
+                                                        <span t-field="table_line.quantity_done"/>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-field="table_line.product_uom.display_name"/>
+                                                    </td>
+                                            </tr>            
+                                        </t>
+                                        <!--  -->
+                                        <t t-if="doc.sale_id and not doc.backorder_id and not doc.backorder_ids">
+                                            <t t-set="a" t-value="0"/>
+                                            <t t-foreach="doc._get_product_bom_report()" t-as="table_line1">
+                                                <tr>
+                                                    <t t-set="a" t-value="a+1"/>           
+                                                    <td style="font-size: 14px;">
+                                                        <span t-esc="a"/>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-esc="table_line1['product'].display_name"/>
+                                                    </td>
+                                                    <td class="text-center" style="font-size: 14px;">
+                                                        <t t-if="not table_line1['product'].bom_ids">
+                                                            <span t-field="table_line1['table'].quantity_done"/>
+                                                        </t>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <t t-if="not table_line1['product'].bom_ids">
+                                                            <span t-esc="table_line1['table'].product_uom.display_name"/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <t t-if="table_line1['product'].bom_ids">
+                                                    <t t-foreach="table_line1['product'].bom_ids[0].bom_line_ids" t-as="table_line2">
+                                                        <tr>
+                                                            <td/>
+                                                            <td style="font-size: 14px;">•
+                                                                <span style="margin-left:25px;" t-field="table_line2.product_id.display_name"/>
+                                                            </td>
+                                                            <td class="text-center" style="font-size: 14px;">
+                                                                <t t-if="not table_line2.product_id.bom_ids">
+                                                                    <span t-field="table_line1['table'].quantity_done"/>
+                                                                </t>
+                                                            </td>
+                                                            <td style="font-size: 14px;"> 
+                                                                <t t-if="not table_line2.product_id.bom_ids">
+                                                                    <span t-field="table_line2.product_uom_id.display_name"/>
+                                                                </t>
+                                                            </td>
+                                                        </tr>
+                                                        <t t-if="table_line2.product_id.bom_ids">
+                                                            <tr t-foreach="table_line2.product_id.bom_ids[0].bom_line_ids" t-as="table_line3">
                                                                 <td/>
-                                                                <td style="font-size: 16px;">•
-                                                                    <span style="margin-left:25px;" t-field="table_line2.product_id.display_name"/>
+                                                                <td style="font-size: 14px;">
+                                                                    <span style="margin-left:65px;" t-field="table_line3.product_id.display_name"/>
                                                                 </td>
-                                                                <td class="text-center" style="font-size: 16px;">
-                                                                    <t t-if="not table_line2.product_id.bom_ids">
-                                                                        <span t-esc="int(table_line1['table'].bom_qty)"/>
-                                                                    </t>
+                                                                <td class="text-center" style="font-size: 14px;">
+                                                                    <span t-field="table_line1['table'].quantity_done"/>
                                                                 </td>
-                                                                <td style="font-size: 16px;"> 
-                                                                    <t t-if="not table_line2.product_id.bom_ids">
-                                                                        <span t-field="table_line2.product_uom_id.display_name"/>
-                                                                    </t>
+                                                                <td style="font-size: 14px;"> 
+                                                                    <span t-field="table_line3.product_uom_id.display_name"/>
                                                                 </td>
                                                             </tr>
-                                                            <t t-if="table_line2.product_id.bom_ids">
-                                                                <tr t-foreach="table_line2.product_id.bom_ids[0].bom_line_ids" t-as="table_line3">
-                                                                    <td/>
-                                                                    <td style="font-size: 16px;">
-                                                                        <span style="margin-left:65px;" t-field="table_line3.product_id.display_name"/>
-                                                                    </td>
-                                                                    <td class="text-center" style="font-size: 16px;">
-                                                                        <span t-esc="int(table_line1['table'].bom_qty)"/>
-                                                                    </td>
-                                                                    <td style="font-size: 16px;"> 
-                                                                        <span t-field="table_line3.product_uom_id.display_name"/>
-                                                                    </td>
-                                                                </tr>
-                                                            </t>            
-                                                        </t>
+                                                        </t>            
                                                     </t>
                                                 </t>
                                             </t>
-                                        </tbody>
+                                        </t>
+                                    </tbody>
                                     </t>
                                 </t>
                             </table>
