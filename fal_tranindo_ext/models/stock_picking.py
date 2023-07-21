@@ -13,7 +13,7 @@ class StockPicking(models.Model):
     no_po_do = fields.Char(string="Customer Reference", help="Reference from Sale.")
     do_ref = fields.Char(string="Customer Reference", help="Reference from Internal.", related="sale_id.client_order_ref")
     pos_po_do = fields.Char(string="Customer Reference", help="Reference from PoS.")
-
+    type_ops = fields.Selection(string='type', related='picking_type_id.code')
     # no_purchase_ref = fields.Char(string="Customer Reference")
     sticker_delivery = fields.Integer(string="No. of Box")
     is_print_kit = fields.Boolean(string="Is Print Kit Only")

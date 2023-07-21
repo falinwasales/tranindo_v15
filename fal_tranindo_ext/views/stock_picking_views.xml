@@ -8,12 +8,15 @@
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_dest_id']" position="after">
                     <field name="is_bom_kit" readonly="1" invisible="1"/>
                     <field name="sale_order"/>
+                    <field name="type_ops"/>
+
                 </xpath>
 
                 <xpath expr="//field[@name='move_type']" position="before">
                     <field name="no_po_do" attrs="{'invisible': ['|',('pos_created_bool', '=', True),('sale_created_bool', '=', True)]}"/>
                     <field name="do_ref" attrs="{'invisible': [('sale_created_bool', '!=', True)]}"/>
                     <field name="pos_po_do" attrs="{'invisible': [('pos_created_bool', '!=', True)]}"/>
+
                 </xpath>
 
                 <xpath expr="//field[@name='origin']" position="replace">
