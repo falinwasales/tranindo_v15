@@ -73,6 +73,7 @@
         'report/tanda_terima_header_footer_C5.xml',
         'report/sale_order_report/sale_order_report.xml',
         'report/sale_order_report/sale_order_report_header.xml',
+        'report/inherit_slip.xml',
         # Security
         'security/ir_server_action.xml',
         'security/ir.model.access.csv',
