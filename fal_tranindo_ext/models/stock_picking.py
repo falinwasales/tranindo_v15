@@ -198,16 +198,17 @@ class StockPicking(models.Model):
 
     def _get_product_bom_report(self):
         data = []
-        for record in self.stock_bom_product_ids:
-            data.append([record, record.product_id])
+        for record in self.move_ids_without_package:
+            # for x in record.sale_line_id.product_id:
+            data.append([record, record.sale_line_id.product_id, record.sale_line_id])
         
         res = {}
-        for table, sale_product in data:
-            if sale_product in res:
-                res[sale_product]['product'] = sale_product
-                res[sale_product]['table'] = table
+        for table, sale_product, sale_id in data:
+            if sale_id in res:
+                res[sale_id]['product'] = sale_id.product_id
+                res[sale_id]['table'] = table
             else:
-                res[sale_product] = {'product': sale_product, 'table':table,}
+                res[sale_id] = {'product': sale_id.product_id, 'table':table,}
 
         data_new = []
         for record in res:
