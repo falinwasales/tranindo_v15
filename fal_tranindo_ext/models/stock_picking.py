@@ -197,26 +197,26 @@ class StockPicking(models.Model):
                 record.diff_trans_del = False
 
 
-        # YANG DARI PRODUCTIONNNNNNN 
+    #     YANG DARI PRODUCTIONNNNNNN 
 
-    # def _get_product_bom_report(self):
-    #     data = []
-    #     for record in self.stock_bom_product_ids:
-    #         data.append([record, record.product_id])
+    def _get_product_bom_report_kit(self):
+        data = []
+        for record in self.stock_bom_product_ids:
+            data.append([record, record.product_id])
         
-    #     res = {}
-    #     for table, sale_product in data:
-    #         if sale_product in res:
-    #             res[sale_product]['product'] = sale_product
-    #             res[sale_product]['table'] = table
-    #         else:
-    #             res[sale_product] = {'product': sale_product, 'table':table,}
+        res = {}
+        for table, sale_product in data:
+            if sale_product in res:
+                res[sale_product]['product'] = sale_product
+                res[sale_product]['table'] = table
+            else:
+                res[sale_product] = {'product': sale_product, 'table':table,}
 
-    #     data_new = []
-    #     for record in res:
-    #         data_new.append(res[record])
+        data_new = []
+        for record in res:
+            data_new.append(res[record])
 
-    #     return data_new
+        return data_new
 
 
 
