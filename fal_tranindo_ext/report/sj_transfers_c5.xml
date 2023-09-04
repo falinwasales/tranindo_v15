@@ -160,26 +160,26 @@
                                     </tbody>
                                 </t>
                                 <t t-else="">
-                                <t t-if="doc.is_print_kit">
-                                    <tbody>
-                                        <t t-set="i" t-value="0"/>
-                                        <tr t-foreach="doc.sale_id.order_line" t-as="order_line">
-                                            <t t-set="i" t-value="i+1"/>
-                                            <td style="font-size: 14px;">
-                                                <span t-esc="i"/>
-                                            </td>
-                                            <td style="font-size: 14px;">
-                                                <span t-field="order_line.product_id.display_name"/>
-                                            </td>
-                                            <td class="text-center" style="font-size: 14px;">
-                                                <span t-field="order_line.product_uom_qty"/>
-                                            </td>
-                                            <td style="font-size: 14px;">
-                                                <span t-field="order_line.product_uom.display_name"/>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </t>
+                                    <t t-if="doc.is_print_kit">
+                                        <tbody>
+                                            <t t-set="i" t-value="0"/>
+                                            <tr t-foreach="doc._get_product_bom_report_kit()" t-as="order_line">
+                                                <t t-set="i" t-value="i+1"/>
+                                                <td style="font-size: 16px;">
+                                                    <span t-esc="i"/>
+                                                </td>
+                                                <td style="font-size: 16px;">
+                                                    <span t-field="order_line['product'].display_name"/>
+                                                </td>
+                                                <td class="text-center" style="font-size: 16px;">
+                                                    <span t-esc="int(order_line['table'].bom_qty)"/>
+                                                </td>
+                                                <td style="font-size: 16px;">
+                                                    <span t-field="order_line['table'].product_uom.display_name"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </t>
                                     <t t-else="">
                                     <tbody>
                                         <t t-if="not doc.sale_id or doc.backorder_id or doc.backorder_ids">

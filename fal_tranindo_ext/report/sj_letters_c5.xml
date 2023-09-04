@@ -139,22 +139,22 @@
                                     </tr>
                                 </thead>
                                 <!-- TBODY -->
-                                <t t-if="doc.is_print_kit">
+                                <t t-if="doc.sj_detail_product">
                                     <tbody>
                                         <t t-set="i" t-value="0"/>
-                                        <tr t-foreach="doc.sale_id.order_line" t-as="order_line">
+                                        <tr t-foreach="doc.move_line_ids_without_package" t-as="move_line">
                                             <t t-set="i" t-value="i+1"/>
-                                            <td style="font-size: 14px;">
+                                            <td style="font-size: 16px;">
                                                 <span t-esc="i"/>
                                             </td>
-                                            <td style="font-size: 14px;">
-                                                <span t-field="order_line.product_id.display_name"/>
+                                            <td style="font-size: 16px;">
+                                                <span t-field="move_line.display_name"/>
                                             </td>
-                                            <td class="text-center" style="font-size: 14px;">
-                                                <span t-field="order_line.product_uom_qty"/>
+                                            <td class="text-center" style="font-size: 16px;">
+                                                <span t-esc="int(move_line.qty_done)"/>
                                             </td>
-                                            <td style="font-size: 14px;">
-                                                <span t-field="order_line.product_uom.display_name"/>
+                                            <td style="font-size: 16px;">
+                                                <span t-field="move_line.product_uom_id.display_name"/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -163,7 +163,7 @@
                                     <t t-if="doc.is_print_kit">
                                         <tbody>
                                             <t t-set="i" t-value="0"/>
-                                            <tr t-foreach="doc._get_product_bom_report()" t-as="order_line">
+                                            <tr t-foreach="doc._get_product_bom_report_kit()" t-as="order_line">
                                                 <t t-set="i" t-value="i+1"/>
                                                 <td style="font-size: 16px;">
                                                     <span t-esc="i"/>

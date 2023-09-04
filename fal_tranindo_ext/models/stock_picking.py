@@ -196,6 +196,33 @@ class StockPicking(models.Model):
             else:
                 record.diff_trans_del = False
 
+
+    # DEF fungsi untuk BOM Kit
+
+    def _get_product_bom_report_kit(self):
+        data = []
+        for record in self.stock_bom_product_ids:
+            data.append([record, record.product_id])
+        
+        res = {}
+        for table, sale_product in data:
+            if sale_product in res:
+                res[sale_product]['product'] = sale_product
+                res[sale_product]['table'] = table
+            else:
+                res[sale_product] = {'product': sale_product, 'table':table,}
+
+        data_new = []
+        for record in res:
+            data_new.append(res[record])
+
+        return data_new
+
+
+
+    
+    # Untuk kondisi jika bom kit dan detailed operation tidak di check
+
     def _get_product_bom_report(self):
         data = []
         for record in self.move_ids_without_package:
