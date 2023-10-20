@@ -225,7 +225,10 @@
                                                 Rp. <span t-esc="invoice.price_subtotal" t-options="{'widget': 'float', 'precision': 2}"/>
                                             </td>
                                             <td class="text-right">
-                                                <span style="font-size: 14px;" t-field="invoice.tax_ids.description"/>
+                                                <!--  Arga improve here to avoid singleton -->
+                                                <t t-foreach="invoice.tax_ids" t-as="tax">
+                                                    <span style="font-size: 14px;" t-esc="tax.description"/>
+                                                </t>
                                             </td>
                                         </tr>
                                     </tbody>
