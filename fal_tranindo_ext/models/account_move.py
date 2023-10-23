@@ -180,10 +180,10 @@ class AccountInvoice(models.Model):
                 invoice_line_unit_price = line.price_unit
 
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
-                harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100)) if line.tax_ids.price_include else invoice_line_total_price
+                harga_total = invoice_line_total_price / (100/100 + sum(tax.amount/100 for line.tax_ids)) if line.tax_ids.mapped('price_include') else invoice_line_total_price
                 discount_value = harga_total * line.discount/100
                 dpp_amount = harga_total - discount_value
-                ppn_amount = (harga_total - discount_value) * line.tax_ids.amount/100
+                ppn_amount = (harga_total - discount_value) * sum(tax.amount/100 for line.tax_ids)
 
                 # harga_total_round = math.ceil(harga_total) if (harga_total%1) >= 0.44 else math.floor(harga_total)
                 # discount_value_round = math.ceil(discount_value) if (discount_value%1) >= 0.44 else math.floor(discount_value)
@@ -233,10 +233,10 @@ class AccountInvoice(models.Model):
                 invoice_line_unit_price = line.price_unit
 
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
-                harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100)) if line.tax_ids.price_include else invoice_line_total_price
+                harga_total = invoice_line_total_price / (100/100 + sum(tax.amount/100 for line.tax_ids)) if line.tax_ids.mapped('price_include') else invoice_line_total_price
                 discount_value = harga_total * line.discount/100
                 dpp_amount = harga_total - discount_value
-                ppn_amount = (harga_total - discount_value) * line.tax_ids.amount/100
+                ppn_amount = (harga_total - discount_value) * sum(tax.amount/100 for line.tax_ids)
 
                 harga_total_round = math.ceil(harga_total) if (harga_total%1) >= 0.44 else math.floor(harga_total)
                 discount_value_round = math.ceil(discount_value) if (discount_value%1) >= 0.44 else math.floor(discount_value)
