@@ -178,12 +178,22 @@ class AccountInvoice(models.Model):
 
             for line in move.line_ids.filtered(lambda l: not l.exclude_from_invoice_tab and not l.display_type):
                 invoice_line_unit_price = line.price_unit
-
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
-                harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100)) if line.tax_ids.price_include else invoice_line_total_price
-                discount_value = harga_total * line.discount/100
-                dpp_amount = harga_total - discount_value
-                ppn_amount = (harga_total - discount_value) * line.tax_ids.amount/100
+                
+                # EXTRA CODE ARGA : compute multiple taxes
+                invoice_line_total_price_after_tax = invoice_line_total_price
+                dpp_amount = 0
+                ppn_amount = 0 
+                for tax in line.tax_ids:
+                    harga_total = invoice_line_total_price_after_tax / (100/100 + (tax.amount/100)) if tax.price_include else invoice_line_total_price
+                    discount_value = harga_total * line.discount/100
+                    dpp_amount_per_tax = harga_total - discount_value
+                    ppn_amount_per_tax = (harga_total - discount_value) * tax.amount/100
+                    invoice_line_total_price_after_tax = 0
+                    invoice_line_total_price_after_tax += harga_total
+                    dpp_amount += dpp_amount_per_tax
+                    ppn_amount += ppn_amount_per_tax
+
 
                 # harga_total_round = math.ceil(harga_total) if (harga_total%1) >= 0.44 else math.floor(harga_total)
                 # discount_value_round = math.ceil(discount_value) if (discount_value%1) >= 0.44 else math.floor(discount_value)
@@ -231,12 +241,26 @@ class AccountInvoice(models.Model):
                         tax_line += line.price_subtotal * (tax.amount / 100.0)
 
                 invoice_line_unit_price = line.price_unit
-
                 invoice_line_total_price = invoice_line_unit_price * line.quantity
-                harga_total = invoice_line_total_price / (100/100 + (line.tax_ids.amount/100)) if line.tax_ids.price_include else invoice_line_total_price
-                discount_value = harga_total * line.discount/100
-                dpp_amount = harga_total - discount_value
-                ppn_amount = (harga_total - discount_value) * line.tax_ids.amount/100
+
+                # EXTRA CODE ARGA : compute multiple taxes
+                invoice_line_total_price_after_tax = invoice_line_total_price
+                harga_total = 0.0
+                discount_value = 0.0
+                dpp_amount = 0.0
+                ppn_amount = 0.0
+                for tax in line.tax_ids:
+                    harga_total_per_tax = invoice_line_total_price_after_tax / (100/100 + (tax.amount/100)) if tax.price_include else invoice_line_total_price
+                    discount_value_per_tax = harga_total_per_tax * line.discount/100
+                    dpp_amount_per_tax = harga_total_per_tax - discount_value_per_tax
+                    ppn_amount_per_tax = (harga_total_per_tax - discount_value_per_tax) * tax.amount/100
+                    invoice_line_total_price_after_tax = 0
+                    invoice_line_total_price_after_tax += harga_total_per_tax
+                    harga_total = harga_total_per_tax
+                    discount_value = discount_value_per_tax
+                    dpp_amount += dpp_amount_per_tax
+                    ppn_amount += ppn_amount_per_tax
+
 
                 harga_total_round = math.ceil(harga_total) if (harga_total%1) >= 0.44 else math.floor(harga_total)
                 discount_value_round = math.ceil(discount_value) if (discount_value%1) >= 0.44 else math.floor(discount_value)
