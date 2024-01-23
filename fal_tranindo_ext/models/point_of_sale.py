@@ -35,33 +35,7 @@ class PosOrder(models.Model):
         ('invoicing_legacy', 'Invoicing App Legacy')
     ], string='Payment Status', readonly=True, related="account_move.payment_state")
 
-    # def _prepare_invoice_vals(self):
-    #     self.ensure_one()
-    #     timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
-    #     get_sequence = self.config_id.invoice_journal_id
-    #     print('000000000000000000000')
-    #     print(self.env["ir.sequence"].next_by_code(get_sequence.ir_sequence_return_id.code))
-    #     vals = {
-    #         'name': self.env["ir.sequence"].next_by_code(get_sequence.ir_sequence_return_id.code),
-    #         'invoice_origin': self.name,
-    #         'journal_id': self.session_id.config_id.invoice_journal_id.id,
-    #         'move_type': 'out_invoice' if self.amount_total >= 0 else 'out_refund',
-    #         'ref': self.env["ir.sequence"].next_by_code(get_sequence.ir_sequence_return_id.code),
-    #         'partner_id': self.partner_id.id,
-    #         'partner_bank_id': self._get_partner_bank_id(),
-    #         # considering partner's sale pricelist's currency
-    #         'currency_id': self.pricelist_id.currency_id.id,
-    #         'invoice_user_id': self.user_id.id,
-    #         'invoice_date': self.date_order.astimezone(timezone).date(),
-    #         'fiscal_position_id': self.fiscal_position_id.id,
-    #         'invoice_line_ids': self._prepare_invoice_lines(),
-    #         'invoice_cash_rounding_id': self.config_id.rounding_method.id
-    #         if self.config_id.cash_rounding and (not self.config_id.only_round_cash_method or any(p.payment_method_id.is_cash_count for p in self.payment_ids))
-    #         else False
-    #     }
-    #     if self.note:
-    #         vals.update({'narration': self.note})
-    #     return vals
+
 
     def get_vendor_bill(self):
         for record in self:
@@ -162,3 +136,11 @@ class PosOrder(models.Model):
                 #     tranindo_brenn = pickings.copy({'name':sequence, 'picking_type_id':self.picking_type_id.id,'location_id':picking.id, 
                 #         'location_dest_id': location.id, 'origin':pickings.pos_picking_origin, 'no_po_do':pickings.pos_picking_origin})
                 #     tranindo_brenn.move_ids_without_package.write({'location_id':location.id,'location_dest_id': pickings.location_id.id})
+
+
+
+class PosOrderLine(models.Model):
+    _inherit = "pos.order.line"
+
+    discount = fields.Float(string='Discount (%)', digits='Discount', default=0.0)
+
