@@ -8,9 +8,9 @@
     'category': 'Falinwa Tranindo Extention',
     'website': "https://falinwa.com",
     'description':
-    '''
-        Module to handle tranindo extention from falinwa
-    ''',
+        '''
+            Module to handle tranindo extention from falinwa
+        ''',
     'depends': [
         'base',
         'sale',
@@ -81,6 +81,12 @@
         # Data
         'data/sequence.xml',
     ],
+    'assets': {
+        'point_of_sale.assets': [
+            'fal_tranindo_ext/static/src/js/ProductScreenInherit.js',
+        ]
+    },
+
     'css': [],
     'js': [],
     'installable': True,

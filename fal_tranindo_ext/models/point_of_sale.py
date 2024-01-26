@@ -138,9 +138,3 @@ class PosOrder(models.Model):
                 #     tranindo_brenn.move_ids_without_package.write({'location_id':location.id,'location_dest_id': pickings.location_id.id})
 
 
-
-class PosOrderLine(models.Model):
-    _inherit = "pos.order.line"
-
-    discount = fields.Float(string='Discount (%)', digits='Discount', default=0.0)
-
