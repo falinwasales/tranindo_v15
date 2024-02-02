@@ -38,8 +38,9 @@ class SaleOrderLine(models.Model):
             quant = self.env['stock.quant'].search([('product_id','=',record.product_id.id),('location_id','=',ware.lot_stock_id.id)])
             qty = 0
             if quant:
-                qty = quant.quantity
-                record.product_qty_available = qty
+                for q in quant:
+                    qty = q.quantity
+                    record.product_qty_available = qty
             else:
                 record.product_qty_available = 0
 
