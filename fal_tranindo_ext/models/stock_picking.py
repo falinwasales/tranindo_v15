@@ -218,30 +218,72 @@ class StockPicking(models.Model):
 
         return data_new
 
+    def test(self):
+        self._get_product_bom_report()
+    
+    def _get_product_bom_report(self):
+        data = {}
+        for record in self.move_ids_without_package:
+            sale_line = record.sale_line_id
+            product = sale_line.product_id
+            quantity_done = record.quantity_done
+
+            # Check if the parent product is already in the dictionary
+            if product not in data:
+                data[product] = {
+                    'product': product,
+                    'sale_line': sale_line,
+                    'quantity_done': quantity_done,
+                    'bom_components': [],
+                }
+            else:
+                # If the parent product is already in the dictionary, update its quantity done
+                data[product]['quantity_done'] += quantity_done
+
+            # If the parent product has a BOM, add its components to the dictionary only if not added before
+            if product.bom_ids:
+                bom_line_ids = product.bom_ids[0].bom_line_ids
+                for bom_line in bom_line_ids:
+                    bom_product = bom_line.product_id
+                    bom_quantity = bom_line.product_qty * quantity_done
+                    # Check if the component is already added before adding it again
+                    if bom_product not in [comp['product'] for comp in data[product]['bom_components']]:
+                        data[product]['bom_components'].append({
+                            'product': bom_product,
+                            'quantity_done': bom_quantity,
+                        })
+
+        return list(data.values())
+
 
 
     
-    # Untuk kondisi jika bom kit dan detailed operation tidak di check
-
-    def _get_product_bom_report(self):
+    def test_test(self):
         data = []
         for record in self.move_ids_without_package:
-            # for x in record.sale_line_id.product_id:
-            data.append([record, record.sale_line_id.product_id, record.sale_line_id])
+            data.append({
+                'move': record,
+                'product': record.sale_line_id.product_id,
+                'sale_line': record.sale_line_id,
+                'quantity_done': record.quantity_done,  # Track quantity done for each move
+            })
         
         res = {}
-        for table, sale_product, sale_id in data:
-            if sale_id in res:
-                res[sale_id]['product'] = sale_id.product_id
-                res[sale_id]['table'] = table
-            else:
-                res[sale_id] = {'product': sale_id.product_id, 'table':table,}
+        for item in data:
+            sale_line = item['sale_line']
+            if sale_line not in res:
+                res[sale_line] = {
+                    'products': [],
+                }
+            res[sale_line]['products'].append(item)
 
         data_new = []
-        for record in res:
-            data_new.append(res[record])
-
+        for sale_line, info in res.items():
+            for product_info in info['products']:
+                data_new.append(product_info)
+        # raise ValidationError(("BUATAN GUA Valuenya %s " % data_new))
         return data_new
+    
     
     def get_operation_detail(self):
         move_line_object = self.env['stock.move.line']
