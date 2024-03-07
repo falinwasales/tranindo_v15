@@ -138,7 +138,7 @@ class stock_card(models.Model):
                 if sm.location_dest_id.id in locations:
                     qty_in = sm.qty_done * factor
                 # outgoing, source = location
-                elif sm.location_id.id in locations:
+                if sm.location_id.id in locations:
                     qty_out = sm.qty_done * factor
 
                 qty_balance = qty_start + qty_in - qty_out
