@@ -1,199 +1,253 @@
 <odoo>
     <template id="tranindo_c5_report">
         <t t-call="web.html_container">
-            <t t-name='tranindo_c5_report'>
-                <t t-call="web.basic_layout">
+            <t t-name="tranindo_sj_transfer_c5">
+                <t t-call="fal_tranindo_ext.tranindo_custom_header_footer_sj_transfer">
                     <t t-foreach="docs" t-as="doc">
                         <div class="page">
-                            <div class="row">
-                                <div class="col-2">
-                                    <span/>
-                                    <span t-field="res_company.logo" t-options-widget="&quot;image&quot;" style="width:140px;display:inline-block"/>
-                                </div>
-                                <!--  -->
-                                <div class="col-5">
-                                    <span/>
-                                    <span t-field="res_company.name" class="o_bold"/>
-                                    <br/>
-                                    <span class="small o_bold"><span t-field="res_company.street" class="o_bold"/></span>
-                                    <br/>
-                                    <span class="small o_bold">Telp.<span t-field="res_company.phone" class="o_bold"/> Fax: 021-3842583</span>
-                                </div>
-                                <!--  -->
-                                <div class="col-4 text-right">
-                                    <span/>
-                                    <span class="h2 o_bold">SURAT JALAN</span>
-                                </div>
-                            </div>
+                            <style>
+                                .page-break {
+                                    page-break-after: always;
+                                }
+                            </style>
                             <!--  -->
-                            <hr style="background-color: black;margin-top:0px;margin-bottom:0px"/>
-                            <div class="row">
-                                <div class="col-6">
-                                    <span>
-                                        <b>Nomor:</b>
-                                        <span t-field="doc.display_name" class="o_bold"/>
-                                    </span>
-                                </div>
-                                <!--  -->
-                                <div class="col-6">
-                                    <span>
-                                        <b>Kepada:</b>
-                                        <span t-field="doc.name" class="o_bold"/>
-                                        <span class="o_bold">/</span>
-                                        <span t-field="doc.name" class="o_bold"/>
-                                    </span>
-                                </div>
-                            </div>
-                            <!--  -->
-                            <div class="row">
-                                <div class="col-6">
-                                    <span>
-                                        <b>Tanggal:</b>
-                                    </span>
-                                    <span t-field="doc.scheduled_date" t-options-widget="&quot;date&quot;" t-options-format="&quot;dd-MM-yyyy&quot;" class="o_bold"/>
-                                </div>
-                                <!--  -->
-                                <div class="col-6">
-                                    <span>
-                                        <b>Alamat:</b>
-                                    </span>
-                                    <span t-field="doc.name"/>
-                                        <t t-if="doc.partner_id.city">, 
-                                            <span t-field="doc.partner_id.city"/>
-                                        </t>
-                                        <t t-if="doc.partner_id.state_id">
-                                            <t t-if="doc.partner_id.state_id">, 
-                                                <span t-field="doc.partner_id.state_id"/>
-                                            </t>, 
-                                            <span t-field="doc.partner_id.zip"/>
-                                        </t>
-                                </div>
-                            </div>
-                            <!--  -->
-                            <div class="row" style="margin-bottom:10px">
-                                <div class="col-6">
-                                    <span>
-                                        <b>No. PO:</b>
-                                    </span>
-                                    <span t-field="doc.name" class="o_bold"/>
-                                </div>
-                            </div>
                             <!-- TABLE FOR RECORD -->
-                            <table class="table o_report_block_table table-sm h5">
+                            <div class="row">
+                                <div class="w-50">
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>Tanggal</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                : <span t-field="doc.scheduled_date" t-options-widget="&quot;date&quot;" t-options-format="&quot;dd-MM-yyyy&quot;" class="o_bold"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100">
+                                        <div class="w-25">
+                                            <span style="font-size:14px; margin-left: 30px;">
+                                                <b>No. PO</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <span style="font-size:14px;">
+                                                <t t-if="doc.sale_id">
+                                                    <div class="row w-100">
+                                                        <div class="" style="margin-left:45px;">
+                                                            <span style="font-size:14px;" class="text-right">
+                                                                <b>:</b>
+                                                            </span>
+                                                        </div>
+                                                        <div class="w-75" style="margin-left:3px;">
+                                                            <span>
+                                                                <span t-field="doc.sale_id.client_order_ref" class="o_bold"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                    <div class="row w-100">
+                                                        <div class="" style="margin-left:45px;">
+                                                            <span style="font-size:14px;" class="text-right">
+                                                                <b>:</b>
+                                                            </span>
+                                                        </div>
+                                                        <div class="w-75" style="margin-left:3px;">
+                                                            <span>
+                                                                <t t-if="doc.pos_order_id">
+                                                                    <t t-if="doc.pos_account_move_id">
+                                                                        <span t-esc="doc.pos_account_move_id.name" class="o_bold"/> (<span t-esc="doc.pos_po_do" class="o_bold"/>)
+                                                                    </t>
+                                                                    <t t-else="">
+                                                                        <span t-esc="doc.pos_po_do" class="o_bold"/>
+                                                                    </t>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <span t-esc="doc.no_po_do" class="o_bold"/>
+                                                                </t>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="w-50">
+                                    <div class="row w-100">
+                                        <div style="width: 65px;">
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>Alamat</b>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:14px; margin-left: 20px;">
+                                                <b>:</b>
+                                            </span>
+                                        </div>
+                                        <div class="w-75">
+                                            <div style="margin-left: 10px;">
+                                                <span style="font-size:14px;">
+                                                    <t t-if="doc.sale_id.is_final_customer">
+                                                        <t t-foreach="doc.sale_id" t-as="sale">
+                                                            <span t-esc="sale.delivery_street.street if sale.delivery_street.street else ''"/>
+                                                        </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="doc.sale_id">
+                                                            <t t-foreach="doc.sale_id" t-as="sale">
+                                                                <span t-esc="sale.partner_shipping_id.street if sale.partner_shipping_id.street else ''"/>
+                                                            </t>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-esc="doc.partner_id.street if doc.partner_id.street else ''"/>
+                                                        </t>
+                                                    </t>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="pt-4"/> -->
+                            <table class="table o_report_block_table table-sm">
                                 <thead>
                                     <tr>
-                                        <th class="border-top border-dark">
+                                        <th class="border-top border-dark" style="font-size: 14px;" width="8%">
+                                            No
+                                        </th>
+                                        <th class="border-top border-dark o_bold" style="font-size: 14px;">
                                             <span>
-                                                <font style="font-size: 14px;">
-                                                    <font style="font-size: 14px;">
-                                                        <font style="font-size: 16px;">No</font>
-                                                    </font>
-                                                </font>
+                                                Nama Barang/Pesanan
                                             </span>
                                         </th>
-                                        <th class="border-top border-dark h5 o_bold">
+                                        <th class="border-top border-dark" style="font-size: 14px;" width="10%">
                                             <span>
-                                                <font style="font-size: 14px;">
-                                                    <font style="font-size: 16px;">Nama Barang/Pesanan</font>
-                                                </font>
+                                                Jumlah
                                             </span>
                                         </th>
-                                        <th class="border-top border-dark">
+                                        <th class="border-top border-dark" style="font-size: 14px;">
                                             <span>
-                                                <font style="font-size: 14px;">
-                                                    <font style="font-size: 16px;">Jumlah</font>
-                                                </font>
-                                            </span>
-                                        </th>
-                                        <th class="border-top border-dark">
-                                            <span>
-                                                <font style="font-size: 14px;">
-                                                    <font style="font-size: 16px;">Unit</font>
-                                                </font>
+                                                Unit
                                             </span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <!-- TBODY -->
-                                <tbody>
-                                    <t t-if="not doc.sale_id or doc.backorder_id or doc.backorder_ids">
+                                <t t-if="doc.sj_detail_product">
+                                    <tbody>
                                         <t t-set="i" t-value="0"/>
-                                        <tr t-foreach="doc.move_ids_without_package" t-as="table_line">
+                                        <tr t-foreach="doc.move_line_ids_without_package" t-as="move_line">
                                             <t t-set="i" t-value="i+1"/>
-                                                <td>
-                                                    <span t-esc="i" class="h5"/>
+                                            <td style="font-size: 16px;">
+                                                <span t-esc="i"/>
+                                            </td>
+                                            <td style="font-size: 16px;">
+                                                <span t-field="move_line.display_name"/>
+                                            </td>
+                                            <td class="text-center" style="font-size: 16px;">
+                                                <span t-esc="int(move_line.qty_done)"/>
+                                            </td>
+                                            <td style="font-size: 16px;">
+                                                <span t-field="move_line.product_uom_id.display_name"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </t>
+                                <t t-else="">
+                                    <t t-if="doc.is_print_kit">
+                                        <tbody>
+                                            <t t-set="i" t-value="0"/>
+                                            <tr t-foreach="doc._get_product_bom_report_kit()" t-as="order_line">
+                                                <t t-set="i" t-value="i+1"/>
+                                                <td style="font-size: 16px;">
+                                                    <span t-esc="i"/>
                                                 </td>
-                                                <td>
-                                                    <span t-field="table_line.product_id.display_name"/>
+                                                <td style="font-size: 16px;">
+                                                    <span t-field="order_line['product'].display_name"/>
                                                 </td>
-                                                <td class="text-center">
-                                                    <span t-field="table_line.quantity_done"/>
+                                                <td class="text-center" style="font-size: 16px;">
+                                                    <span t-esc="int(order_line['table'].bom_qty)"/>
                                                 </td>
-                                                <td>
-                                                    <span t-field="table_line.product_uom.display_name"/>
-                                                </td>
-                                        </tr>            
-                                    </t>
-                                    <!--  -->
-                                    <t t-if="doc.sale_id and not doc.backorder_id and not doc.backorder_ids">
-                                        <t t-set="a" t-value="0"/>
-                                        <t t-foreach="doc._get_product_bom_report()" t-as="table_line1">
-                                            <tr>
-                                                <t t-set="a" t-value="a+1"/>           
-                                                <td>
-                                                    <span t-esc="a" class="h5"/>
-                                                </td>
-                                                <td>
-                                                    <span t-esc="table_line1['product'].display_name"/>
-                                                </td>
-                                                <td class="text-center">
-                                                    <t t-if="not table_line1['product'].bom_ids">
-                                                        <span t-field="table_line1['table'].quantity_done"/>
-                                                    </t>
-                                                </td>
-                                                <td>
-                                                    <t t-if="not table_line1['product'].bom_ids">
-                                                        <span t-esc="table_line1['table'].product_uom.display_name"/>
-                                                    </t>
+                                                <td style="font-size: 16px;">
+                                                    <span t-field="order_line['table'].product_uom.display_name"/>
                                                 </td>
                                             </tr>
-                                            <t t-if="table_line1['product'].bom_ids">
-                                                <t t-foreach="table_line1['product'].bom_ids[0].bom_line_ids" t-as="table_line2">
-                                                    <tr>
-                                                        <td/>
-                                                        <td>•
-                                                            <span style="margin-left:25px;" t-field="table_line2.product_id.display_name"/>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <t t-if="not table_line2.product_id.bom_ids">
-                                                                <span t-field="table_line1['table'].quantity_done"/>
-                                                            </t>
-                                                        </td>
-                                                        <td> 
-                                                            <t t-if="not table_line2.product_id.bom_ids">
-                                                                <span t-field="table_line2.product_uom_id.display_name"/>
-                                                            </t>
-                                                        </td>
-                                                    </tr>
-                                                    <t t-if="table_line2.product_id.bom_ids">
-                                                        <tr t-foreach="table_line2.product_id.bom_ids[0].bom_line_ids" t-as="table_line3">
+                                        </tbody>
+                                    </t>
+                                    <t t-else="">
+                                    <tbody>
+                                        <t t-if="not doc.sale_id or doc.backorder_id or doc.backorder_ids">
+                                            <t t-set="i" t-value="0"/>
+                                            <tr t-foreach="doc.move_ids_without_package" t-as="table_line">
+                                                <t t-set="i" t-value="i+1"/>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-esc="i"/>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-field="table_line.product_id.display_name"/>
+                                                    </td>
+                                                    <td class="text-center" style="font-size: 14px;">
+                                                        <span t-field="table_line.quantity_done"/>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-field="table_line.product_uom.display_name"/>
+                                                    </td>
+                                            </tr>            
+                                        </t>
+                                        <!--  -->
+                                        <t t-if="doc.sale_id and not doc.backorder_id and not doc.backorder_ids">
+                                            <t t-set="a" t-value="0"/>
+                                            <t t-foreach="doc._get_product_bom_report()" t-as="table_line1">
+                                                <tr>
+                                                    <t t-set="a" t-value="a+1"/>           
+                                                    <td style="font-size: 14px;">
+                                                        <span t-esc="a"/>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <span t-esc="table_line1['product'].display_name"/>
+                                                    </td>
+                                                    <td class="text-center" style="font-size: 14px;">
+                                                        <t t-if="not table_line1['product'].bom_ids">
+                                                            <span t-esc="table_line1['quantity_done']"/>
+                                                        </t>
+                                                    </td>
+                                                    <td style="font-size: 14px;">
+                                                        <t t-if="not table_line1['product'].bom_ids">
+                                                            <span t-esc="table_line1['product'].product_uom.display_name"/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <t t-if="table_line1['bom_components']">
+                                                    <t t-foreach="table_line1['bom_components']" t-as="table_line2">
+                                                        <tr>
                                                             <td/>
-                                                            <td>
-                                                                <span style="margin-left:65px;" t-field="table_line3.product_id.display_name"/>
+                                                            <td style="font-size: 14px;">•
+                                                                <span style="margin-left: 25px;" t-field="table_line2['product'].display_name"/>
                                                             </td>
-                                                            <td class="text-center">
-                                                                <span t-field="table_line1['table'].quantity_done"/>
+                                                            <td class="text-center" style="font-size: 14px;">
+                                                                <span t-esc="table_line2['quantity_done']"/>
                                                             </td>
-                                                            <td> 
-                                                                <span t-field="table_line3.product_uom_id.display_name"/>
+                                                            <td style="font-size: 14px;"> 
+                                                                <span t-field="table_line2['product'].uom_id.display_name"/>
                                                             </td>
                                                         </tr>
-                                                    </t>            
+                                                    </t>
                                                 </t>
                                             </t>
                                         </t>
+
+
+
+
+                                    </tbody>
                                     </t>
-                                </tbody>
+                                </t>
                             </table>
                             <!--  -->
                             <div class="row" style="position:absolute;top:500px">
@@ -212,31 +266,50 @@
                                 <div class="col" style="margin-bottom:30px">
                                 <br/>
                                     <span>
-                                        <font style="font-size: 14px;">
+                                        <font style="font-size: 12px;">
                                             <b>NOTE:</b>
                                         </font>
-                                        <span t-field="doc.name"/>
+                                        <span t-field="doc.note"/>
                                     </span>
                                 </div>
                             </div>
                             <!--  -->
-                            <div class="row">
+                            <div class="row" style="page-break-before: auto;">
                                 <div class="col-3">
-                                    <span>
-                                        <strong>
-                                            Dikeluarkan Oleh
-                                        </strong>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
+                                    <t t-if="doc.company_id.invoice_sj1">
                                         <span>
-                                            ____________________
+                                            <strong>Mengetahui</strong>
+                                            <br/>
+                                            <span>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <u>
+                                                    <span style="font-size: 12px;" t-field="doc.company_id.invoice_sj1"/>
+                                                </u>
+                                            </span>
                                         </span>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                    <t t-else="">
                                         <span>
-                                            <u/>
+                                            <strong>
+                                                Dikeluarkan Oleh
+                                            </strong>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <span>
+                                                <hr style="background-color: black; width:70%"/>
+                                            </span>
+                                            <span>
+                                                <u/>
+                                            </span>
                                         </span>
-                                    </span>
+                                    </t>
                                 </div>
                                 <div class="col-3">
                                     <span>
@@ -247,26 +320,52 @@
                                             <br/>
                                             <br/>
                                             <u>
-                                                KA. Gudang
+                                                <span style="font-size: 12px;">
+                                                    KA. Gudang
+                                                </span>
                                             </u>
                                         </span>
                                     </span>
                                     <br/>
                                     <br/>
                                     <br/>
-                                    <span t-field="res_company.name"/>
+                                    <!-- <span t-field="res_company.name"/> -->
                                 </div>
                                 <div class="col-3">
-                                    <span>
-                                        <strong>Dikirim Oleh</strong>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
+                                    <t t-if="doc.company_id.invoice_sj3">
                                         <span>
-                                            ________________
+                                            <strong>Dikirim Oleh</strong>
+                                            <br/>
+                                            <span>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <u>
+                                                    <span style="font-size: 12px;" t-field="doc.company_id.invoice_sj3"/>
+                                                </u>
+                                            </span>
                                         </span>
-                                    </span>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                    <t t-else="">
+                                        <span>
+                                            <strong>
+                                                Dikirim Oleh
+                                            </strong>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <span>
+                                                <hr style="background-color: black; width:70%"/>
+                                            </span>
+                                            <span>
+                                                <u/>
+                                            </span>
+                                        </span>
+                                    </t>
                                 </div>
                                 <div class="col-3">
                                     <span>
@@ -275,14 +374,35 @@
                                         <br/>
                                         <br/>
                                         <br/>
-                                        <span t-field="doc.name"/>
+                                        <u>
+                                            <!-- <t t-foreach="doc.partner_id" t-as="partner">
+                                                <span t-field="partner.name" style="font-size: 12px;"/>
+                                            </t> -->
+                                            <span style="font-size: 12px;">
+                                                <t t-if="doc.sale_id.is_final_customer">
+                                                    <t t-foreach="doc.sale_id" t-as="sale">
+                                                        <span t-esc="sale.delivery_street.parent_id.name if sale.delivery_street.parent_id else sale.delivery_street.name"/> 
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-if="doc.sale_id">
+                                                        <t t-foreach="doc.sale_id" t-as="sale">
+                                                            <span t-esc="sale.partner_id.parent_id.name if sale.partner_id.parent_id else sale.partner_id.name"/> 
+                                                        </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="doc.partner_id.parent_id.name if doc.partner_id.parent_id else doc.partner_id.name"/> 
+                                                    </t>
+                                                </t>
+                                            </span>
+                                        </u>
                                     </span>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                             </div>
                             <div class="row">
-                            </div>
+                            </div> -->
                         </div>
                     </t>
                 </t>
