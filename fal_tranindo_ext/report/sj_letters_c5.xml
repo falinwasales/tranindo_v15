@@ -214,35 +214,51 @@
                                                     </td>
                                                     <td class="text-center" style="font-size: 14px;">
                                                         <t t-if="not table_line1['product'].bom_ids">
-                                                            <span t-esc="table_line1['quantity_done']"/>
+                                                            <span t-field="table_line1['table'].quantity_done"/>
                                                         </t>
                                                     </td>
                                                     <td style="font-size: 14px;">
                                                         <t t-if="not table_line1['product'].bom_ids">
-                                                            <span t-esc="table_line1['product'].uom_id.display_name"/>
+                                                            <span t-esc="table_line1['table'].product_uom.display_name"/>
                                                         </t>
                                                     </td>
                                                 </tr>
-                                                <t t-if="table_line1['bom_components']">
-                                                    <t t-foreach="table_line1['bom_components']" t-as="table_line2">
+                                                <t t-if="table_line1['product'].bom_ids">
+                                                    <t t-foreach="table_line1['product'].bom_ids[0].bom_line_ids" t-as="table_line2">
                                                         <tr>
                                                             <td/>
                                                             <td style="font-size: 14px;">•
-                                                                <span style="margin-left: 25px;" t-field="table_line2['product'].display_name"/>
+                                                                <span style="margin-left:25px;" t-field="table_line2.product_id.display_name"/>
                                                             </td>
                                                             <td class="text-center" style="font-size: 14px;">
-                                                                <span t-esc="table_line2['quantity_done']"/>
+                                                                <t t-if="not table_line2.product_id.bom_ids">
+                                                                    <span t-field="table_line1['table'].quantity_done"/>
+                                                                </t>
                                                             </td>
                                                             <td style="font-size: 14px;"> 
-                                                                <span t-field="table_line2['product'].uom_id.display_name"/>
+                                                                <t t-if="not table_line2.product_id.bom_ids">
+                                                                    <span t-field="table_line2.product_uom_id.display_name"/>
+                                                                </t>
                                                             </td>
                                                         </tr>
+                                                        <t t-if="table_line2.product_id.bom_ids">
+                                                            <tr t-foreach="table_line2.product_id.bom_ids[0].bom_line_ids" t-as="table_line3">
+                                                                <td/>
+                                                                <td style="font-size: 14px;">
+                                                                    <span style="margin-left:65px;" t-field="table_line3.product_id.display_name"/>
+                                                                </td>
+                                                                <td class="text-center" style="font-size: 14px;">
+                                                                    <span t-field="table_line1['table'].quantity_done"/>
+                                                                </td>
+                                                                <td style="font-size: 14px;"> 
+                                                                    <span t-field="table_line3.product_uom_id.display_name"/>
+                                                                </td>
+                                                            </tr>
+                                                        </t>            
                                                     </t>
                                                 </t>
                                             </t>
                                         </t>
-
-                                        
                                     </tbody>
                                     </t>
                                 </t>

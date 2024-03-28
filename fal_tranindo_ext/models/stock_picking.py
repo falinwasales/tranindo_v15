@@ -217,42 +217,32 @@ class StockPicking(models.Model):
             data_new.append(res[record])
 
         return data_new
+
+
+
     
+    # Untuk kondisi jika bom kit dan detailed operation tidak di check
+
     def _get_product_bom_report(self):
-        data = {}
+        data = []
         for record in self.move_ids_without_package:
-            sale_line = record.sale_line_id
-            product = sale_line.product_id
-            quantity_done = record.quantity_done
-
-            # Check if the parent product is already in the dictionary
-            if product not in data:
-                data[product] = {
-                    'product': product,
-                    'sale_line': sale_line,
-                    'quantity_done': quantity_done,
-                    'bom_components': [],
-                }
+            # for x in record.sale_line_id.product_id:
+            data.append([record, record.sale_line_id.product_id, record.sale_line_id])
+        
+        res = {}
+        for table, sale_product, sale_id in data:
+            if sale_id in res:
+                res[sale_id]['product'] = sale_id.product_id
+                res[sale_id]['table'] = table
             else:
-                # If the parent product is already in the dictionary, update its quantity done
-                data[product]['quantity_done'] += quantity_done
+                res[sale_id] = {'product': sale_id.product_id, 'table':table,}
 
-            # If the parent product has a BOM, add its components to the dictionary only if not added before
-            if product.bom_ids:
-                bom_line_ids = product.bom_ids[0].bom_line_ids
-                for bom_line in bom_line_ids:
-                    bom_product = bom_line.product_id
-                    bom_quantity = bom_line.product_qty * quantity_done
-                    # Check if the component is already added before adding it again
-                    if bom_product not in [comp['product'] for comp in data[product]['bom_components']]:
-                        data[product]['bom_components'].append({
-                            'product': bom_product,
-                            'quantity_done': bom_quantity,
-                        })
+        data_new = []
+        for record in res:
+            data_new.append(res[record])
 
-        return list(data.values())
-
-
+        return data_new
+    
     def get_operation_detail(self):
         move_line_object = self.env['stock.move.line']
         for move in self.move_ids_without_package:
