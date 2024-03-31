@@ -198,7 +198,6 @@ class StockPicking(models.Model):
 
 
     # DEF fungsi untuk BOM Kit
-
     def _get_product_bom_report_kit(self):
         data = []
         for record in self.stock_bom_product_ids:
@@ -217,10 +216,7 @@ class StockPicking(models.Model):
             data_new.append(res[record])
 
         return data_new
-
-    def test(self):
-        self._get_product_bom_report()
-    
+  
     def _get_product_bom_report(self):
         data = {}
         for record in self.move_ids_without_package:
@@ -242,49 +238,22 @@ class StockPicking(models.Model):
 
             # If the parent product has a BOM, add its components to the dictionary only if not added before
             if product.bom_ids:
-                bom_line_ids = product.bom_ids[0].bom_line_ids
-                for bom_line in bom_line_ids:
-                    bom_product = bom_line.product_id
-                    bom_quantity = bom_line.product_qty * quantity_done
-                    # Check if the component is already added before adding it again
-                    if bom_product not in [comp['product'] for comp in data[product]['bom_components']]:
-                        data[product]['bom_components'].append({
-                            'product': bom_product,
-                            'quantity_done': bom_quantity,
-                        })
-
+                for bom_one in product.bom_ids:
+                    bom_line_ids = bom_one[0].bom_line_ids
+                    for bom_line in bom_line_ids:
+                        bom_product = bom_line.product_id
+                        bom_quantity = bom_line.product_qty * quantity_done
+                        # Check if the component is already added before adding it again
+                        if bom_product not in [comp['product'] for comp in data[product]['bom_components']]:
+                            data[product]['bom_components'].append({
+                                'product': bom_product,
+                                'quantity_done': bom_quantity,
+                            })
+            
+        # raise ValidationError("%s " %list(data.values()))
         return list(data.values())
 
 
-
-    
-    def test_test(self):
-        data = []
-        for record in self.move_ids_without_package:
-            data.append({
-                'move': record,
-                'product': record.sale_line_id.product_id,
-                'sale_line': record.sale_line_id,
-                'quantity_done': record.quantity_done,  # Track quantity done for each move
-            })
-        
-        res = {}
-        for item in data:
-            sale_line = item['sale_line']
-            if sale_line not in res:
-                res[sale_line] = {
-                    'products': [],
-                }
-            res[sale_line]['products'].append(item)
-
-        data_new = []
-        for sale_line, info in res.items():
-            for product_info in info['products']:
-                data_new.append(product_info)
-        # raise ValidationError(("BUATAN GUA Valuenya %s " % data_new))
-        return data_new
-    
-    
     def get_operation_detail(self):
         move_line_object = self.env['stock.move.line']
         for move in self.move_ids_without_package:
