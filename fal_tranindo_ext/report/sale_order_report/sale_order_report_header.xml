@@ -14,15 +14,15 @@
                 <t t-set="company" t-value="res_company"/>
             </t>
         </t>
-        
+
         <t t-call="fal_tranindo_ext.tranindo_external_header_footer_sale_order"><t t-raw="0"/></t>
 	</template>
 
     <template id="tranindo_external_header_footer_sale_order">
-        <div class='header'> 
+        <div class='header'>
             <div class="row">
                 <div class="col-3 border border-white">
-                    <span t-field="res_company.logo" t-options-widget="&quot;image&quot;" style="width:170px;"/>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="width:170px;" alt="Logo"/>
                 </div>
                 <!--  -->
                 <div class="col-7">
@@ -43,7 +43,7 @@
             <t t-raw="0"/>
         </div>
         <!--  -->
-        <div class='footer'> 
+        <div class='footer'>
             <div class="row border-top border-bottom">
                 <div style="width: 50%; text-align: right;">
                     <i class="fa fa-phone"/> <span t-field="res_company.name" class="o_bold"/>
