@@ -22,10 +22,12 @@
         'purchase',
         'point_of_sale',
         'base_automation',
+        'product',
         # 'report',
     ],
     'data': [
         # Form File
+        'views/product_views_tree.xml',
         'views/account_move_views.xml',
         'views/sale_order_views.xml',
         'views/res_company_views.xml',
