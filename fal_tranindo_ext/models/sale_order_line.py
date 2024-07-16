@@ -56,7 +56,7 @@ class SaleOrderLine(models.Model):
     def _warning_onchange_product_qty_on_hand(self):
         for record in self:
             if record.product_id:
-                if record.product_qty_available <= 0:
+                if self.env.company.id != 5 and record.product_qty_available <= 0:
                     warning_mess = {
                         'title': _('Warning.'),
                         'message': _('The product [%s] have 0 Qty on Hand.' % (record.product_id.name))
