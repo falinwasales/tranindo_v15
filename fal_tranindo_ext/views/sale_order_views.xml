@@ -17,7 +17,9 @@
                     <field name="invoice_container" invisible="1"/>
                     <field name="sale_boolean" invisible="1"/>
                 </xpath>
-
+                <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="readonly">1</attribute> 
+                </xpath> 
                 <xpath expr="//field[@name='team_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
