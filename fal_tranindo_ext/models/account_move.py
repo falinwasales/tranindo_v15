@@ -35,7 +35,7 @@ class AccountInvoice(models.Model):
 
     so_id = fields.Many2one(
         'sale.order',
-        string='Source SO',
+        string='SO ID',
         )
 
     date_invoice = fields.Date(string='Date Invoices')

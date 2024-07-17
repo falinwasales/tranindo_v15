@@ -39,7 +39,8 @@
                     <div name="journal_div" position="after">
                         <field name="payment_voucher_bool" attrs="{'invisible': [('move_type', 'in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
                         <field name="is_delivery_address" attrs="{'invisible': ['|',('move_type', 'not in', ('out_invoice')),('sale_final_bool','=',True)]}"/>
-                        <field name="pos_comission_id" readonly="1" attrs="{'invisible': [('move_type', 'not in', ('in_invoice'))]}"/>
+                        <field name="pos_comission_id" readonly="1" attrs="{'invisible': [('pos_comission_id', '=', False),('move_type', 'not in', ('in_invoice'))]}"/>
+                        <field name="so_id" readonly="1" attrs="{'invisible': [('so_id', '=', False),('move_type', 'not in', ('in_invoice'))]}"/>
                         <field name="tt_nomor_id"/>
                         <field name="tt_date" readonly="1"/>
                         <field name="credit_note" attrs="{'invisible': [('move_type', 'not in', ('out_refund'))]}"/>
