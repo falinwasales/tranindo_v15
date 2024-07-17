@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="create_bills_from_so_action_server" model="ir.actions.server">
+            <field name="name">Update Commission By SO</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">records.create_vendor_bill_pos()
+            </field>
+        </record>
         <!-- On Sale Order form view -->
         <record id="view_order_inherit_tranindo_ext_form" model="ir.ui.view">
             <field name="name">sale.order.inherit.tranindo.ext.form</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//div/button[@name='action_view_invoice']" position="after">
+                    <button name="action_view_vendor_bill"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('vendor_count_field', '=', 0)]}">
+                        <field name="vendor_count_field" widget="statinfo" string="Vendor Bills"/>
+                    </button>
+                </xpath>
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                                     <field name="fal_stock_picking_ids" 
                                     widget="many2many_tags"
@@ -20,6 +37,17 @@
                 <xpath expr="//tree/field[@name='price_unit']" position="attributes">
                     <attribute name="readonly">1</attribute> 
                 </xpath> 
+                <xpath expr="//group[@name='order_details']" position="after">
+                    <group name="commission" string="Data Commission">
+                        <field name="so_commission"/>
+                        <field name="partner_commission"/>
+                        <field name="subtotal_tax"/>
+                        <field name="vendor_bill_ids" 
+                        widget="many2many_tags"
+                        />
+                    </group>
+
+                </xpath>
                 <xpath expr="//field[@name='team_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>

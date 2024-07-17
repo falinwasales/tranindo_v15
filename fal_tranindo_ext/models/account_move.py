@@ -33,7 +33,10 @@ class AccountInvoice(models.Model):
     name_doc1 = fields.Char( related='backorder_id.nama_dokumen')
     sj_binary1= fields.Binary(related='backorder_id.sj_binary')
 
-
+    so_id = fields.Many2one(
+        'sale.order',
+        string='Source SO',
+        )
 
     date_invoice = fields.Date(string='Date Invoices')
     payment_voucher_bool = fields.Boolean(string="Payment Voucher")
