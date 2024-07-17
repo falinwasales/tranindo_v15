@@ -26,6 +26,60 @@ class SaleOrder(models.Model):
             self.env.ref("sales_team.group_sale_salesman").id
         ),)
 
+    #FITUR COMMISSION SO
+    so_commission = fields.Float(string="Commission")
+    partner_commission = fields.Many2one("res.partner", string="Partner Commission")
+    subtotal_tax = fields.Float(string="Subtotal W/O Tax", compute="subtotal_get")
+    vendor_bill_ids = fields.Many2many("account.move", string="Vendor Bill IDs",compute="get_vendor_bill_ids")
+    vendor_count_field = fields.Integer(compute='_compute_invoice_count', string='Vendor Bill Order Count')
+
+    def get_vendor_bill_ids(self):
+        for record in self:
+            record.vendor_bill_ids = False
+            vendor =  self.env['account.move'].search([("so_id","=",record.id),('move_type','in',['in_invoice'])])
+            if vendor:
+                record.vendor_bill_ids = vendor
+
+    def _compute_invoice_count(self):
+        self.vendor_count_field = len(self.vendor_bill_ids)
+
+    @api.depends("order_line")
+    def subtotal_get(self):
+        for record in self:
+            record.subtotal_tax = 0
+            for lines in record.order_line:
+                if lines:
+                    record.subtotal_tax += lines.price_subtotal
+
+    def create_vendor_bill_pos(self):
+            create_seq = self.env["ir.sequence"].next_by_code('bill.commission') or '/'
+            create = self.env['account.move'].create({
+                "name": create_seq,
+                "partner_id": self.partner_commission.id,
+                "invoice_line_ids": [(0,0,{"product_id":3695, "name":"komisi","price_unit": self.subtotal_tax*(self.so_commission/100), "quantity":1,"product_uom_id":1}),(0,0,{"product_id":4251, "name":"Pajak","price_unit": -((self.subtotal_tax*(self.so_commission/100))*0.03), "quantity":1,"product_uom_id":1})],
+                "move_type": "in_invoice",
+                "so_id": self.id,
+            })
+            return create
+    
+    def action_view_vendor_bill(self):
+        self.ensure_one()
+        invoice_order_ids = self.vendor_bill_ids.ids
+        action = {
+            'res_model': 'account.move',
+            'type': 'ir.actions.act_window',
+        }
+        action.update({
+            'name': _("Vendor Bill"),
+            'domain': [('id', 'in', invoice_order_ids)],
+            'view_mode': 'tree,form,kanban',
+            'context': {
+                'default_move_type': 'in_invoice',
+                "create":False
+            }
+        })
+        return action
+    
     @api.onchange('final_customer')
     def _onchange_delivery_invoice(self):
         for record in self:
