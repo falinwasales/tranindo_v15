@@ -52,6 +52,13 @@ class SaleOrder(models.Model):
                     record.subtotal_tax += lines.price_subtotal
 
     def create_vendor_bill_pos(self):
+        if self.so_commission == 0.0:
+            warning_mess = {
+                        'title': _('Warning.'),
+                        'message': _('The Commission have 0 percent.' )
+                    }
+            return {'warning': warning_mess}
+        else :
             create_seq = self.env["ir.sequence"].next_by_code('bill.commission') or '/'
             create = self.env['account.move'].create({
                 "name": create_seq,
