@@ -32,11 +32,29 @@ class AccountInvoice(models.Model):
     no_trf1 = fields.Char(related='backorder_id.name')
     name_doc1 = fields.Char( related='backorder_id.nama_dokumen')
     sj_binary1= fields.Binary(related='backorder_id.sj_binary')
+    is_visible = fields.Boolean(compute='_compute_is_visible')
+    is_visible_pos = fields.Boolean(compute='_compute_is_pos_comission_id')
 
     so_id = fields.Many2one(
         'sale.order',
         string='SO ID',
         )
+    
+    @api.depends('so_id')
+    def _compute_is_visible(self):
+        for record in self:
+            if record.so_id:
+                record.is_visible = True
+            else :
+                record.is_visible = False
+    
+    @api.depends('pos_comission_id')
+    def _compute_is_pos_comission_id(self):
+        for record in self:
+            if record.pos_comission_id:
+                record.is_visible_pos = True
+            else :
+                record.is_visible_pos = False
 
     date_invoice = fields.Date(string='Date Invoices')
     payment_voucher_bool = fields.Boolean(string="Payment Voucher")
